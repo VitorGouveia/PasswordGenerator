@@ -1,6 +1,7 @@
 {
   "name": "@password-generator/web",
   "private": true,
+  "version": "0.0.1",
   "packageManager": "yarn@3.2.0",
   "scripts": {
     "dev": "snowpack dev",
