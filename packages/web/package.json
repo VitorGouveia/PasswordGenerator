@@ -17,7 +17,7 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@password-generator/core": "workspace:^",
+    "@password-generator/core": "*",
     "svelte": "^3.48.0"
   }
 }
