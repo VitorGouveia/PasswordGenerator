@@ -10,7 +10,7 @@
   );
 </script>
 
-<Router>
+<Router basepath="/PasswordGenerator">
   <nav>
     <Link to="/">Home</Link>
     <Link to="about">About</Link>
