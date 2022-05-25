@@ -2209,6 +2209,7 @@ function create_fragment2(ctx) {
   let current;
   router = new Router({
     props: {
+      basepath: "/PasswordGenerator",
       $$slots: {default: [create_default_slot2]},
       $$scope: {ctx}
     }
