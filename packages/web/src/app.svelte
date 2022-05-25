@@ -1,6 +1,11 @@
 <script lang="ts">
   /* component logic will go here */
-  import { Router, Link, Route } from "svelte-navigator";
+  import Router, { link } from "svelte-spa-router";
+  import { wrap } from "svelte-spa-router/wrap";
+
+  import Home from "./home.svelte";
+  import NotFound from "./not-found.svelte";
+
   import { generatePassword } from "@password-generator/core";
 
   console.log(
@@ -8,31 +13,21 @@
       length: 20,
     })
   );
+
+  const routes = {
+    // Exact path
+    "/": wrap({
+      asyncComponent: () => import("./home.svelte"),
+    }),
+    "*": NotFound,
+  };
 </script>
 
-<Router basepath="/PasswordGenerator">
-  <nav>
-    <Link to="/">Home</Link>
-    <Link to="about">About</Link>
-    <Link to="blog">Blog</Link>
-  </nav>
-  <div>
-    <Route path="/">
-      <div>
-        <p>hello home</p>
-      </div>
-    </Route>
-    <!-- <Route path="about" component={About} /> -->
-    <!-- <Route path="about" component={About} /> -->
-    <Route path="blog/*">
-      <Route path="/">
-        <div>
-          <p>hello blog</p>
-        </div>
-      </Route>
-    </Route>
-  </div>
-</Router>
+<main>
+  <Router restoreScrollState={true} prefix="PasswordGenerator" {routes} />
+  <a href="/" use:link>homepage</a>
+  <a href="/burhh" use:link>not found</a>
+</main>
 
 <style>
   /* css will go here */
