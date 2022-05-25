@@ -223,7 +223,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@password-generator/core@workspace:^, @password-generator/core@workspace:packages/core":
+"@password-generator/core@*, @password-generator/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@password-generator/core@workspace:packages/core"
   languageName: unknown
@@ -233,13 +233,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@password-generator/web@workspace:packages/web"
   dependencies:
-    "@password-generator/core": "workspace:^"
+    "@password-generator/core": "*"
     "@snowpack/plugin-svelte": ^3.7.0
     "@snowpack/plugin-typescript": ^1.2.1
     "@tsconfig/svelte": ^3.0.0
     "@types/snowpack-env": ^2.3.4
     snowpack: ^3.3.7
     svelte: ^3.48.0
+    svelte-navigator: ^3.1.5
     svelte-preprocess: ^4.10.6
     typescript: ^4.6.4
   languageName: unknown
@@ -1202,6 +1203,13 @@ __metadata:
   dependencies:
     mimic-response: ^3.1.0
   checksum: d377cf47e02d805e283866c3f50d3d21578b779731e8c5072d6ce8c13cc31493db1c2f6784da9d1d5250822120cefa44f1deab112d5981015f2e17444b763812
+  languageName: node
+  linkType: hard
+
+"dedent-js@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "dedent-js@npm:1.0.1"
+  checksum: 3a86f4b11176b387c0633b4b201aef884f9bc83eb9485bd1156c5d9b3984a58fd7686f8213b67212b714a1abf00279bef5cd4eea6a9a7f033e37ce33352af9a9
   languageName: node
   linkType: hard
 
@@ -2352,6 +2360,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lower-case@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "lower-case@npm:2.0.2"
+  dependencies:
+    tslib: ^2.0.3
+  checksum: 83a0a5f159ad7614bee8bf976b96275f3954335a84fad2696927f609ddae902802c4f3312d86668722e668bef41400254807e1d3a7f2e8c3eede79691aa1f010
+  languageName: node
+  linkType: hard
+
 "lowercase-keys@npm:^2.0.0":
   version: 2.0.0
   resolution: "lowercase-keys@npm:2.0.0"
@@ -2684,6 +2701,16 @@ __metadata:
   version: 0.6.3
   resolution: "negotiator@npm:0.6.3"
   checksum: b8ffeb1e262eff7968fc90a2b6767b04cfd9842582a9d0ece0af7049537266e7b2506dfb1d107a32f06dd849ab2aea834d5830f7f4d0e5cb7d36e1ae55d021d9
+  languageName: node
+  linkType: hard
+
+"no-case@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "no-case@npm:3.0.4"
+  dependencies:
+    lower-case: ^2.0.2
+    tslib: ^2.0.3
+  checksum: 0b2ebc113dfcf737d48dde49cfebf3ad2d82a8c3188e7100c6f375e30eafbef9e9124aadc3becef237b042fd5eb0aad2fd78669c20972d045bbe7fea8ba0be5c
   languageName: node
   linkType: hard
 
@@ -3097,6 +3124,16 @@ __metadata:
   version: 6.0.1
   resolution: "parse5@npm:6.0.1"
   checksum: 7d569a176c5460897f7c8f3377eff640d54132b9be51ae8a8fa4979af940830b2b0c296ce75e5bd8f4041520aadde13170dbdec44889975f906098ea0002f4bd
+  languageName: node
+  linkType: hard
+
+"pascal-case@npm:^3.1.1":
+  version: 3.1.2
+  resolution: "pascal-case@npm:3.1.2"
+  dependencies:
+    no-case: ^3.0.4
+    tslib: ^2.0.3
+  checksum: ba98bfd595fc91ef3d30f4243b1aee2f6ec41c53b4546bfa3039487c367abaa182471dcfc830a1f9e1a0df00c14a370514fa2b3a1aacc68b15a460c31116873e
   languageName: node
   linkType: hard
 
@@ -3995,6 +4032,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"svelte-navigator@npm:^3.1.5":
+  version: 3.1.5
+  resolution: "svelte-navigator@npm:3.1.5"
+  dependencies:
+    svelte2tsx: ^0.1.151
+  peerDependencies:
+    svelte: 3.x
+  checksum: 1c728d6a0bea5d5766455deb81e328915eb6cdb8d22bf0510db956be2e45f36e2e81634b4488d28fe91ba08390ee22029cc9a5e09f106059daeaa3156a372856
+  languageName: node
+  linkType: hard
+
 "svelte-preprocess@npm:^4.10.6, svelte-preprocess@npm:^4.7.2":
   version: 4.10.6
   resolution: "svelte-preprocess@npm:4.10.6"
@@ -4041,6 +4089,19 @@ __metadata:
     typescript:
       optional: true
   checksum: ef6408349d17cec86cf2f23f4f3e889cbf5cae127a225b96ab0ee4c9823599e41c539f6361f446184b38c543345871aff1ec07fa637a25cd412cd48b7625b004
+  languageName: node
+  linkType: hard
+
+"svelte2tsx@npm:^0.1.151":
+  version: 0.1.193
+  resolution: "svelte2tsx@npm:0.1.193"
+  dependencies:
+    dedent-js: ^1.0.1
+    pascal-case: ^3.1.1
+  peerDependencies:
+    svelte: ^3.24
+    typescript: ^4.1.2
+  checksum: 1ecca20eef6fc3f8196b1d9a3a7dd1d9d11e4d5fa158cc0fcc85e685bd7aeb2930d9f378c296d67ba06d9459d8ca0fd034d172d58c0789a6b674b16c6cbccd76
   languageName: node
   linkType: hard
 
@@ -4091,7 +4152,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.2.0":
+"tslib@npm:^2.0.3, tslib@npm:^2.2.0":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
