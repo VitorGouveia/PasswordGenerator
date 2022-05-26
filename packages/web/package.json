@@ -5,19 +5,36 @@
   "packageManager": "yarn@3.2.0",
   "scripts": {
     "dev": "snowpack dev",
-    "build": "snowpack build"
+    "build": "snowpack build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@mdx-js/react": "^1.6.22",
+    "@snowpack/plugin-sass": "^1.4.0",
     "@snowpack/plugin-svelte": "^3.7.0",
     "@snowpack/plugin-typescript": "^1.2.1",
+    "@storybook/addon-actions": "^6.5.5",
+    "@storybook/addon-docs": "^6.5.5",
+    "@storybook/addon-essentials": "^6.5.5",
+    "@storybook/addon-interactions": "^6.5.5",
+    "@storybook/addon-links": "^6.5.5",
+    "@storybook/builder-webpack4": "^6.5.5",
+    "@storybook/manager-webpack4": "^6.5.5",
+    "@storybook/svelte": "^6.5.5",
+    "@storybook/testing-library": "^0.0.11",
     "@tsconfig/svelte": "^3.0.0",
     "@types/snowpack-env": "^2.3.4",
+    "babel-loader": "^8.2.5",
     "snowpack": "^3.3.7",
+    "svelte-loader": "^3.1.2",
     "svelte-preprocess": "^4.10.6",
     "typescript": "^4.6.4"
   },
   "dependencies": {
     "@password-generator/core": "*",
+    "sass": "^1.52.1",
     "svelte": "^3.48.0",
     "svelte-spa-router": "^3.2.0"
   }

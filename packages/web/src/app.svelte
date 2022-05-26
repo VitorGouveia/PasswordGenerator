@@ -1,34 +1,20 @@
 <script lang="ts">
-  /* component logic will go here */
   import Router, { link } from "svelte-spa-router";
   import { wrap } from "svelte-spa-router/wrap";
 
-  import Home from "./home.svelte";
-  import NotFound from "./not-found.svelte";
+  import "./styles/global.scss";
 
-  import { generatePassword } from "@password-generator/core";
-
-  console.log(
-    generatePassword({
-      length: 20,
-    })
-  );
+  import StyleGuide from "./pages/style-guide.svelte";
+  import NotFound from "./pages/not-found.svelte";
 
   const routes = {
-    // Exact path
     "/": wrap({
-      asyncComponent: () => import("./home.svelte"),
+      asyncComponent: () => import("./pages/home.svelte"),
     }),
+    "/style-guide": StyleGuide,
     "*": NotFound,
   };
 </script>
 
-<main>
-  <Router restoreScrollState={true} prefix="PasswordGenerator" {routes} />
-  <a href="/" use:link>homepage</a>
-  <a href="/burhh" use:link>not found</a>
-</main>
-
-<style>
-  /* css will go here */
-</style>
+<Router restoreScrollState={true} {routes} />
+<!-- <a href="/style-guide" use:link>bruh</a> -->

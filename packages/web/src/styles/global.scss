@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+$step: 9;
+$base: 6;
+
+$colors: (
+  gray: (
+    hue: 260,
+    saturation: 8,
+  ),
+  red: (
+    hue: 360,
+    saturation: 46,
+  ),
+  yellow: (
+    hue: 60,
+    saturation: 46,
+  ),
+  green: (
+    hue: 120,
+    saturation: 46,
+  ),
+  blue: (
+    hue: 220,
+    saturation: 46,
+  ),
+  primary: (
+    hue: 260,
+    saturation: 46,
+  ),
+);
+
+:root {
+  --font-base: 14;
+  --font-step: 6;
+
+  @each $color, $properties in $colors {
+    // @each $property, $value in $properties {
+    // }
+    @for $i from 1 through 9 {
+      $hue: map-get($properties, hue);
+      $saturation: map-get($properties, saturation) + "%";
+      // $lightness: $base + ($step * $i) + "%";
+
+      // i subtract the index from 9 to make 900 the darkest and 100 the lightest
+      $lightness: $base + ($step * (9 - $i)) + "%";
+
+      // prettier-ignore
+      --color-#{$color + ""}-#{$i * 100}: hsl(#{$hue}, #{$saturation}, #{$lightness});
+    }
+  }
+}
+
+@function fontSize($weight) {
+  @return calc((var(--font-base) + (var(--font-step) * $weight)) * 1px);
+}
+
+body {
+  font-family: "Space Mono", sans-serif;
+  color: var(--color-gray-100);
+  background: var(--color-gray-900);
+}
+
+h1 {
+  font-weight: 700;
+  font-size: fontSize(7);
+}
+
+h2 {
+  font-weight: 700;
+  font-size: fontSize(6);
+}
+
+h3 {
+  font-weight: 700;
+  font-size: fontSize(5);
+}
+
+h4 {
+  font-weight: 700;
+  font-size: fontSize(4);
+}
+
+h5 {
+  font-weight: 400;
+  font-size: fontSize(3);
+}
+
+h6 {
+  font-weight: 400;
+  font-size: fontSize(2);
+}
+
+p {
+  font-weight: 400;
+  font-size: fontSize(1);
+}
+
+small {
+  font-family: "JetBrains Mono";
+  font-size: fontSize(0);
+}
+
+i,
+.italic {
+  font-style: oblique;
+  font-style: italic;
+}
+
+.weight-700 {
+  font-weight: 700;
+}
+
+.weight-400 {
+  font-weight: 400;
+}
+
+.weight-200 {
+  font-family: "JetBrains Mono";
+  font-weight: 200;
+}
+
+.section-content {
+  width: max-content;
+}

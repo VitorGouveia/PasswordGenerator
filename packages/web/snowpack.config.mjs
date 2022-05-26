@@ -10,6 +10,7 @@ export default {
   },
   plugins: [
     /* ... */
+    "@snowpack/plugin-sass",
     "@snowpack/plugin-svelte",
     "@snowpack/plugin-typescript",
   ],
