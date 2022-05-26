@@ -1,0 +1,189 @@
+/* dist/dist/styles/global.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --font-base: 14;
+  --font-step: 6;
+  --color-gray-100: hsl(260, 8%, 78%);
+  --color-gray-200: hsl(260, 8%, 69%);
+  --color-gray-300: hsl(260, 8%, 60%);
+  --color-gray-400: hsl(260, 8%, 51%);
+  --color-gray-500: hsl(260, 8%, 42%);
+  --color-gray-600: hsl(260, 8%, 33%);
+  --color-gray-700: hsl(260, 8%, 24%);
+  --color-gray-800: hsl(260, 8%, 15%);
+  --color-gray-900: hsl(260, 8%, 6%);
+  --color-red-100: hsl(360, 46%, 78%);
+  --color-red-200: hsl(360, 46%, 69%);
+  --color-red-300: hsl(360, 46%, 60%);
+  --color-red-400: hsl(360, 46%, 51%);
+  --color-red-500: hsl(360, 46%, 42%);
+  --color-red-600: hsl(360, 46%, 33%);
+  --color-red-700: hsl(360, 46%, 24%);
+  --color-red-800: hsl(360, 46%, 15%);
+  --color-red-900: hsl(360, 46%, 6%);
+  --color-yellow-100: hsl(60, 46%, 78%);
+  --color-yellow-200: hsl(60, 46%, 69%);
+  --color-yellow-300: hsl(60, 46%, 60%);
+  --color-yellow-400: hsl(60, 46%, 51%);
+  --color-yellow-500: hsl(60, 46%, 42%);
+  --color-yellow-600: hsl(60, 46%, 33%);
+  --color-yellow-700: hsl(60, 46%, 24%);
+  --color-yellow-800: hsl(60, 46%, 15%);
+  --color-yellow-900: hsl(60, 46%, 6%);
+  --color-green-100: hsl(120, 46%, 78%);
+  --color-green-200: hsl(120, 46%, 69%);
+  --color-green-300: hsl(120, 46%, 60%);
+  --color-green-400: hsl(120, 46%, 51%);
+  --color-green-500: hsl(120, 46%, 42%);
+  --color-green-600: hsl(120, 46%, 33%);
+  --color-green-700: hsl(120, 46%, 24%);
+  --color-green-800: hsl(120, 46%, 15%);
+  --color-green-900: hsl(120, 46%, 6%);
+  --color-blue-100: hsl(220, 46%, 78%);
+  --color-blue-200: hsl(220, 46%, 69%);
+  --color-blue-300: hsl(220, 46%, 60%);
+  --color-blue-400: hsl(220, 46%, 51%);
+  --color-blue-500: hsl(220, 46%, 42%);
+  --color-blue-600: hsl(220, 46%, 33%);
+  --color-blue-700: hsl(220, 46%, 24%);
+  --color-blue-800: hsl(220, 46%, 15%);
+  --color-blue-900: hsl(220, 46%, 6%);
+  --color-primary-100: hsl(260, 46%, 78%);
+  --color-primary-200: hsl(260, 46%, 69%);
+  --color-primary-300: hsl(260, 46%, 60%);
+  --color-primary-400: hsl(260, 46%, 51%);
+  --color-primary-500: hsl(260, 46%, 42%);
+  --color-primary-600: hsl(260, 46%, 33%);
+  --color-primary-700: hsl(260, 46%, 24%);
+  --color-primary-800: hsl(260, 46%, 15%);
+  --color-primary-900: hsl(260, 46%, 6%);
+}
+body {
+  font-family: "Space Mono", sans-serif;
+  color: var(--color-gray-100);
+  background: var(--color-gray-900);
+}
+h1 {
+  font-weight: 700;
+  font-size: calc((var(--font-base) + var(--font-step) * 7) * 1px);
+}
+h2 {
+  font-weight: 700;
+  font-size: calc((var(--font-base) + var(--font-step) * 6) * 1px);
+}
+h3 {
+  font-weight: 700;
+  font-size: calc((var(--font-base) + var(--font-step) * 5) * 1px);
+}
+h4 {
+  font-weight: 700;
+  font-size: calc((var(--font-base) + var(--font-step) * 4) * 1px);
+}
+h5 {
+  font-weight: 400;
+  font-size: calc((var(--font-base) + var(--font-step) * 3) * 1px);
+}
+h6 {
+  font-weight: 400;
+  font-size: calc((var(--font-base) + var(--font-step) * 2) * 1px);
+}
+p {
+  font-weight: 400;
+  font-size: calc((var(--font-base) + var(--font-step) * 1) * 1px);
+}
+small {
+  font-family: "JetBrains Mono";
+  font-size: calc((var(--font-base) + var(--font-step) * 0) * 1px);
+}
+i,
+.italic {
+  font-style: oblique;
+  font-style: italic;
+}
+.weight-700 {
+  font-weight: 700;
+}
+.weight-400 {
+  font-weight: 400;
+}
+.weight-200 {
+  font-family: "JetBrains Mono";
+  font-weight: 200;
+}
+.section-content {
+  width: max-content;
+}
+
+/* dist/dist/pages/style-guide.svelte.css */
+main.svelte-aasygx.svelte-aasygx {
+  height: 100vh;
+  padding: 10vh;
+  background: #1e1e1e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+main.svelte-aasygx .content.svelte-aasygx {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 78px;
+  overflow-x: auto;
+  position: relative;
+}
+main.svelte-aasygx .content.svelte-aasygx::before,
+main.svelte-aasygx .content.svelte-aasygx::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100px;
+}
+main.svelte-aasygx .content.svelte-aasygx::before {
+  background: linear-gradient(to right, #1e1e1e, hsla(0deg, 0%, 12%, 0));
+}
+main.svelte-aasygx .content.svelte-aasygx::after {
+  right: 0px;
+  background: linear-gradient(to left, #1e1e1e, hsla(0deg, 0%, 12%, 0));
+}
+section.svelte-aasygx.svelte-aasygx {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+section.svelte-aasygx .breakpoints-container.svelte-aasygx {
+  display: flex;
+  gap: 78px;
+}
+
+/* dist/dist/components/colors.svelte.css */
+.svelte-1kxjcm0 {
+  margin: 0;
+  padding: 0;
+}
+div.svelte-1kxjcm0 {
+  display: flex;
+}
+.color-div.svelte-1kxjcm0 {
+  display: flex;
+  flex-direction: column-reverse;
+  list-style: none;
+}
+li.svelte-1kxjcm0 {
+  width: 50px;
+  height: 50px;
+}
+
+/* dist/dist/components/fonts.svelte.css */
+div.svelte-on9thr {
+  display: flex;
+  flex-direction: column-reverse;
+}
