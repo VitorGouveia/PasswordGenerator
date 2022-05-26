@@ -1,0 +1,42 @@
+import { Meta, Story } from '@storybook/addon-docs';
+
+import Colors from '../../components/colors.svelte';
+
+<Meta title="Style Guide/Colors" component={Colors} />
+
+export const Template = (args) => ({
+  Component: Colors,
+  props: args,
+});
+
+# Colors
+
+All the colors that the designs system will be able to use.
+
+<br />
+<br />
+
+We have some metrics set to make these colors, we don't make them out of our heads. The color system we're going to work with is HSL, which stands for hue, saturation and lightness, we're specifically going to use this one, because it's easier to make colors look like they belong on the same pallete and group.
+
+1. choose the hue, the chosen hue depends on the color, since it's the main attribute that differentiates colors
+
+|Color|Hue|
+|-----|----|
+|Gray|260|
+|Red|360|
+|Yellow|60|
+|Green|120|
+|Blue|220|
+|Primary|260|
+
+2. on the other hand the saturation are very alike, all the colors expect gray share the same saturation of 46, whereas gray has a saturation of 8.
+
+3. and at last, the lightness is how much white there is on that color, we choose a base lightness for *all* colors and then add a step, which increments the color for each __tonality__, today we have 9 tonalities of each color, from 100 to 900, but it is expandable
+
+And that's how the colors were made.
+
+Of course we're not going to use all of it, just some selected few, but if we need to, they're here.
+
+<Story name="Colors">
+  {Template.bind({})}
+</Story>

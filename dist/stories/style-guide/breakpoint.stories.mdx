@@ -1,0 +1,48 @@
+import { Meta, Story } from '@storybook/addon-docs';
+
+import Breakpoint from '../../components/breakpoint.svelte';
+
+<Meta title="Style Guide/Breakpoint" component={Breakpoint}/>
+
+# Breakpoint
+Devices we design our layout to.
+
+export const Template = (args) => ({
+  Component: Breakpoint,
+  props: args,
+});
+
+<br />
+<br />
+
+The first breakpoint is desktop, which as of today is 1440px wide.
+
+<br />
+
+<Story name="Desktop" args={{ width: 1440 }}>
+  {Template.bind({})}
+</Story>
+
+<br />
+<br />
+
+The second breakpoint is tablet, which as of today is the biggest apple tablet on figma, being 744px wide.
+
+<br />
+
+<Story name="Tablet" args={{ width: 744 }}>
+  {Template.bind({})}
+</Story>
+
+<br />
+<br />
+
+The last breakpoint is mobile, 428px wide.
+
+<br />
+
+<Story name="Mobile" args={{ width: 428 }}>
+  {Template.bind({})}
+</Story>
+
+<br />
