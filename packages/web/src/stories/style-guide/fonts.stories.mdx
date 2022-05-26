@@ -1,0 +1,23 @@
+import { Meta, Story } from '@storybook/addon-docs';
+
+import Fonts from '../../components/fonts.svelte';
+
+<Meta title="Style Guide/Fonts" component={Fonts} />
+
+export const Template = (args) => ({
+  Component: Fonts,
+  props: args,
+});
+
+# Fonts
+
+All the Fonts that the designs system will be able to use.
+
+<br />
+<br />
+
+
+
+<Story name="Fonts">
+  {Template.bind({})}
+</Story>
