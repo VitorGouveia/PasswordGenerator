@@ -1,50 +1,8 @@
 var __defProp = Object.defineProperty;
-var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
-var __commonJS = (callback, module) => () => {
-  if (!module) {
-    module = {exports: {}};
-    callback(module.exports, module);
-  }
-  return module.exports;
-};
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, {get: all[name], enumerable: true});
 };
-
-// dist/dist/pages/home.svelte.js
-var require_home_svelte = __commonJS((exports) => {
-  __markAsModule(exports);
-  __export(exports, {
-    default: () => home_svelte_default
-  });
-  function create_fragment10(ctx) {
-    let h1;
-    return {
-      c() {
-        h1 = element("h1");
-        h1.textContent = "brujh";
-      },
-      m(target, anchor) {
-        insert(target, h1, anchor);
-      },
-      p: noop,
-      i: noop,
-      o: noop,
-      d(detaching) {
-        if (detaching)
-          detach(h1);
-      }
-    };
-  }
-  var Home = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, null, create_fragment10, safe_not_equal, {});
-    }
-  };
-  var home_svelte_default = Home;
-});
 
 // dist/_snowpack/env.js
 var env_exports = {};
@@ -57,7 +15,7 @@ var MODE = "production";
 var NODE_ENV = "production";
 var SSR = false;
 
-// dist/_snowpack/pkg/common/index-5c6d6680.js
+// dist/_snowpack/pkg/common/index-f5651d34.js
 function noop() {
 }
 function assign(tar, src) {
@@ -89,6 +47,9 @@ function subscribe(store, ...callbacks) {
   }
   const unsub = store.subscribe(...callbacks);
   return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
+}
+function component_subscribe(component, store, callback) {
+  component.$$.on_destroy.push(subscribe(store, callback));
 }
 function append(target, node) {
   target.appendChild(node);
@@ -142,11 +103,6 @@ function set_attributes(node, attributes) {
 function children(element2) {
   return Array.from(element2.childNodes);
 }
-function custom_event(type, detail, {bubbles = false, cancelable = false} = {}) {
-  const e = document.createEvent("CustomEvent");
-  e.initCustomEvent(type, bubbles, cancelable, detail);
-  return e;
-}
 var current_component;
 function set_current_component(component) {
   current_component = component;
@@ -156,31 +112,8 @@ function get_current_component() {
     throw new Error("Function called outside component initialization");
   return current_component;
 }
-function afterUpdate(fn) {
-  get_current_component().$$.after_update.push(fn);
-}
-function onDestroy(fn) {
-  get_current_component().$$.on_destroy.push(fn);
-}
-function createEventDispatcher() {
-  const component = get_current_component();
-  return (type, detail, {cancelable = false} = {}) => {
-    const callbacks = component.$$.callbacks[type];
-    if (callbacks) {
-      const event = custom_event(type, detail, {cancelable});
-      callbacks.slice().forEach((fn) => {
-        fn.call(component, event);
-      });
-      return !event.defaultPrevented;
-    }
-    return true;
-  };
-}
-function bubble(component, event) {
-  const callbacks = component.$$.callbacks[event.type];
-  if (callbacks) {
-    callbacks.slice().forEach((fn) => fn.call(this, event));
-  }
+function onMount(fn) {
+  get_current_component().$$.on_mount.push(fn);
 }
 var dirty_components = [];
 var binding_callbacks = [];
@@ -193,10 +126,6 @@ function schedule_update() {
     update_scheduled = true;
     resolved_promise.then(flush);
   }
-}
-function tick() {
-  schedule_update();
-  return resolved_promise;
 }
 function add_render_callback(fn) {
   render_callbacks.push(fn);
@@ -312,9 +241,6 @@ function get_spread_update(levels, updates) {
   }
   return update2;
 }
-function get_spread_object(spread_props) {
-  return typeof spread_props === "object" && spread_props !== null ? spread_props : {};
-}
 function create_component(block) {
   block && block.c();
 }
@@ -426,55 +352,12 @@ var SvelteComponent = class {
   }
 };
 
-// dist/_snowpack/pkg/common/wrap-a3479a19.js
-function wrap(args) {
-  if (!args) {
-    throw Error("Parameter args is required");
-  }
-  if (!args.component == !args.asyncComponent) {
-    throw Error("One and only one of component and asyncComponent is required");
-  }
-  if (args.component) {
-    args.asyncComponent = () => Promise.resolve(args.component);
-  }
-  if (typeof args.asyncComponent != "function") {
-    throw Error("Parameter asyncComponent must be a function");
-  }
-  if (args.conditions) {
-    if (!Array.isArray(args.conditions)) {
-      args.conditions = [args.conditions];
-    }
-    for (let i = 0; i < args.conditions.length; i++) {
-      if (!args.conditions[i] || typeof args.conditions[i] != "function") {
-        throw Error("Invalid parameter conditions[" + i + "]");
-      }
-    }
-  }
-  if (args.loadingComponent) {
-    args.asyncComponent.loading = args.loadingComponent;
-    args.asyncComponent.loadingParams = args.loadingParams || void 0;
-  }
-  const obj = {
-    component: args.asyncComponent,
-    userData: args.userData,
-    conditions: args.conditions && args.conditions.length ? args.conditions : void 0,
-    props: args.props && Object.keys(args.props).length ? args.props : {},
-    _sveltesparouter: true
-  };
-  return obj;
-}
-
-// dist/_snowpack/pkg/svelte-spa-router.js
+// dist/_snowpack/pkg/svelte-router-spa.js
 var subscriber_queue = [];
-function readable(value, start2) {
-  return {
-    subscribe: writable(value, start2).subscribe
-  };
-}
-function writable(value, start2 = noop) {
+function writable(value, start = noop) {
   let stop;
   const subscribers = new Set();
-  function set(new_value) {
+  function set2(new_value) {
     if (safe_not_equal(value, new_value)) {
       value = new_value;
       if (stop) {
@@ -493,13 +376,13 @@ function writable(value, start2 = noop) {
     }
   }
   function update2(fn) {
-    set(fn(value));
+    set2(fn(value));
   }
-  function subscribe2(run2, invalidate = noop) {
+  function subscribe22(run2, invalidate = noop) {
     const subscriber = [run2, invalidate];
     subscribers.add(subscriber);
     if (subscribers.size === 1) {
-      stop = start2(set) || noop;
+      stop = start(set2) || noop;
     }
     run2(value);
     return () => {
@@ -510,88 +393,664 @@ function writable(value, start2 = noop) {
       }
     };
   }
-  return {set, update: update2, subscribe: subscribe2};
+  return {set: set2, update: update2, subscribe: subscribe22};
 }
-function derived(stores, fn, initial_value) {
-  const single = !Array.isArray(stores);
-  const stores_array = single ? [stores] : stores;
-  const auto = fn.length < 2;
-  return readable(initial_value, (set) => {
-    let inited = false;
-    const values = [];
-    let pending = 0;
-    let cleanup = noop;
-    const sync = () => {
-      if (pending) {
-        return;
+var {set, subscribe: subscribe2} = writable({});
+var remove = () => {
+  set({});
+};
+var activeRoute = {
+  subscribe: subscribe2,
+  set,
+  remove
+};
+var UrlParser = (urlString, namedUrl = "") => {
+  const urlBase = new URL(urlString);
+  function hash() {
+    return urlBase.hash;
+  }
+  function host() {
+    return urlBase.host;
+  }
+  function hostname() {
+    return urlBase.hostname;
+  }
+  function namedParams() {
+    const allPathName = pathNames();
+    const allNamedParamsKeys = namedParamsWithIndex();
+    return allNamedParamsKeys.reduce((values, paramKey) => {
+      values[paramKey.value] = allPathName[paramKey.index];
+      return values;
+    }, {});
+  }
+  function namedParamsKeys() {
+    const allNamedParamsKeys = namedParamsWithIndex();
+    return allNamedParamsKeys.reduce((values, paramKey) => {
+      values.push(paramKey.value);
+      return values;
+    }, []);
+  }
+  function namedParamsValues() {
+    const allPathName = pathNames();
+    const allNamedParamsKeys = namedParamsWithIndex();
+    return allNamedParamsKeys.reduce((values, paramKey) => {
+      values.push(allPathName[paramKey.index]);
+      return values;
+    }, []);
+  }
+  function namedParamsWithIndex() {
+    const namedUrlParams = getPathNames2(namedUrl);
+    return namedUrlParams.reduce((validParams, param, index) => {
+      if (param[0] === ":") {
+        validParams.push({value: param.slice(1), index});
       }
-      cleanup();
-      const result = fn(single ? values[0] : values, set);
-      if (auto) {
-        set(result);
-      } else {
-        cleanup = is_function(result) ? result : noop;
-      }
-    };
-    const unsubscribers = stores_array.map((store, i) => subscribe(store, (value) => {
-      values[i] = value;
-      pending &= ~(1 << i);
-      if (inited) {
-        sync();
-      }
-    }, () => {
-      pending |= 1 << i;
-    }));
-    inited = true;
-    sync();
-    return function stop() {
-      run_all(unsubscribers);
-      cleanup();
-    };
+      return validParams;
+    }, []);
+  }
+  function port() {
+    return urlBase.port;
+  }
+  function pathname() {
+    return urlBase.pathname;
+  }
+  function protocol() {
+    return urlBase.protocol;
+  }
+  function search() {
+    return urlBase.search;
+  }
+  function queryParams() {
+    const params = {};
+    urlBase.searchParams.forEach((value, key) => {
+      params[key] = value;
+    });
+    return params;
+  }
+  function queryParamsKeys() {
+    const params = [];
+    urlBase.searchParams.forEach((_value, key) => {
+      params.push(key);
+    });
+    return params;
+  }
+  function queryParamsValues() {
+    const params = [];
+    urlBase.searchParams.forEach((value) => {
+      params.push(value);
+    });
+    return params;
+  }
+  function pathNames() {
+    return getPathNames2(urlBase.pathname);
+  }
+  function getPathNames2(pathName) {
+    if (pathName === "/" || pathName.trim().length === 0)
+      return [pathName];
+    if (pathName.slice(-1) === "/") {
+      pathName = pathName.slice(0, -1);
+    }
+    if (pathName[0] === "/") {
+      pathName = pathName.slice(1);
+    }
+    return pathName.split("/");
+  }
+  return Object.freeze({
+    hash: hash(),
+    host: host(),
+    hostname: hostname(),
+    namedParams: namedParams(),
+    namedParamsKeys: namedParamsKeys(),
+    namedParamsValues: namedParamsValues(),
+    pathNames: pathNames(),
+    port: port(),
+    pathname: pathname(),
+    protocol: protocol(),
+    search: search(),
+    queryParams: queryParams(),
+    queryParamsKeys: queryParamsKeys(),
+    queryParamsValues: queryParamsValues()
   });
-}
-function parse(str, loose) {
-  if (str instanceof RegExp)
-    return {keys: false, pattern: str};
-  var c, o, tmp, ext, keys = [], pattern = "", arr = str.split("/");
-  arr[0] || arr.shift();
-  while (tmp = arr.shift()) {
-    c = tmp[0];
-    if (c === "*") {
-      keys.push("wild");
-      pattern += "/(.*)";
-    } else if (c === ":") {
-      o = tmp.indexOf("?", 1);
-      ext = tmp.indexOf(".", 1);
-      keys.push(tmp.substring(1, !!~o ? o : !!~ext ? ext : tmp.length));
-      pattern += !!~o && !~ext ? "(?:/([^/]+?))?" : "/([^/]+?)";
-      if (!!~ext)
-        pattern += (!!~o ? "?" : "") + "\\" + tmp.substring(ext);
-    } else {
-      pattern += "/" + tmp;
+};
+var anyEmptyNestedRoutes = (routeObject) => {
+  let result = false;
+  if (Object.keys(routeObject).length === 0) {
+    return true;
+  }
+  if (routeObject.childRoute && Object.keys(routeObject.childRoute).length === 0) {
+    result = true;
+  } else if (routeObject.childRoute) {
+    result = anyEmptyNestedRoutes(routeObject.childRoute);
+  }
+  return result;
+};
+var compareRoutes = (pathName, routeName) => {
+  routeName = removeSlash(routeName);
+  if (routeName.includes(":")) {
+    return routeName.includes(pathName);
+  } else {
+    return routeName.startsWith(pathName);
+  }
+};
+var findLocalisedRoute = (pathName, route, language) => {
+  let exists = false;
+  if (language) {
+    return {exists: route.lang && route.lang[language] && route.lang[language].includes(pathName), language};
+  }
+  exists = compareRoutes(pathName, route.name);
+  if (!exists && route.lang && typeof route.lang === "object") {
+    for (const [key, value] of Object.entries(route.lang)) {
+      if (compareRoutes(pathName, value)) {
+        exists = true;
+        language = key;
+      }
     }
   }
-  return {
-    keys,
-    pattern: new RegExp("^" + pattern + (loose ? "(?=$|/)" : "/?$"), "i")
+  return {exists, language};
+};
+var getNamedParams = (pathName = "") => {
+  if (pathName.trim().length === 0)
+    return [];
+  const namedUrlParams = getPathNames(pathName);
+  return namedUrlParams.reduce((validParams, param) => {
+    if (param[0] === ":") {
+      validParams.push(param.slice(1));
+    }
+    return validParams;
+  }, []);
+};
+var getPathNames = (pathName) => {
+  if (pathName === "/" || pathName.trim().length === 0)
+    return [pathName];
+  pathName = removeSlash(pathName, "both");
+  return pathName.split("/");
+};
+var nameToPath = (name = "") => {
+  let routeName;
+  if (name === "/" || name.trim().length === 0)
+    return name;
+  name = removeSlash(name, "lead");
+  routeName = name.split(":")[0];
+  routeName = removeSlash(routeName, "trail");
+  return routeName.toLowerCase();
+};
+var pathWithoutQueryParams = (currentRoute) => {
+  const path = currentRoute.path.split("?");
+  return path[0];
+};
+var pathWithQueryParams = (currentRoute) => {
+  let queryParams = [];
+  if (currentRoute.queryParams) {
+    for (let [key, value] of Object.entries(currentRoute.queryParams)) {
+      queryParams.push(`${key}=${value}`);
+    }
+  }
+  const hash = currentRoute.hash ? currentRoute.hash : "";
+  if (queryParams.length > 0) {
+    return `${currentRoute.path}?${queryParams.join("&")}${hash}`;
+  } else {
+    return currentRoute.path + hash;
+  }
+};
+var removeExtraPaths = (pathNames, basePathNames) => {
+  const names = basePathNames.split("/");
+  if (names.length > 1) {
+    names.forEach(function(name, index) {
+      if (name.length > 0 && index > 0) {
+        pathNames.shift();
+      }
+    });
+  }
+  return pathNames;
+};
+var removeSlash = (pathName, position = "lead") => {
+  if (position === "trail" || position === "both") {
+    pathName = pathName.replace(/\/$/, "");
+  }
+  if (position === "lead" || position === "both") {
+    pathName = pathName.replace(/^\//, "");
+  }
+  return pathName;
+};
+var routeNameLocalised = (route, language = null) => {
+  if (!language || !route.lang || !route.lang[language]) {
+    return route.name;
+  } else {
+    return route.lang[language];
+  }
+};
+var startsWithNamedParam = (currentRoute) => {
+  const routeName = removeSlash(currentRoute);
+  return routeName.startsWith(":");
+};
+var updateRoutePath = (basePath, pathNames, route, language, convert = false) => {
+  if (basePath === "/" || basePath.trim().length === 0)
+    return {result: basePath, language: null};
+  let basePathResult = basePath;
+  let routeName = route.name;
+  let currentLanguage = language;
+  if (convert) {
+    currentLanguage = "";
+  }
+  routeName = removeSlash(routeName);
+  basePathResult = removeSlash(basePathResult);
+  if (!route.childRoute) {
+    let localisedRoute = findLocalisedRoute(basePathResult, route, currentLanguage);
+    if (localisedRoute.exists && convert) {
+      basePathResult = routeNameLocalised(route, language);
+    }
+    let routeNames = routeName.split(":")[0];
+    routeNames = removeSlash(routeNames, "trail");
+    routeNames = routeNames.split("/");
+    routeNames.shift();
+    routeNames.forEach(() => {
+      const currentPathName = pathNames[0];
+      localisedRoute = findLocalisedRoute(`${basePathResult}/${currentPathName}`, route, currentLanguage);
+      if (currentPathName && localisedRoute.exists) {
+        if (convert) {
+          basePathResult = routeNameLocalised(route, language);
+        } else {
+          basePathResult = `${basePathResult}/${currentPathName}`;
+        }
+        pathNames.shift();
+      } else {
+        return {result: basePathResult, language: localisedRoute.language};
+      }
+    });
+    return {result: basePathResult, language: localisedRoute.language};
+  } else {
+    return {result: basePath, language: currentLanguage};
+  }
+};
+var RouterCurrent = (trackPage) => {
+  const trackPageview = trackPage || false;
+  let activeRoute2 = "";
+  const setActive = (newRoute, updateBrowserHistory) => {
+    activeRoute2 = newRoute.path;
+    pushActiveRoute(newRoute, updateBrowserHistory);
+  };
+  const active = () => {
+    return activeRoute2;
+  };
+  const isActive = (queryPath, includePath = false) => {
+    if (queryPath[0] !== "/") {
+      queryPath = "/" + queryPath;
+    }
+    let pathName = UrlParser(`http://fake.com${queryPath}`).pathname;
+    let activeRoutePath = UrlParser(`http://fake.com${activeRoute2}`).pathname;
+    pathName = removeSlash(pathName, "trail");
+    activeRoutePath = removeSlash(activeRoutePath, "trail");
+    if (includePath) {
+      return activeRoutePath.includes(pathName);
+    } else {
+      return activeRoutePath === pathName;
+    }
+  };
+  const pushActiveRoute = (newRoute, updateBrowserHistory) => {
+    if (typeof window !== "undefined") {
+      const pathAndSearch = pathWithQueryParams(newRoute);
+      if (updateBrowserHistory) {
+        window.history.pushState({page: pathAndSearch}, "", pathAndSearch);
+      }
+      if (trackPageview) {
+        gaTracking(pathAndSearch);
+      }
+    }
+  };
+  const gaTracking = (newPage) => {
+    if (typeof ga !== "undefined") {
+      ga("set", "page", newPage);
+      ga("send", "pageview");
+    }
+  };
+  return Object.freeze({active, isActive, setActive});
+};
+var RouterGuard = (onlyIf) => {
+  const guardInfo = onlyIf;
+  const valid = () => {
+    return guardInfo && guardInfo.guard && typeof guardInfo.guard === "function";
+  };
+  const redirect = () => {
+    return !guardInfo.guard();
+  };
+  const redirectPath = () => {
+    let destinationUrl = "/";
+    if (guardInfo.redirect && guardInfo.redirect.length > 0) {
+      destinationUrl = guardInfo.redirect;
+    }
+    return destinationUrl;
+  };
+  return Object.freeze({valid, redirect, redirectPath});
+};
+var RouterRedirect = (route, currentPath) => {
+  const guard = RouterGuard(route.onlyIf);
+  const path = () => {
+    let redirectTo = currentPath;
+    if (route.redirectTo && route.redirectTo.length > 0) {
+      redirectTo = route.redirectTo;
+    }
+    if (guard.valid() && guard.redirect()) {
+      redirectTo = guard.redirectPath();
+    }
+    return redirectTo;
+  };
+  return Object.freeze({path});
+};
+function RouterRoute({routeInfo, path, routeNamedParams, urlParser, namedPath, language}) {
+  const namedParams = () => {
+    const parsedParams = UrlParser(`https://fake.com${urlParser.pathname}`, namedPath).namedParams;
+    return {...routeNamedParams, ...parsedParams};
+  };
+  const get = () => {
+    return {
+      name: path,
+      component: routeInfo.component,
+      hash: urlParser.hash,
+      layout: routeInfo.layout,
+      queryParams: urlParser.queryParams,
+      namedParams: namedParams(),
+      path,
+      language
+    };
+  };
+  return Object.freeze({get, namedParams});
+}
+function RouterPath({basePath, basePathName, pathNames, convert, currentLanguage}) {
+  let updatedPathRoute;
+  let route;
+  let routePathLanguage = currentLanguage;
+  function updatedPath(currentRoute) {
+    route = currentRoute;
+    updatedPathRoute = updateRoutePath(basePathName, pathNames, route, routePathLanguage, convert);
+    routePathLanguage = convert ? currentLanguage : updatedPathRoute.language;
+    return updatedPathRoute;
+  }
+  function localisedPathName() {
+    return routeNameLocalised(route, routePathLanguage);
+  }
+  function localisedRouteWithoutNamedParams() {
+    return nameToPath(localisedPathName());
+  }
+  function basePathNameWithoutNamedParams() {
+    return nameToPath(updatedPathRoute.result);
+  }
+  function namedPath() {
+    let localisedPath = localisedPathName();
+    if (localisedPath && !localisedPath.startsWith("/")) {
+      localisedPath = "/" + localisedPath;
+    }
+    return basePath ? `${basePath}${localisedPath}` : localisedPath;
+  }
+  function routePath() {
+    let routePathValue = `${basePath}/${basePathNameWithoutNamedParams()}`;
+    if (routePathValue === "//") {
+      routePathValue = "/";
+    }
+    if (routePathLanguage) {
+      pathNames = removeExtraPaths(pathNames, localisedRouteWithoutNamedParams());
+    }
+    const namedParams = getNamedParams(localisedPathName());
+    if (namedParams && namedParams.length > 0) {
+      namedParams.forEach(function() {
+        if (pathNames.length > 0) {
+          routePathValue += `/${pathNames.shift()}`;
+        }
+      });
+    }
+    return routePathValue;
+  }
+  function routeLanguage() {
+    return routePathLanguage;
+  }
+  function basePathSameAsLocalised() {
+    return basePathNameWithoutNamedParams() === localisedRouteWithoutNamedParams();
+  }
+  return Object.freeze({
+    basePathSameAsLocalised,
+    updatedPath,
+    basePathNameWithoutNamedParams,
+    localisedPathName,
+    localisedRouteWithoutNamedParams,
+    namedPath,
+    pathNames,
+    routeLanguage,
+    routePath
+  });
+}
+var NotFoundPage = "/404.html";
+function RouterFinder({routes, currentUrl, routerOptions: routerOptions2, convert}) {
+  const defaultLanguage = routerOptions2.defaultLanguage;
+  const sitePrefix = routerOptions2.prefix ? routerOptions2.prefix.toLowerCase() : "";
+  const urlParser = parseCurrentUrl(currentUrl, sitePrefix);
+  let redirectTo = "";
+  let routeNamedParams = {};
+  let staticParamMatch = false;
+  function findActiveRoute() {
+    let searchActiveRoute = searchActiveRoutes(routes, "", urlParser.pathNames, routerOptions2.lang, convert);
+    if (!searchActiveRoute || !Object.keys(searchActiveRoute).length || anyEmptyNestedRoutes(searchActiveRoute)) {
+      if (typeof window !== "undefined") {
+        searchActiveRoute = routeNotFound(routerOptions2.lang);
+      }
+    } else {
+      searchActiveRoute.path = pathWithoutQueryParams(searchActiveRoute);
+      if (sitePrefix) {
+        searchActiveRoute.path = `/${sitePrefix}${searchActiveRoute.path}`;
+      }
+    }
+    return searchActiveRoute;
+  }
+  function searchActiveRoutes(routes2, basePath, pathNames, currentLanguage, convert2) {
+    let currentRoute = {};
+    let basePathName = pathNames.shift().toLowerCase();
+    const routerPath = RouterPath({basePath, basePathName, pathNames, convert: convert2, currentLanguage});
+    staticParamMatch = false;
+    routes2.forEach(function(route) {
+      routerPath.updatedPath(route);
+      if (matchRoute(routerPath, route.name)) {
+        let routePath = routerPath.routePath();
+        redirectTo = RouterRedirect(route, redirectTo).path();
+        if (currentRoute.name !== routePath) {
+          currentRoute = setCurrentRoute({
+            route,
+            routePath,
+            routeLanguage: routerPath.routeLanguage(),
+            urlParser,
+            namedPath: routerPath.namedPath()
+          });
+        }
+        if (route.nestedRoutes && route.nestedRoutes.length > 0 && routerPath.pathNames.length > 0) {
+          currentRoute.childRoute = searchActiveRoutes(route.nestedRoutes, routePath, routerPath.pathNames, routerPath.routeLanguage(), convert2);
+          currentRoute.path = currentRoute.childRoute.path;
+          currentRoute.language = currentRoute.childRoute.language;
+        } else if (nestedRoutesAndNoPath(route, routerPath.pathNames)) {
+          const indexRoute = searchActiveRoutes(route.nestedRoutes, routePath, ["index"], routerPath.routeLanguage(), convert2);
+          if (indexRoute && Object.keys(indexRoute).length > 0) {
+            currentRoute.childRoute = indexRoute;
+            currentRoute.language = currentRoute.childRoute.language;
+          }
+        }
+      }
+    });
+    if (redirectTo) {
+      currentRoute.redirectTo = redirectTo;
+    }
+    return currentRoute;
+  }
+  function matchRoute(routerPath, routeName) {
+    const basePathSameAsLocalised = routerPath.basePathSameAsLocalised();
+    if (basePathSameAsLocalised) {
+      staticParamMatch = true;
+    }
+    return basePathSameAsLocalised || !staticParamMatch && startsWithNamedParam(routeName);
+  }
+  function nestedRoutesAndNoPath(route, pathNames) {
+    return route.nestedRoutes && route.nestedRoutes.length > 0 && pathNames.length === 0;
+  }
+  function parseCurrentUrl(currentUrl2, sitePrefix2) {
+    if (sitePrefix2 && sitePrefix2.trim().length > 0) {
+      const replacePattern = currentUrl2.endsWith(sitePrefix2) ? sitePrefix2 : sitePrefix2 + "/";
+      const noPrefixUrl = currentUrl2.replace(replacePattern, "");
+      return UrlParser(noPrefixUrl);
+    } else {
+      return UrlParser(currentUrl2);
+    }
+  }
+  function setCurrentRoute({route, routePath, routeLanguage, urlParser: urlParser2, namedPath}) {
+    const routerRoute = RouterRoute({
+      routeInfo: route,
+      urlParser: urlParser2,
+      path: routePath,
+      routeNamedParams,
+      namedPath,
+      language: routeLanguage || defaultLanguage
+    });
+    routeNamedParams = routerRoute.namedParams();
+    return routerRoute.get();
+  }
+  const routeNotFound = (customLanguage) => {
+    const custom404Page = routes.find((route) => route.name == "404");
+    const language = customLanguage || defaultLanguage || "";
+    if (custom404Page) {
+      return {...custom404Page, language, path: "404"};
+    } else {
+      return {name: "404", component: "", path: "404", redirectTo: NotFoundPage};
+    }
+  };
+  return Object.freeze({findActiveRoute});
+}
+var NotFoundPage$1 = "/404.html";
+var userDefinedRoutes = [];
+var routerOptions = {};
+var routerCurrent;
+var SpaRouter = (routes, currentUrl, options = {}) => {
+  routerOptions = {...options};
+  if (typeof currentUrl === "undefined" || currentUrl === "") {
+    currentUrl = document.location.href;
+  }
+  routerCurrent = RouterCurrent(routerOptions.gaPageviews);
+  currentUrl = removeSlash(currentUrl, "trail");
+  userDefinedRoutes = routes;
+  const findActiveRoute = () => {
+    let convert = false;
+    if (routerOptions.langConvertTo) {
+      routerOptions.lang = routerOptions.langConvertTo;
+      convert = true;
+    }
+    return RouterFinder({routes, currentUrl, routerOptions, convert}).findActiveRoute();
+  };
+  const navigateNow = (destinationUrl, updateBrowserHistory) => {
+    if (typeof window !== "undefined") {
+      if (destinationUrl === NotFoundPage$1) {
+        routerCurrent.setActive({path: NotFoundPage$1}, updateBrowserHistory);
+      } else {
+        navigateTo(destinationUrl);
+      }
+    }
+    return destinationUrl;
+  };
+  const setActiveRoute = (updateBrowserHistory = true) => {
+    const currentRoute = findActiveRoute();
+    if (currentRoute.redirectTo) {
+      return navigateNow(currentRoute.redirectTo, updateBrowserHistory);
+    }
+    routerCurrent.setActive(currentRoute, updateBrowserHistory);
+    activeRoute.set(currentRoute);
+    return currentRoute;
+  };
+  return Object.freeze({
+    setActiveRoute,
+    findActiveRoute
+  });
+};
+var navigateTo = (pathName, language = null, updateBrowserHistory = true) => {
+  pathName = removeSlash(pathName, "lead");
+  if (language) {
+    routerOptions.langConvertTo = language;
+  }
+  return SpaRouter(userDefinedRoutes, "http://fake.com/" + pathName, routerOptions).setActiveRoute(updateBrowserHistory);
+};
+if (typeof window !== "undefined") {
+  window.addEventListener("click", (event) => {
+    if (event.target.localName.toLowerCase() !== "a")
+      return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey)
+      return;
+    const sitePrefix = routerOptions.prefix ? `/${routerOptions.prefix.toLowerCase()}` : "";
+    const targetHostNameInternal = event.target.pathname && event.target.host === window.location.host;
+    const prefixMatchPath = sitePrefix.length > 1 ? event.target.pathname.startsWith(sitePrefix) : true;
+    if (targetHostNameInternal && prefixMatchPath) {
+      event.preventDefault();
+      let navigatePathname = event.target.pathname + event.target.search;
+      const destinationUrl = navigatePathname + event.target.search + event.target.hash;
+      if (event.target.target === "_blank") {
+        window.open(destinationUrl, "newTab");
+      } else {
+        navigateTo(destinationUrl);
+      }
+    }
+  });
+  window.onpopstate = function(_event) {
+    let navigatePathname = window.location.pathname + window.location.search + window.location.hash;
+    navigateTo(navigatePathname, null, false);
   };
 }
-function create_else_block(ctx) {
+function create_if_block_2(ctx) {
+  let route;
+  let current;
+  route = new Route({
+    props: {
+      currentRoute: ctx[0].childRoute,
+      params: ctx[1]
+    }
+  });
+  return {
+    c() {
+      create_component(route.$$.fragment);
+    },
+    m(target, anchor) {
+      mount_component(route, target, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const route_changes = {};
+      if (dirty & 1)
+        route_changes.currentRoute = ctx2[0].childRoute;
+      if (dirty & 2)
+        route_changes.params = ctx2[1];
+      route.$set(route_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(route.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(route.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(route, detaching);
+    }
+  };
+}
+function create_if_block_1(ctx) {
   let switch_instance;
   let switch_instance_anchor;
   let current;
-  const switch_instance_spread_levels = [ctx[2]];
-  var switch_value = ctx[0];
+  var switch_value = ctx[0].component;
   function switch_props(ctx2) {
-    let switch_instance_props = {};
-    for (let i = 0; i < switch_instance_spread_levels.length; i += 1) {
-      switch_instance_props = assign(switch_instance_props, switch_instance_spread_levels[i]);
-    }
-    return {props: switch_instance_props};
+    return {
+      props: {
+        currentRoute: {
+          ...ctx2[0],
+          component: ""
+        },
+        params: ctx2[1]
+      }
+    };
   }
   if (switch_value) {
-    switch_instance = new switch_value(switch_props());
-    switch_instance.$on("routeEvent", ctx[7]);
+    switch_instance = new switch_value(switch_props(ctx));
   }
   return {
     c() {
@@ -607,8 +1066,15 @@ function create_else_block(ctx) {
       current = true;
     },
     p(ctx2, dirty) {
-      const switch_instance_changes = dirty & 4 ? get_spread_update(switch_instance_spread_levels, [get_spread_object(ctx2[2])]) : {};
-      if (switch_value !== (switch_value = ctx2[0])) {
+      const switch_instance_changes = {};
+      if (dirty & 1)
+        switch_instance_changes.currentRoute = {
+          ...ctx2[0],
+          component: ""
+        };
+      if (dirty & 2)
+        switch_instance_changes.params = ctx2[1];
+      if (switch_value !== (switch_value = ctx2[0].component)) {
         if (switch_instance) {
           group_outros();
           const old_component = switch_instance;
@@ -618,8 +1084,7 @@ function create_else_block(ctx) {
           check_outros();
         }
         if (switch_value) {
-          switch_instance = new switch_value(switch_props());
-          switch_instance.$on("routeEvent", ctx2[7]);
+          switch_instance = new switch_value(switch_props(ctx2));
           create_component(switch_instance.$$.fragment);
           transition_in(switch_instance.$$.fragment, 1);
           mount_component(switch_instance, switch_instance_anchor.parentNode, switch_instance_anchor);
@@ -654,18 +1119,17 @@ function create_if_block(ctx) {
   let switch_instance;
   let switch_instance_anchor;
   let current;
-  const switch_instance_spread_levels = [{params: ctx[1]}, ctx[2]];
-  var switch_value = ctx[0];
+  var switch_value = ctx[0].layout;
   function switch_props(ctx2) {
-    let switch_instance_props = {};
-    for (let i = 0; i < switch_instance_spread_levels.length; i += 1) {
-      switch_instance_props = assign(switch_instance_props, switch_instance_spread_levels[i]);
-    }
-    return {props: switch_instance_props};
+    return {
+      props: {
+        currentRoute: {...ctx2[0], layout: ""},
+        params: ctx2[1]
+      }
+    };
   }
   if (switch_value) {
-    switch_instance = new switch_value(switch_props());
-    switch_instance.$on("routeEvent", ctx[6]);
+    switch_instance = new switch_value(switch_props(ctx));
   }
   return {
     c() {
@@ -681,11 +1145,12 @@ function create_if_block(ctx) {
       current = true;
     },
     p(ctx2, dirty) {
-      const switch_instance_changes = dirty & 6 ? get_spread_update(switch_instance_spread_levels, [
-        dirty & 2 && {params: ctx2[1]},
-        dirty & 4 && get_spread_object(ctx2[2])
-      ]) : {};
-      if (switch_value !== (switch_value = ctx2[0])) {
+      const switch_instance_changes = {};
+      if (dirty & 1)
+        switch_instance_changes.currentRoute = {...ctx2[0], layout: ""};
+      if (dirty & 2)
+        switch_instance_changes.params = ctx2[1];
+      if (switch_value !== (switch_value = ctx2[0].layout)) {
         if (switch_instance) {
           group_outros();
           const old_component = switch_instance;
@@ -695,8 +1160,7 @@ function create_if_block(ctx) {
           check_outros();
         }
         if (switch_value) {
-          switch_instance = new switch_value(switch_props());
-          switch_instance.$on("routeEvent", ctx2[6]);
+          switch_instance = new switch_value(switch_props(ctx2));
           create_component(switch_instance.$$.fragment);
           transition_in(switch_instance.$$.fragment, 1);
           mount_component(switch_instance, switch_instance_anchor.parentNode, switch_instance_anchor);
@@ -732,22 +1196,30 @@ function create_fragment(ctx) {
   let if_block;
   let if_block_anchor;
   let current;
-  const if_block_creators = [create_if_block, create_else_block];
+  const if_block_creators = [create_if_block, create_if_block_1, create_if_block_2];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
-    if (ctx2[1])
+    if (ctx2[0].layout)
       return 0;
-    return 1;
+    if (ctx2[0].component)
+      return 1;
+    if (ctx2[0].childRoute)
+      return 2;
+    return -1;
   }
-  current_block_type_index = select_block_type(ctx);
-  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  if (~(current_block_type_index = select_block_type(ctx))) {
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  }
   return {
     c() {
-      if_block.c();
+      if (if_block)
+        if_block.c();
       if_block_anchor = empty();
     },
     m(target, anchor) {
-      if_blocks[current_block_type_index].m(target, anchor);
+      if (~current_block_type_index) {
+        if_blocks[current_block_type_index].m(target, anchor);
+      }
       insert(target, if_block_anchor, anchor);
       current = true;
     },
@@ -755,22 +1227,30 @@ function create_fragment(ctx) {
       let previous_block_index = current_block_type_index;
       current_block_type_index = select_block_type(ctx2);
       if (current_block_type_index === previous_block_index) {
-        if_blocks[current_block_type_index].p(ctx2, dirty);
-      } else {
-        group_outros();
-        transition_out(if_blocks[previous_block_index], 1, 1, () => {
-          if_blocks[previous_block_index] = null;
-        });
-        check_outros();
-        if_block = if_blocks[current_block_type_index];
-        if (!if_block) {
-          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
-          if_block.c();
-        } else {
-          if_block.p(ctx2, dirty);
+        if (~current_block_type_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
         }
-        transition_in(if_block, 1);
-        if_block.m(if_block_anchor.parentNode, if_block_anchor);
+      } else {
+        if (if_block) {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+        }
+        if (~current_block_type_index) {
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        } else {
+          if_block = null;
+        }
       }
     },
     i(local) {
@@ -784,257 +1264,116 @@ function create_fragment(ctx) {
       current = false;
     },
     d(detaching) {
-      if_blocks[current_block_type_index].d(detaching);
+      if (~current_block_type_index) {
+        if_blocks[current_block_type_index].d(detaching);
+      }
       if (detaching)
         detach(if_block_anchor);
     }
   };
 }
-function getLocation() {
-  const hashPosition = window.location.href.indexOf("#/");
-  let location2 = hashPosition > -1 ? window.location.href.substr(hashPosition + 1) : "/";
-  const qsPosition = location2.indexOf("?");
-  let querystring2 = "";
-  if (qsPosition > -1) {
-    querystring2 = location2.substr(qsPosition + 1);
-    location2 = location2.substr(0, qsPosition);
-  }
-  return {location: location2, querystring: querystring2};
-}
-var loc = readable(null, function start(set) {
-  set(getLocation());
-  const update2 = () => {
-    set(getLocation());
-  };
-  window.addEventListener("hashchange", update2, false);
-  return function stop() {
-    window.removeEventListener("hashchange", update2, false);
-  };
-});
-var location = derived(loc, ($loc) => $loc.location);
-var querystring = derived(loc, ($loc) => $loc.querystring);
-var params = writable(void 0);
 function instance($$self, $$props, $$invalidate) {
-  let {routes = {}} = $$props;
-  let {prefix = ""} = $$props;
-  let {restoreScrollState = false} = $$props;
-  class RouteItem {
-    constructor(path, component2) {
-      if (!component2 || typeof component2 != "function" && (typeof component2 != "object" || component2._sveltesparouter !== true)) {
-        throw Error("Invalid component object");
-      }
-      if (!path || typeof path == "string" && (path.length < 1 || path.charAt(0) != "/" && path.charAt(0) != "*") || typeof path == "object" && !(path instanceof RegExp)) {
-        throw Error('Invalid value for "path" argument - strings must start with / or *');
-      }
-      const {pattern, keys} = parse(path);
-      this.path = path;
-      if (typeof component2 == "object" && component2._sveltesparouter === true) {
-        this.component = component2.component;
-        this.conditions = component2.conditions || [];
-        this.userData = component2.userData;
-        this.props = component2.props || {};
-      } else {
-        this.component = () => Promise.resolve(component2);
-        this.conditions = [];
-        this.props = {};
-      }
-      this._pattern = pattern;
-      this._keys = keys;
-    }
-    match(path) {
-      if (prefix) {
-        if (typeof prefix == "string") {
-          if (path.startsWith(prefix)) {
-            path = path.substr(prefix.length) || "/";
-          } else {
-            return null;
-          }
-        } else if (prefix instanceof RegExp) {
-          const match = path.match(prefix);
-          if (match && match[0]) {
-            path = path.substr(match[0].length) || "/";
-          } else {
-            return null;
-          }
-        }
-      }
-      const matches = this._pattern.exec(path);
-      if (matches === null) {
-        return null;
-      }
-      if (this._keys === false) {
-        return matches;
-      }
-      const out = {};
-      let i = 0;
-      while (i < this._keys.length) {
-        try {
-          out[this._keys[i]] = decodeURIComponent(matches[i + 1] || "") || null;
-        } catch (e) {
-          out[this._keys[i]] = null;
-        }
-        i++;
-      }
-      return out;
-    }
-    async checkConditions(detail) {
-      for (let i = 0; i < this.conditions.length; i++) {
-        if (!await this.conditions[i](detail)) {
-          return false;
-        }
-      }
-      return true;
-    }
+  let {currentRoute = {}} = $$props;
+  let {params = {}} = $$props;
+  $$self.$$set = ($$props2) => {
+    if ("currentRoute" in $$props2)
+      $$invalidate(0, currentRoute = $$props2.currentRoute);
+    if ("params" in $$props2)
+      $$invalidate(1, params = $$props2.params);
+  };
+  return [currentRoute, params];
+}
+var Route = class extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance, create_fragment, safe_not_equal, {currentRoute: 0, params: 1});
   }
-  const routesList = [];
-  if (routes instanceof Map) {
-    routes.forEach((route, path) => {
-      routesList.push(new RouteItem(path, route));
-    });
-  } else {
-    Object.keys(routes).forEach((path) => {
-      routesList.push(new RouteItem(path, routes[path]));
-    });
-  }
-  let component = null;
-  let componentParams = null;
-  let props = {};
-  const dispatch = createEventDispatcher();
-  async function dispatchNextTick(name, detail) {
-    await tick();
-    dispatch(name, detail);
-  }
-  let previousScrollState = null;
-  let popStateChanged = null;
-  if (restoreScrollState) {
-    popStateChanged = (event) => {
-      if (event.state && event.state.__svelte_spa_router_scrollY) {
-        previousScrollState = event.state;
-      } else {
-        previousScrollState = null;
-      }
-    };
-    window.addEventListener("popstate", popStateChanged);
-    afterUpdate(() => {
-      if (previousScrollState) {
-        window.scrollTo(previousScrollState.__svelte_spa_router_scrollX, previousScrollState.__svelte_spa_router_scrollY);
-      } else {
-        window.scrollTo(0, 0);
-      }
-    });
-  }
-  let lastLoc = null;
-  let componentObj = null;
-  const unsubscribeLoc = loc.subscribe(async (newLoc) => {
-    lastLoc = newLoc;
-    let i = 0;
-    while (i < routesList.length) {
-      const match = routesList[i].match(newLoc.location);
-      if (!match) {
-        i++;
-        continue;
-      }
-      const detail = {
-        route: routesList[i].path,
-        location: newLoc.location,
-        querystring: newLoc.querystring,
-        userData: routesList[i].userData,
-        params: match && typeof match == "object" && Object.keys(match).length ? match : null
-      };
-      if (!await routesList[i].checkConditions(detail)) {
-        $$invalidate(0, component = null);
-        componentObj = null;
-        dispatchNextTick("conditionsFailed", detail);
+};
+function create_fragment$1(ctx) {
+  let route;
+  let current;
+  route = new Route({
+    props: {currentRoute: ctx[0]}
+  });
+  return {
+    c() {
+      create_component(route.$$.fragment);
+    },
+    m(target, anchor) {
+      mount_component(route, target, anchor);
+      current = true;
+    },
+    p(ctx2, [dirty]) {
+      const route_changes = {};
+      if (dirty & 1)
+        route_changes.currentRoute = ctx2[0];
+      route.$set(route_changes);
+    },
+    i(local) {
+      if (current)
         return;
-      }
-      dispatchNextTick("routeLoading", Object.assign({}, detail));
-      const obj = routesList[i].component;
-      if (componentObj != obj) {
-        if (obj.loading) {
-          $$invalidate(0, component = obj.loading);
-          componentObj = obj;
-          $$invalidate(1, componentParams = obj.loadingParams);
-          $$invalidate(2, props = {});
-          dispatchNextTick("routeLoaded", Object.assign({}, detail, {
-            component,
-            name: component.name,
-            params: componentParams
-          }));
-        } else {
-          $$invalidate(0, component = null);
-          componentObj = null;
-        }
-        const loaded = await obj();
-        if (newLoc != lastLoc) {
-          return;
-        }
-        $$invalidate(0, component = loaded && loaded.default || loaded);
-        componentObj = obj;
-      }
-      if (match && typeof match == "object" && Object.keys(match).length) {
-        $$invalidate(1, componentParams = match);
-      } else {
-        $$invalidate(1, componentParams = null);
-      }
-      $$invalidate(2, props = routesList[i].props);
-      dispatchNextTick("routeLoaded", Object.assign({}, detail, {
-        component,
-        name: component.name,
-        params: componentParams
-      })).then(() => {
-        params.set(componentParams);
-      });
-      return;
+      transition_in(route.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(route.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(route, detaching);
     }
-    $$invalidate(0, component = null);
-    componentObj = null;
-    params.set(void 0);
+  };
+}
+function instance$1($$self, $$props, $$invalidate) {
+  let $activeRoute;
+  component_subscribe($$self, activeRoute, ($$value) => $$invalidate(0, $activeRoute = $$value));
+  let {routes = []} = $$props;
+  let {options = {}} = $$props;
+  onMount(() => {
+    SpaRouter(routes, document.location.href, options).setActiveRoute();
   });
-  onDestroy(() => {
-    unsubscribeLoc();
-    popStateChanged && window.removeEventListener("popstate", popStateChanged);
-  });
-  function routeEvent_handler(event) {
-    bubble.call(this, $$self, event);
-  }
-  function routeEvent_handler_1(event) {
-    bubble.call(this, $$self, event);
-  }
   $$self.$$set = ($$props2) => {
     if ("routes" in $$props2)
-      $$invalidate(3, routes = $$props2.routes);
-    if ("prefix" in $$props2)
-      $$invalidate(4, prefix = $$props2.prefix);
-    if ("restoreScrollState" in $$props2)
-      $$invalidate(5, restoreScrollState = $$props2.restoreScrollState);
+      $$invalidate(1, routes = $$props2.routes);
+    if ("options" in $$props2)
+      $$invalidate(2, options = $$props2.options);
   };
-  $$self.$$.update = () => {
-    if ($$self.$$.dirty & 32) {
-      history.scrollRestoration = restoreScrollState ? "manual" : "auto";
-    }
-  };
-  return [
-    component,
-    componentParams,
-    props,
-    routes,
-    prefix,
-    restoreScrollState,
-    routeEvent_handler,
-    routeEvent_handler_1
-  ];
+  return [$activeRoute, routes, options];
 }
 var Router = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance, create_fragment, safe_not_equal, {
-      routes: 3,
-      prefix: 4,
-      restoreScrollState: 5
-    });
+    init(this, options, instance$1, create_fragment$1, safe_not_equal, {routes: 1, options: 2});
   }
 };
-var svelte_spa_router_default = Router;
+
+// dist/dist/pages/home.svelte.js
+function create_fragment2(ctx) {
+  let h1;
+  return {
+    c() {
+      h1 = element("h1");
+      h1.textContent = "brujh";
+    },
+    m(target, anchor) {
+      insert(target, h1, anchor);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(h1);
+    }
+  };
+}
+var Home = class extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, null, create_fragment2, safe_not_equal, {});
+  }
+};
+var home_svelte_default = Home;
 
 // dist/dist/components/colors.svelte.js
 function get_each_context(ctx, list, i) {
@@ -1117,7 +1456,7 @@ function create_each_block(ctx) {
     }
   };
 }
-function create_fragment2(ctx) {
+function create_fragment3(ctx) {
   let div;
   let each_value = ctx[0];
   let each_blocks = [];
@@ -1192,7 +1531,7 @@ function instance2($$self) {
 var Colors = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance2, create_fragment2, safe_not_equal, {});
+    init(this, options, instance2, create_fragment3, safe_not_equal, {});
   }
 };
 var colors_svelte_default = Colors;
@@ -1272,7 +1611,7 @@ function create_each_block2(ctx) {
     }
   };
 }
-function create_fragment3(ctx) {
+function create_fragment4(ctx) {
   let div;
   let each_value = ctx[0];
   let each_blocks = [];
@@ -1343,13 +1682,13 @@ function instance3($$self) {
 var Fonts = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance3, create_fragment3, safe_not_equal, {});
+    init(this, options, instance3, create_fragment4, safe_not_equal, {});
   }
 };
 var fonts_svelte_default = Fonts;
 
 // dist/dist/components/weights.svelte.js
-function create_fragment4(ctx) {
+function create_fragment5(ctx) {
   let div;
   return {
     c() {
@@ -1374,7 +1713,7 @@ function create_fragment4(ctx) {
 var Weights = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment4, safe_not_equal, {});
+    init(this, options, null, create_fragment5, safe_not_equal, {});
   }
 };
 var weights_svelte_default = Weights;
@@ -1403,7 +1742,7 @@ function create_each_block3(ctx) {
     }
   };
 }
-function create_fragment5(ctx) {
+function create_fragment6(ctx) {
   let div;
   let div_style_value;
   let each_value = ctx[1];
@@ -1478,13 +1817,13 @@ function instance4($$self, $$props, $$invalidate) {
 var Sizes = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance4, create_fragment5, safe_not_equal, {orientation: 0});
+    init(this, options, instance4, create_fragment6, safe_not_equal, {orientation: 0});
   }
 };
 var sizes_svelte_default = Sizes;
 
 // dist/dist/components/breakpoint.svelte.js
-function create_fragment6(ctx) {
+function create_fragment7(ctx) {
   let div;
   let div_style_value;
   return {
@@ -1519,13 +1858,13 @@ function instance5($$self, $$props, $$invalidate) {
 var Breakpoint = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance5, create_fragment6, safe_not_equal, {width: 0});
+    init(this, options, instance5, create_fragment7, safe_not_equal, {width: 0});
   }
 };
 var breakpoint_svelte_default = Breakpoint;
 
 // dist/dist/pages/style-guide.svelte.js
-function create_fragment7(ctx) {
+function create_fragment8(ctx) {
   let main;
   let div1;
   let section0;
@@ -1695,55 +2034,30 @@ function create_fragment7(ctx) {
 var Style_guide = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment7, safe_not_equal, {});
+    init(this, options, null, create_fragment8, safe_not_equal, {});
   }
 };
 var style_guide_svelte_default = Style_guide;
 
-// dist/dist/pages/not-found.svelte.js
-function create_fragment8(ctx) {
-  let h1;
-  return {
-    c() {
-      h1 = element("h1");
-      h1.textContent = "burh";
-    },
-    m(target, anchor) {
-      insert(target, h1, anchor);
-    },
-    p: noop,
-    i: noop,
-    o: noop,
-    d(detaching) {
-      if (detaching)
-        detach(h1);
-    }
-  };
-}
-var Not_found = class extends SvelteComponent {
-  constructor(options) {
-    super();
-    init(this, options, null, create_fragment8, safe_not_equal, {});
-  }
-};
-var not_found_svelte_default = Not_found;
-
 // dist/dist/app.svelte.js
 function create_fragment9(ctx) {
   let router;
+  let t0;
+  let a;
   let current;
-  router = new svelte_spa_router_default({
-    props: {
-      restoreScrollState: true,
-      routes: ctx[0]
-    }
-  });
+  router = new Router({props: {routes: ctx[0]}});
   return {
     c() {
       create_component(router.$$.fragment);
+      t0 = space();
+      a = element("a");
+      a.textContent = "bruh";
+      attr(a, "href", "/style-guide");
     },
     m(target, anchor) {
       mount_component(router, target, anchor);
+      insert(target, t0, anchor);
+      insert(target, a, anchor);
       current = true;
     },
     p: noop,
@@ -1759,17 +2073,21 @@ function create_fragment9(ctx) {
     },
     d(detaching) {
       destroy_component(router, detaching);
+      if (detaching)
+        detach(t0);
+      if (detaching)
+        detach(a);
     }
   };
 }
 function instance6($$self) {
-  const routes = {
-    "/": wrap({
-      asyncComponent: () => Promise.resolve().then(() => require_home_svelte())
-    }),
-    "/style-guide": style_guide_svelte_default,
-    "*": not_found_svelte_default
-  };
+  const routes = [
+    {name: "/", component: home_svelte_default},
+    {
+      name: "/style-guide",
+      component: style_guide_svelte_default
+    }
+  ];
   return [routes];
 }
 var App = class extends SvelteComponent {
