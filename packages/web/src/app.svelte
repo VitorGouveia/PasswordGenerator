@@ -4,7 +4,6 @@
 
   import "./styles/global.scss";
 
-  import Home from "./pages/home.svelte";
   import StyleGuide from "./pages/style-guide.svelte";
   import NotFound from "./pages/not-found.svelte";
 

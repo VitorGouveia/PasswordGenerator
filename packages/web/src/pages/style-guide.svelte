@@ -3,7 +3,7 @@
   import Fonts from "../components/fonts.svelte";
   import Weights from "../components/weights.svelte";
   import Sizes from "../components/sizes.svelte";
-  import Breakpoint from "../components/breakpoint.svelte";
+  import Breakpoint from "../components/style-guide/breakpoint.svelte";
 </script>
 
 <main>

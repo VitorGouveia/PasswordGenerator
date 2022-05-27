@@ -4,12 +4,12 @@ module.exports = {
     "../src/**/*.stories.@(js|jsx|ts|tsx|svelte)",
   ],
   addons: [
+    "@storybook/addon-svelte-csf",
     "@storybook/theming",
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@storybook/preset-scss",
-    "@storybook/addon-svelte-csf",
   ],
   framework: "@storybook/svelte",
   core: {

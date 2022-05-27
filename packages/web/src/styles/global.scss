@@ -4,9 +4,6 @@
   box-sizing: border-box;
 }
 
-$step: 9;
-$base: 6;
-
 $colors: (
   gray: (
     hue: 260,
@@ -34,9 +31,21 @@ $colors: (
   ),
 );
 
+$lightness-step: 9;
+$lightness-base: 6;
+
+$font-size-base: 14;
+$font-size-step: 6;
+
+$size-base: 6;
+$size-step: 9;
+
+@function fontSize($weight) {
+  @return calc(($font-size-base + ($font-size-step * $weight)) * 1px);
+}
+
 :root {
-  --font-base: 14;
-  --font-step: 6;
+  --color-neo-expertise: #9540bf;
 
   @each $color, $properties in $colors {
     // @each $property, $value in $properties {
@@ -44,19 +53,54 @@ $colors: (
     @for $i from 1 through 9 {
       $hue: map-get($properties, hue);
       $saturation: map-get($properties, saturation) + "%";
-      // $lightness: $base + ($step * $i) + "%";
+      // $lightness: $lightness-base + ($lightness-step * $i) + "%";
 
       // i subtract the index from 9 to make 900 the darkest and 100 the lightest
-      $lightness: $base + ($step * (9 - $i)) + "%";
+      $lightness: $lightness-base + ($lightness-step * (9 - $i)) + "%";
 
       // prettier-ignore
       --color-#{$color + ""}-#{$i * 100}: hsl(#{$hue}, #{$saturation}, #{$lightness});
     }
   }
-}
 
-@function fontSize($weight) {
-  @return calc((var(--font-base) + (var(--font-step) * $weight)) * 1px);
+  @for $i from 0 through 8 {
+    // --size-#{$i * 100}: calc(
+    //   (var(--size-base) + (var(--size-step) * $i)) * 1px
+    // );
+    --size-#{($i + 1) * 100}: #{$size-base + $i * $size-step}px;
+  }
+
+  @for $i from 1 through 6 {
+    /**
+      WHY 8 - $i?
+
+      heading 2 - weight 6
+      heading 3 - weight 5
+      heading 4 - weight 4
+      heading 5 - weight 3
+      heading 6 - weight 2
+
+      notice a pattern?
+
+      2 + 6 = 8
+      3 + 5 = 8
+      4 + 4 = 8
+      5 + 3 = 8
+      6 + 2 = 8
+
+      they all add up to 8, if i make some quick maths i come up with the following equation
+
+      8 = $i + x
+      x = 8 - $i
+
+      x being the weight to put into the FontSize function.
+    */
+
+    --font-size-heading-#{$i}: #{fontSize(8 - $i)};
+  }
+
+  --font-size-text: #{fontSize(1)};
+  --font-size-small: #{fontSize(0)};
 }
 
 body {
@@ -67,42 +111,42 @@ body {
 
 h1 {
   font-weight: 700;
-  font-size: fontSize(7);
+  font-size: var(--font-size-heading-1);
 }
 
 h2 {
   font-weight: 700;
-  font-size: fontSize(6);
+  font-size: var(--font-size-heading-2);
 }
 
 h3 {
   font-weight: 700;
-  font-size: fontSize(5);
+  font-size: var(--font-size-heading-3);
 }
 
 h4 {
   font-weight: 700;
-  font-size: fontSize(4);
+  font-size: var(--font-size-heading-4);
 }
 
 h5 {
   font-weight: 400;
-  font-size: fontSize(3);
+  font-size: var(--font-size-heading-5);
 }
 
 h6 {
   font-weight: 400;
-  font-size: fontSize(2);
+  font-size: var(--font-size-heading-6);
 }
 
 p {
   font-weight: 400;
-  font-size: fontSize(1);
+  font-size: var(--font-size-text);
 }
 
 small {
   font-family: "JetBrains Mono";
-  font-size: fontSize(0);
+  font-size: var(--font-size-small);
 }
 
 i,
@@ -126,4 +170,13 @@ i,
 
 .section-content {
   width: max-content;
+}
+
+button,
+input,
+select,
+textarea {
+  cursor: pointer;
+  outline: none;
+  border: none;
 }
