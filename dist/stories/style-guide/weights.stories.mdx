@@ -1,0 +1,27 @@
+import { Meta, Story } from '@storybook/addon-docs';
+
+import Weights from '../../components/style-guide/weights.svelte';
+
+<Meta title="Style Guide/Weights" component={Weights} />
+
+export const Template = (args) => ({
+  Component: Weights,
+  props: args,
+});
+
+# Weights
+
+All the Weights for fonts available on the design system
+
+They are only 3 <br />
+700 - Bold <br />
+400 - Regular <br />
+200 - Thin <br />
+
+<br />
+<br />
+
+
+<Story name="Weights">
+  {Template.bind({})}
+</Story>

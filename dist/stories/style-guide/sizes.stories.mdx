@@ -1,0 +1,35 @@
+import { Meta, Story } from '@storybook/addon-docs';
+
+import Sizes from '../../components/style-guide/sizes.svelte';
+
+<Meta title="Style Guide/Sizes" component={Sizes} />
+
+export const Template = (args) => ({
+  Component: Sizes,
+  props: args,
+});
+
+# Sizes
+
+Sizes are used for all kind of spaces, they're meant to be used in paddings, grids, margins, x and y positions and more
+
+They usually follow the same rule as font-sizes and lightness for colors, they start with base value and on top are added with a *step* value
+
+the base is - 6
+the step is - 9
+
+Unlike fonts and other "progressive" systems, the size scale can be expanded for as much as we need to
+
+<br />
+<br />
+
+<Story name="Horizontal">
+  {Template.bind({})}
+</Story>
+
+<br />
+<br />
+
+<Story name="Vertical" args={{ orientation: 'column' }}>
+  {Template.bind({})}
+</Story>
