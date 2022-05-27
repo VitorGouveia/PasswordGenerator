@@ -1531,6 +1531,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@danielsharkov/svelte-router@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@danielsharkov/svelte-router@npm:3.0.0"
+  checksum: 1f6f6897d0a85b1f55f56431b6ec2a03de86cf1ae52bdb5c098d84912c1a47de2cdc0b33530caffa246b1f26a803fd35f7d50f8f077a6004bc96f0bdd713ee2f
+  languageName: node
+  linkType: hard
+
 "@design-systems/utils@npm:2.12.0":
   version: 2.12.0
   resolution: "@design-systems/utils@npm:2.12.0"
@@ -2014,6 +2021,7 @@ __metadata:
   resolution: "@password-generator/web@workspace:packages/web"
   dependencies:
     "@babel/core": ^7.18.2
+    "@danielsharkov/svelte-router": ^3.0.0
     "@mdx-js/react": ^1.6.22
     "@password-generator/core": "*"
     "@snowpack/plugin-sass": ^1.4.0
@@ -2041,6 +2049,8 @@ __metadata:
     svelte: ^3.48.0
     svelte-loader: ^3.1.2
     svelte-preprocess: ^4.10.6
+    svelte-router-spa: ^6.0.3
+    svelte-routing: ^1.6.0
     svelte-spa-router: ^3.2.0
     typescript: ^4.6.4
   languageName: unknown
@@ -6461,6 +6471,13 @@ __metadata:
   dependencies:
     mimic-response: ^3.1.0
   checksum: d377cf47e02d805e283866c3f50d3d21578b779731e8c5072d6ce8c13cc31493db1c2f6784da9d1d5250822120cefa44f1deab112d5981015f2e17444b763812
+  languageName: node
+  linkType: hard
+
+"dedent-js@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "dedent-js@npm:1.0.1"
+  checksum: 3a86f4b11176b387c0633b4b201aef884f9bc83eb9485bd1156c5d9b3984a58fd7686f8213b67212b714a1abf00279bef5cd4eea6a9a7f033e37ce33352af9a9
   languageName: node
   linkType: hard
 
@@ -11772,7 +11789,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pascal-case@npm:^3.1.2":
+"pascal-case@npm:^3.1.1, pascal-case@npm:^3.1.2":
   version: 3.1.2
   resolution: "pascal-case@npm:3.1.2"
   dependencies:
@@ -14503,12 +14520,47 @@ __metadata:
   languageName: node
   linkType: hard
 
+"svelte-router-spa@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "svelte-router-spa@npm:6.0.3"
+  dependencies:
+    url-params-parser: ^1.0.3
+  peerDependencies:
+    svelte: ^3.36.0
+  checksum: 35f9362c86c47582b31872cc61dff5657c3541493e4a0f622e0536fa98f6d4959a80ef3501f83436fdb82b6d027caf25a0170e304b133bf2564403b0fe2bd671
+  languageName: node
+  linkType: hard
+
+"svelte-routing@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "svelte-routing@npm:1.6.0"
+  dependencies:
+    svelte2tsx: ^0.1.157
+  peerDependencies:
+    svelte: ^3.20.x
+  checksum: 8c8668ad91e24eb3abfdf9676568b45a9258ee9e1097de2b3333e775a598e20c8bcaf55161ae7e881b4fe960fb165dd04cc86090da4b5a69a42edbfbcdcc5149
+  languageName: node
+  linkType: hard
+
 "svelte-spa-router@npm:^3.2.0":
   version: 3.2.0
   resolution: "svelte-spa-router@npm:3.2.0"
   dependencies:
     regexparam: 2.0.0
   checksum: 7ac39d5477595fd04d8df7c0d8c62e7e0d3fe20fd8b763424a1419da82246b76e1a4e6f38fb1d2add7f272442bd98f2484b5e41e06570a69ac80bec09483720b
+  languageName: node
+  linkType: hard
+
+"svelte2tsx@npm:^0.1.157":
+  version: 0.1.193
+  resolution: "svelte2tsx@npm:0.1.193"
+  dependencies:
+    dedent-js: ^1.0.1
+    pascal-case: ^3.1.1
+  peerDependencies:
+    svelte: ^3.24
+    typescript: ^4.1.2
+  checksum: 1ecca20eef6fc3f8196b1d9a3a7dd1d9d11e4d5fa158cc0fcc85e685bd7aeb2930d9f378c296d67ba06d9459d8ca0fd034d172d58c0789a6b674b16c6cbccd76
   languageName: node
   linkType: hard
 
@@ -15247,6 +15299,13 @@ __metadata:
     file-loader:
       optional: true
   checksum: c1122a992c6cff70a7e56dfc2b7474534d48eb40b2cc75467cde0c6972e7597faf8e43acb4f45f93c2473645dfd803bcbc20960b57544dd1e4c96e77f72ba6fd
+  languageName: node
+  linkType: hard
+
+"url-params-parser@npm:^1.0.3":
+  version: 1.0.4
+  resolution: "url-params-parser@npm:1.0.4"
+  checksum: 7c86ba67f4ed1a2f442fc0e990d5335fe0293935884906b34d1e77d39f91556e276d0f21e60666c52b411837d6c022a469ee5adf1dcf7f55333c09a24a67c581
   languageName: node
   linkType: hard
 
