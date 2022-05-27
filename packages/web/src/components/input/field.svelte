@@ -2,12 +2,16 @@
   import { nanoid } from "nanoid";
   import { createEventDispatcher } from "svelte";
 
+  import Eye from "./assets/eye.svelte";
+
   const dispatch = createEventDispatcher();
 
   export let variant: "box" | "primary";
   export let label: string;
   export let placeholder: string;
   export let disabled: boolean = false;
+  export let type: string = "text";
+  export let value: string = "";
 
   export let focused = false;
   export let success = false;
@@ -16,6 +20,8 @@
 
   export let error: {
     message: string;
+  } = {
+    message: "",
   };
 
   type setErrorProps = {
@@ -52,7 +58,14 @@
     error.message = "";
 
     focused = false;
+    dispatch("blur");
   }
+
+  function handleInput(event: any) {
+    value = event.target.value;
+  }
+
+  let originalType = type;
 </script>
 
 <div
@@ -64,14 +77,26 @@
 >
   <label class="italic" for={id}>{label}</label>
 
-  <input
-    {id}
-    type="text"
-    {placeholder}
-    {disabled}
-    on:focus={handleFocus}
-    on:blur={handleBlur}
-  />
+  <div class="input-inner-wrapper">
+    <input
+      {id}
+      {type}
+      {placeholder}
+      {disabled}
+      on:focus={handleFocus}
+      on:blur={handleBlur}
+      on:input={handleInput}
+    />
+    {#if originalType === "password"}
+      <button
+        on:click={() =>
+          type === "password" ? (type = "text") : (type = "password")}
+        class="magic-eye"
+      >
+        <Eye />
+      </button>
+    {/if}
+  </div>
 
   <span class="error italic">
     * {error.message}
@@ -170,6 +195,29 @@
       input {
         border: none;
         background: transparent;
+      }
+    }
+
+    .input-inner-wrapper {
+      input {
+        width: 100%;
+      }
+      position: relative;
+    }
+
+    .magic-eye {
+      position: absolute;
+
+      z-index: 20;
+
+      top: 50%;
+      right: var(--size-200);
+      transform: translate(-50%, -40%);
+
+      background: transparent;
+
+      :global(svg path) {
+        stroke: var(--accent-color);
       }
     }
   }

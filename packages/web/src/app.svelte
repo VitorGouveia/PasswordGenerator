@@ -1,22 +1,25 @@
 <script lang="ts">
-  import Router, { link } from "svelte-spa-router";
-  import { wrap } from "svelte-spa-router/wrap";
+  import { UserStore } from "./store/user";
+  import type { User } from "./@types/auth";
 
   import "./styles/global.scss";
 
-  import StyleGuide from "./pages/style-guide.svelte";
-  import NotFound from "./pages/not-found.svelte";
+  import Router from "./router.svelte";
+  import Link from "./components/link.svelte";
 
-  const routes = {
-    "/": wrap({
-      asyncComponent: () => import("./pages/home.svelte"),
-    }),
-    "/style-guide": StyleGuide,
-    "*": NotFound,
-  };
+  const loggedUserID = localStorage.getItem(
+    "@password-generator:logged-user-id"
+  );
+
+  if (loggedUserID) {
+    const users = JSON.parse(
+      localStorage.getItem("@password-generator:users") || "[]"
+    ) as unknown as User[];
+
+    UserStore.set(users.find((user) => user.id === loggedUserID) || null);
+  }
 </script>
 
-<!-- <Router {routes} prefix="PasswordGenerator" /> -->
-<Router {routes} />
-<!-- <Link to="/style-guide">style guide</Link> -->
-<a use:link href="/style-guide">bruh</a>
+<Router />
+
+<!-- <Link href="/style-guide" active={false}>go to style guide</Link> -->

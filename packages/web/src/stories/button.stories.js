@@ -1,4 +1,4 @@
-import Button from "../components/button";
+import Button from "../components/button/index.svelte";
 
 export default {
   /* 👇 The title prop is optional.

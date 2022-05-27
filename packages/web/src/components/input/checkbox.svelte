@@ -8,7 +8,9 @@
   function handleClick() {
     checked = !checked;
 
-    dispatch("click");
+    dispatch("click", {
+      value: checked,
+    });
   }
 </script>
 

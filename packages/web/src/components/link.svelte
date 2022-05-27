@@ -2,11 +2,11 @@
   import { link } from "svelte-spa-router";
 
   export let href: string;
-  export let label: string;
+  export let label: string = "";
   export let active: boolean = false;
 </script>
 
-<a data-active={active} use:link {href}>{label}</a>
+<a data-active={active} use:link {href}><slot />{label}</a>
 
 <style lang="scss">
   a {

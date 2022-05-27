@@ -40,8 +40,8 @@ $font-size-step: 6;
 $size-base: 6;
 $size-step: 9;
 
-@function fontSize($weight) {
-  @return calc(($font-size-base + ($font-size-step * $weight)) * 1px);
+@function fontSize($weight, $step: $font-size-step, $base: $font-size-base) {
+  @return calc(($base + ($step * $weight)) * 1px);
 }
 
 :root {
@@ -101,12 +101,37 @@ $size-step: 9;
 
   --font-size-text: #{fontSize(1)};
   --font-size-small: #{fontSize(0)};
+
+  --desktop-max-width: 948px;
+  --tablet-max-width: 595px;
+  --mobile-max-width: 385px;
+}
+
+@media screen and (max-width: 744px) {
+  :root {
+    --font-size-heading-1: #{fontSize(6, 4)};
+    --font-size-heading-4: #{fontSize(3, 4)};
+    --font-size-heading-5: #{fontSize(2, 4)};
+    --font-size-text: #{fontSize(1, 2)};
+  }
+}
+
+@media screen and (max-width: 428px) {
+  :root {
+    --font-size-heading-1: #{fontSize(5, 3)};
+    --font-size-heading-4: #{fontSize(2, 3)};
+    --font-size-heading-5: #{fontSize(2, 3)};
+  }
 }
 
 body {
   font-family: "Space Mono", sans-serif;
   color: var(--color-gray-100);
   background: var(--color-gray-900);
+
+  * {
+    font-family: "Space Mono", sans-serif;
+  }
 }
 
 h1 {

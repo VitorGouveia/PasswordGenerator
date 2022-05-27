@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Colors from "../components/colors.svelte";
-  import Fonts from "../components/fonts.svelte";
-  import Weights from "../components/weights.svelte";
-  import Sizes from "../components/sizes.svelte";
+  import Colors from "../components/style-guide/colors.svelte";
+  import Fonts from "../components/style-guide/fonts.svelte";
+  import Weights from "../components/style-guide/weights.svelte";
+  import Sizes from "../components/style-guide/sizes.svelte";
   import Breakpoint from "../components/style-guide/breakpoint.svelte";
 </script>
 

@@ -8,6 +8,7 @@
 
   export let variant: "solid" | "outlined" | "NeoExpertise" | "MoonKnight";
   export let label = "";
+  export let classname = "";
 
   let focused = false;
 
@@ -162,7 +163,7 @@
 <button
   class={`variant-${variant} ${
     variant === "MoonKnight" && `personality-${personality}`
-  }`}
+  } ${classname}`}
   on:click={handleClick}
 >
   {#if variant === "NeoExpertise"}
@@ -222,6 +223,7 @@
   button {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--size-100);
 
     color: var(--color-gray-100);
