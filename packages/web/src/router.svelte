@@ -1,20 +1,16 @@
 <script lang="ts">
   import Router from "svelte-spa-router";
-  import { wrap } from "svelte-spa-router/wrap";
 
+  import Home from "./pages/home.svelte";
+  import Login from "./pages/auth/login.svelte";
+  import Register from "./pages/auth/register.svelte";
   import StyleGuide from "./pages/style-guide.svelte";
   import NotFound from "./pages/not-found.svelte";
 
   const routes = {
-    "/": wrap({
-      asyncComponent: () => import("./pages/home.svelte"),
-    }),
-    "/login": wrap({
-      asyncComponent: () => import("./pages/auth/login.svelte"),
-    }),
-    "/register": wrap({
-      asyncComponent: () => import("./pages/auth/register.svelte"),
-    }),
+    "/": Home,
+    "/login": Login,
+    "/register": Register,
     "/style-guide": StyleGuide,
     "*": NotFound,
   };

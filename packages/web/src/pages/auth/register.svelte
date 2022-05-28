@@ -2,7 +2,7 @@
   import type { User } from "../../@types/auth";
   import { replace } from "svelte-spa-router";
   import { nanoid } from "nanoid";
-  import { generatePassword } from "@password-generator/core";
+  import { generatePassword, symbols } from "@password-generator/core";
 
   import { UserStore } from "../../store/user";
 
@@ -13,6 +13,7 @@
   import Button from "../../components/button/index.svelte";
 
   import Footer from "../../components/footer/index.svelte";
+  import StyleGuide from "../style-guide.svelte";
 
   let usernameInput: any;
   let emailInput: any;
@@ -29,11 +30,18 @@
   let validations: boolean[] = [];
 
   function validatePassword(password: string) {
+    let hasSymbols = false;
+    symbols.forEach((symbol) => {
+      if (password.includes(symbol)) {
+        hasSymbols = true;
+        return;
+      }
+    });
     validations = [
       password.length > 5,
       password.search(/[A-Z]/) > -1,
       password.search(/[0-9]/) > -1,
-      password.search(/[$&+,:;=?@#]/) > -1,
+      hasSymbols,
     ];
 
     // @ts-ignore
@@ -179,16 +187,20 @@
         validatePassword(detail.value);
       }}
       on:blur={() => {
-        validations = [];
-        suggestPassword = "";
+        if (password) {
+          suggestPassword = "";
+          return;
+        }
       }}
       on:focus={() => {
         // suggest password
-        if (password === "") {
+        if (password === "" && !suggestPassword) {
           suggestPassword = generatePassword({
             length: 20,
           });
           return;
+        } else {
+          suggestPassword = "";
         }
       }}
       classname={strength > 3 ? "valid" : ""}
@@ -198,21 +210,23 @@
       variant="primary"
     />
 
-    {#if !!suggestPassword}
-      <button
-        on:click={() => {
-          // use suggested password
-          passwordInput.setValue(suggestPassword);
-          validatePassword(suggestPassword);
-          suggestPassword = "";
-        }}
-        class="suggest-password-box"
-      >
-        <small>Use suggested password</small>
+    <button
+      on:click={() => {
+        // use suggested password
+        validatePassword(suggestPassword);
+        passwordInput.setValue(suggestPassword);
 
-        <small>{suggestPassword}</small>
-      </button>
-    {/if}
+        suggestPassword = generatePassword({
+          length: 20,
+        });
+      }}
+      id={suggestPassword ? "" : "hide"}
+      class="suggest-password-box"
+    >
+      <small>Use suggested password</small>
+
+      <small>{suggestPassword}</small>
+    </button>
 
     <div class="strength">
       <span class="bar bar-1" class:bar-show={strength > 0} />
@@ -251,7 +265,86 @@
       <Button on:click={handleLoginNeoExpertise} variant="NeoExpertise" />
     </header>
 
-    <Button variant="MoonKnight" />
+    <Button
+      variant="MoonKnight"
+      runAtClick={({ personality, colors }) => {
+        const suggestPasswordBox = document.querySelector(
+          ".suggest-password-box"
+        );
+
+        const inputs = document.querySelectorAll("input");
+
+        inputs.forEach((input) => {
+          // @ts-ignore
+          // prettier-ignore
+          const div = input.parentElement.previousElementSibling.parentElement;
+          if (!div) {
+            return;
+          }
+
+          if (personality === "jake") {
+            div.style.setProperty("--accent-color", "var(--color-gray-700)");
+            div.style.setProperty(
+              "--placeholder-color",
+              "var(--color-gray-800)"
+            );
+            div.style.setProperty(
+              "--foreground-color",
+              "var(--color-gray-900)"
+            );
+          } else if (personality === "steven") {
+            div.style.setProperty("--accent-color", "var(--color-gray-100)");
+            div.style.setProperty(
+              "--placeholder-color",
+              "var(--color-gray-700)"
+            );
+            div.style.setProperty(
+              "--foreground-color",
+              "var(--color-gray-900)"
+            );
+          } else if (personality === "marc") {
+            div.style.setProperty("--accent-color", "var(--color-blue-400)");
+            div.style.setProperty(
+              "--placeholder-color",
+              "var(--color-blue-700)"
+            );
+            div.style.setProperty(
+              "--foreground-color",
+              "var(--color-blue-900)"
+            );
+          }
+        });
+
+        if (suggestPasswordBox === null) {
+          return;
+        }
+
+        console.log(
+          window
+            .getComputedStyle(suggestPasswordBox)
+            .getPropertyValue("--my-accent-color")
+        );
+        if (personality === "jake") {
+          // @ts-ignore
+          suggestPasswordBox.style.setProperty(
+            "--my-accent-color",
+            "var(--color-gray-700)"
+          );
+        } else if (personality === "steven") {
+          // @ts-ignore
+          suggestPasswordBox.style.setProperty(
+            "--my-accent-color",
+            "var(--color-primary-400)"
+          );
+        } else if (personality === "marc") {
+          // @ts-ignore
+          suggestPasswordBox.style.setProperty(
+            "--my-accent-color",
+            "var(--color-blue-400)"
+          );
+        }
+      }}
+    />
 
     <Link href="/login">Already has an account?</Link>
   </section>
@@ -328,12 +421,18 @@
     background: transparent;
     padding: var(--size-100);
 
+    --my-accent-color: var(--color-primary-400);
+
     border: 4px solid var(--color-gray-100);
 
     transform: translateY(-15px);
 
+    &#hide {
+      display: none;
+    }
+
     &:hover {
-      border-color: var(--color-primary-400);
+      border-color: var(--my-accent-color);
     }
 
     > small {

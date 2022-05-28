@@ -4,17 +4,6 @@
 
   const dispatch = createEventDispatcher();
 
-  import NeoExpertiseX from "./neo-expertise-x.svelte";
-
-  export let variant: "solid" | "outlined" | "NeoExpertise" | "MoonKnight";
-  export let label = "";
-  export let classname = "";
-  export let disabled = false;
-
-  let focused = false;
-
-  let personality: string = "steven";
-
   const colors = {
     startFillGradient: "hsl(260, 8%, 78%)",
     endFillGradient: "hsl(260, 8%, 30%)",
@@ -22,6 +11,27 @@
     startStrokeGradient: "hsl(260, 8%, 30%)",
     endStrokeGradient: "hsl(260, 8%, 70%)",
   };
+
+  import NeoExpertiseX from "./neo-expertise-x.svelte";
+
+  export let variant: "solid" | "outlined" | "NeoExpertise" | "MoonKnight";
+  export let label = "";
+  export let classname = "";
+  export let disabled = false;
+  type clickFunction = ({}: {
+    personality: string;
+    colors: {
+      color: string;
+      background: string;
+      "border-color"?: string;
+    };
+  }) => void;
+
+  export let runAtClick: clickFunction = () => {};
+
+  let focused = false;
+
+  let personality: string = "steven";
 
   function MoonKnightSwitchAnimation(callback: Function) {
     const blackPanel = document.createElement("div");
@@ -39,11 +49,10 @@
     document.body.appendChild(blackPanel);
 
     // animation here
-    const switchAudio = new Audio("/PasswordGenerator/switching-effect.mp3");
-    console.log(switchAudio.duration);
-    switchAudio.currentTime = 1;
+    // const switchAudio = new Audio("/PasswordGenerator/switching-effect.mp3");
+    // switchAudio.currentTime = 1;
 
-    switchAudio.play();
+    // switchAudio.play();
     blackPanel.style.zIndex = "100";
     setTimeout(() => {
       blackPanel.style.background = "#000000";
@@ -90,10 +99,10 @@
                               document.body.removeChild(blackPanel);
                               document.body.style.overflow = "auto";
 
-                              const manWithoutLove = new Audio(
-                                "/PasswordGenerator/man-without-love.mp3"
-                              );
-                              manWithoutLove.play();
+                              // const manWithoutLove = new Audio(
+                              //   "/PasswordGenerator/man-without-love.mp3"
+                              // );
+                              // manWithoutLove.play();
                             }, 500);
                           }, 130);
                         }, 66);
@@ -136,6 +145,21 @@
   }
 
   function sortRandomPersonality(rng: number) {
+    if (
+      (rng === 0 && personality === "marc") ||
+      (rng === 1 && personality === "jake") ||
+      (rng === 2 && personality === "steven")
+    ) {
+      // sort again
+      sortRandomPersonality(
+        generateRandomNumber({
+          min: 0,
+          max: 1,
+        })
+      );
+      return;
+    }
+
     if (rng === 0) {
       // marc
       PaintMarcButton();
@@ -172,21 +196,39 @@
         const rng = RNG();
 
         // sort jake or marc
-        if (
-          (rng === 0 && personality === "marc") ||
-          (rng === 1 && personality === "jake") ||
-          (rng === 2 && personality === "steven")
-        ) {
-          // sort again
-          sortRandomPersonality(RNG());
-          return;
-        }
 
         sortRandomPersonality(rng);
+        // &.personality-steven {
+        //   color: var(--color-gray-900);
+        //   background: var(--color-gray-100);
+        // }
+        // /* background: var(--color-gray-900); */
+
+        // &.personality-jake {
+        //   color: var(--color-gray-100);
+        //   border-color: var(--color-gray-700);
+        //   background: var(--color-gray-900);
+        // }
+
+        // &.personality-marc {
+        //   color: var(--color-gray-100);
+        //   border-color: var(--color-blue-400);
+        //   background: var(--color-blue-900);
+        // }
+        runAtClick({
+          personality,
+          colors: {
+            color: "",
+            background: "",
+            "border-color": "",
+          },
+        });
       }, 1700);
     }
 
-    dispatch("click");
+    dispatch("click", {
+      colors,
+    });
   }
 </script>
 
