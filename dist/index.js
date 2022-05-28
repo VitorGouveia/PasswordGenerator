@@ -1008,7 +1008,7 @@ var require_register_svelte = __commonJS((exports) => {
         t8 = space();
         li3 = element("li");
         t9 = text(t9_value);
-        t10 = text(" must contain one of $&+,:;=?@#");
+        t10 = text(" must contain one of [!@#$%&*()-_]");
         attr(ul, "class", "svelte-yxpbub");
       },
       m(target, anchor) {
