@@ -5598,7 +5598,7 @@ function create_fragment23(ctx) {
       t4 = space();
       create_component(button4.$$.fragment);
       attr(a0, "target", "_blank");
-      attr(a0, "href", "https://www.figma.com/file/JOp7LjI8QWZPL0GTLE4BPX/PasswordGenerator?node-id=8%3A10");
+      attr(a0, "href", "https://www.figma.com/file/pJyx0DbawEh9lk2nZKapXp/PasswordGenerator");
       attr(a1, "target", "_blank");
       attr(a1, "href", "https://github.com/vitorGouveia/PasswordGenerator");
       attr(a2, "target", "_blank");
