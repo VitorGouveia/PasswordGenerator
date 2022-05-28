@@ -15,7 +15,7 @@
 <footer>
   <a
     target="_blank"
-    href="https://www.figma.com/file/JOp7LjI8QWZPL0GTLE4BPX/PasswordGenerator?node-id=8%3A10"
+    href="https://www.figma.com/file/pJyx0DbawEh9lk2nZKapXp/PasswordGenerator"
   >
     <Button classname="svg-button" variant="outlined">
       <Figma />
