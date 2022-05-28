@@ -204,6 +204,39 @@
 
 <section>
   <h2 style="color: #C5C2CB;" id="creator">
+    <strong>Colaborators</strong>
+  </h2>
+
+  <div>
+    <p style="color: #AEAAB6;">I thank everybody that colaborated to this project:</p>
+    <table>
+      <tr>
+        <td align="center">
+          <a href="http://github.com/vitorGouveia">
+            <img src="https://avatars.githubusercontent.com/u/61664367?v=4" width="100px" ><br>
+            <sub>
+              <b>Me</b>
+            </sub>
+          </a>
+        </td>
+        <td align="center">
+          <a href="http://github.com/AtomicFeasT">
+            <img src="https://avatars.githubusercontent.com/u/69481863?v=4" width="100px" ><br>
+            <sub>
+              <b>AtomicFeasT</b>
+            </sub>
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<br />
+<br />
+
+<section>
+  <h2 style="color: #C5C2CB;" id="creator">
     <strong>Creator</strong>
   </h2>
 
