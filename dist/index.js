@@ -1584,6 +1584,7 @@ var require_register_svelte = __commonJS((exports) => {
     };
     const blur_handler = () => {
       $$invalidate(8, validations = []);
+      $$invalidate(9, suggestPassword = "");
     };
     const focus_handler = () => {
       if (password === "") {
