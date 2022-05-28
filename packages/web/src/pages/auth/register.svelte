@@ -226,7 +226,9 @@
         <li>{validations[0] ? "✔️" : "❌"} must be at least 5 characters</li>
         <li>{validations[1] ? "✔️" : "❌"} must contain a capital letter</li>
         <li>{validations[2] ? "✔️" : "❌"} must contain a number</li>
-        <li>{validations[3] ? "✔️" : "❌"} must contain one of $&+,:;=?@#</li>
+        <li>
+          {validations[3] ? "✔️" : "❌"} must contain one of [!@#$%&*()-_]
+        </li>
       </ul>
     {/if}
 
