@@ -36,7 +36,7 @@ var require_home_svelte = __commonJS((exports) => {
       }
     };
   }
-  function create_default_slot_3(ctx) {
+  function create_default_slot_32(ctx) {
     let t0;
     let t1_value = ctx[0]?.username + "";
     let t1;
@@ -137,7 +137,7 @@ var require_home_svelte = __commonJS((exports) => {
       }
     };
   }
-  function create_fragment23(ctx) {
+  function create_fragment26(ctx) {
     let title_value;
     let t0;
     let main;
@@ -167,7 +167,7 @@ var require_home_svelte = __commonJS((exports) => {
     heading0 = new heading_svelte_default({
       props: {
         variant: "title",
-        $$slots: {default: [create_default_slot_3]},
+        $$slots: {default: [create_default_slot_32]},
         $$scope: {ctx}
       }
     });
@@ -346,7 +346,7 @@ var require_home_svelte = __commonJS((exports) => {
   var Home = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance14, create_fragment23, safe_not_equal, {});
+      init(this, options, instance14, create_fragment26, safe_not_equal, {});
     }
   };
   var home_svelte_default = Home;
@@ -358,7 +358,7 @@ var require_login_svelte = __commonJS((exports) => {
   __export(exports, {
     default: () => login_svelte_default
   });
-  function create_default_slot_4(ctx) {
+  function create_default_slot_42(ctx) {
     let t;
     return {
       c() {
@@ -391,7 +391,7 @@ var require_login_svelte = __commonJS((exports) => {
       }
     };
   }
-  function create_default_slot_3(ctx) {
+  function create_default_slot_32(ctx) {
     let t0;
     let t1;
     function select_block_type(ctx2, dirty) {
@@ -487,7 +487,7 @@ var require_login_svelte = __commonJS((exports) => {
       }
     };
   }
-  function create_fragment23(ctx) {
+  function create_fragment26(ctx) {
     let t0;
     let main;
     let header0;
@@ -524,14 +524,14 @@ var require_login_svelte = __commonJS((exports) => {
     heading0 = new heading_svelte_default({
       props: {
         variant: "title",
-        $$slots: {default: [create_default_slot_4]},
+        $$slots: {default: [create_default_slot_42]},
         $$scope: {ctx}
       }
     });
     heading1 = new heading_svelte_default({
       props: {
         variant: "paragraph",
-        $$slots: {default: [create_default_slot_3]},
+        $$slots: {default: [create_default_slot_32]},
         $$scope: {ctx}
       }
     });
@@ -885,7 +885,7 @@ var require_login_svelte = __commonJS((exports) => {
   var Login = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance14, create_fragment23, safe_not_equal, {});
+      init(this, options, instance14, create_fragment26, safe_not_equal, {});
     }
   };
   var login_svelte_default = Login;
@@ -897,7 +897,7 @@ var require_register_svelte = __commonJS((exports) => {
   __export(exports, {
     default: () => register_svelte_default
   });
-  function create_default_slot_3(ctx) {
+  function create_default_slot_32(ctx) {
     let t;
     return {
       c() {
@@ -1075,7 +1075,7 @@ var require_register_svelte = __commonJS((exports) => {
       }
     };
   }
-  function create_fragment23(ctx) {
+  function create_fragment26(ctx) {
     let t0;
     let main;
     let header0;
@@ -1124,7 +1124,7 @@ var require_register_svelte = __commonJS((exports) => {
     heading0 = new heading_svelte_default({
       props: {
         variant: "title",
-        $$slots: {default: [create_default_slot_3]},
+        $$slots: {default: [create_default_slot_32]},
         $$scope: {ctx}
       }
     });
@@ -1627,7 +1627,7 @@ var require_register_svelte = __commonJS((exports) => {
   var Register = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance14, create_fragment23, safe_not_equal, {});
+      init(this, options, instance14, create_fragment26, safe_not_equal, {});
     }
   };
   var register_svelte_default = Register;
@@ -2016,7 +2016,7 @@ function make_dirty(component, i) {
   }
   component.$$.dirty[i / 31 | 0] |= 1 << i % 31;
 }
-function init(component, options, instance14, create_fragment23, not_equal2, props, append_styles2, dirty = [-1]) {
+function init(component, options, instance14, create_fragment26, not_equal2, props, append_styles2, dirty = [-1]) {
   const parent_component = current_component;
   set_current_component(component);
   const $$ = component.$$ = {
@@ -2052,7 +2052,7 @@ function init(component, options, instance14, create_fragment23, not_equal2, pro
   $$.update();
   ready = true;
   run_all($$.before_update);
-  $$.fragment = create_fragment23 ? create_fragment23($$.ctx) : false;
+  $$.fragment = create_fragment26 ? create_fragment26($$.ctx) : false;
   if (options.target) {
     if (options.hydrate) {
       const nodes = children(options.target);
@@ -3458,7 +3458,7 @@ var Not_found = class extends SvelteComponent {
 var not_found_svelte_default = Not_found;
 
 // dist/dist/router.svelte.js
-function create_fragment21(ctx) {
+function create_fragment24(ctx) {
   let router;
   let current;
   router = new svelte_spa_router_default({props: {routes: ctx[0]}});
@@ -4971,8 +4971,92 @@ var Button = class extends SvelteComponent {
 };
 var index_svelte_default = Button;
 
-// dist/dist/components/footer/assets/flag.svelte.js
+// dist/dist/components/footer/assets/figma.svelte.js
 function create_fragment17(ctx) {
+  let svg;
+  let g;
+  let path0;
+  let path1;
+  let path2;
+  let path3;
+  let path4;
+  let defs;
+  let clipPath;
+  let rect;
+  return {
+    c() {
+      svg = svg_element("svg");
+      g = svg_element("g");
+      path0 = svg_element("path");
+      path1 = svg_element("path");
+      path2 = svg_element("path");
+      path3 = svg_element("path");
+      path4 = svg_element("path");
+      defs = svg_element("defs");
+      clipPath = svg_element("clipPath");
+      rect = svg_element("rect");
+      attr(path0, "d", "M2.08337 2.29171C2.08337 1.90493 2.23702 1.534 2.51051 1.26051C2.784 0.987019 3.15493 0.833374 3.54171 0.833374H5.00004V3.75004H3.54171C3.15493 3.75004 2.784 3.5964 2.51051 3.3229C2.23702 3.04941 2.08337 2.67848 2.08337 2.29171Z");
+      attr(path0, "stroke", "#C5C2CB");
+      attr(path0, "stroke-linecap", "round");
+      attr(path0, "stroke-linejoin", "round");
+      attr(path1, "d", "M5 0.833374H6.45833C6.64984 0.833374 6.83948 0.871095 7.01641 0.944383C7.19335 1.01767 7.35411 1.12509 7.48953 1.26051C7.62495 1.39593 7.73237 1.55669 7.80566 1.73363C7.87895 1.91056 7.91667 2.1002 7.91667 2.29171C7.91667 2.48322 7.87895 2.67285 7.80566 2.84979C7.73237 3.02672 7.62495 3.18749 7.48953 3.3229C7.35411 3.45832 7.19335 3.56574 7.01641 3.63903C6.83948 3.71232 6.64984 3.75004 6.45833 3.75004H5V0.833374Z");
+      attr(path1, "stroke", "#C5C2CB");
+      attr(path1, "stroke-linecap", "round");
+      attr(path1, "stroke-linejoin", "round");
+      attr(path2, "d", "M5 5.20833C5 5.01682 5.03772 4.82719 5.11101 4.65025C5.1843 4.47332 5.29172 4.31255 5.42714 4.17714C5.56255 4.04172 5.72332 3.9343 5.90025 3.86101C6.07719 3.78772 6.26682 3.75 6.45833 3.75C6.64984 3.75 6.83948 3.78772 7.01641 3.86101C7.19335 3.9343 7.35411 4.04172 7.48953 4.17714C7.62495 4.31255 7.73237 4.47332 7.80566 4.65025C7.87895 4.82719 7.91667 5.01682 7.91667 5.20833C7.91667 5.39984 7.87895 5.58948 7.80566 5.76641C7.73237 5.94335 7.62495 6.10411 7.48953 6.23953C7.35411 6.37495 7.19335 6.48237 7.01641 6.55566C6.83948 6.62895 6.64984 6.66667 6.45833 6.66667C6.26682 6.66667 6.07719 6.62895 5.90025 6.55566C5.72332 6.48237 5.56255 6.37495 5.42714 6.23953C5.29172 6.10411 5.1843 5.94335 5.11101 5.76641C5.03772 5.58948 5 5.39984 5 5.20833V5.20833Z");
+      attr(path2, "stroke", "#C5C2CB");
+      attr(path2, "stroke-linecap", "round");
+      attr(path2, "stroke-linejoin", "round");
+      attr(path3, "d", "M2.08337 8.12496C2.08337 7.73819 2.23702 7.36725 2.51051 7.09376C2.784 6.82027 3.15493 6.66663 3.54171 6.66663H5.00004V8.12496C5.00004 8.51173 4.8464 8.88267 4.5729 9.15616C4.29941 9.42965 3.92848 9.58329 3.54171 9.58329C3.15493 9.58329 2.784 9.42965 2.51051 9.15616C2.23702 8.88267 2.08337 8.51173 2.08337 8.12496Z");
+      attr(path3, "stroke", "#C5C2CB");
+      attr(path3, "stroke-linecap", "round");
+      attr(path3, "stroke-linejoin", "round");
+      attr(path4, "d", "M2.08337 5.20833C2.08337 4.82156 2.23702 4.45063 2.51051 4.17714C2.784 3.90365 3.15493 3.75 3.54171 3.75H5.00004V6.66667H3.54171C3.15493 6.66667 2.784 6.51302 2.51051 6.23953C2.23702 5.96604 2.08337 5.59511 2.08337 5.20833Z");
+      attr(path4, "stroke", "#C5C2CB");
+      attr(path4, "stroke-linecap", "round");
+      attr(path4, "stroke-linejoin", "round");
+      attr(g, "clip-path", "url(#clip0_111_156)");
+      attr(rect, "width", "10");
+      attr(rect, "height", "10");
+      attr(rect, "fill", "white");
+      attr(clipPath, "id", "clip0_111_156");
+      attr(svg, "width", "10");
+      attr(svg, "height", "10");
+      attr(svg, "viewBox", "0 0 10 10");
+      attr(svg, "fill", "none");
+      attr(svg, "xmlns", "http://www.w3.org/2000/svg");
+    },
+    m(target, anchor) {
+      insert(target, svg, anchor);
+      append(svg, g);
+      append(g, path0);
+      append(g, path1);
+      append(g, path2);
+      append(g, path3);
+      append(g, path4);
+      append(svg, defs);
+      append(defs, clipPath);
+      append(clipPath, rect);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(svg);
+    }
+  };
+}
+var Figma = class extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, null, create_fragment17, safe_not_equal, {});
+  }
+};
+var figma_svelte_default = Figma;
+
+// dist/dist/components/footer/assets/flag.svelte.js
+function create_fragment18(ctx) {
   let svg;
   let path0;
   let path1;
@@ -5012,13 +5096,13 @@ function create_fragment17(ctx) {
 var Flag = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment17, safe_not_equal, {});
+    init(this, options, null, create_fragment18, safe_not_equal, {});
   }
 };
 var flag_svelte_default = Flag;
 
 // dist/dist/components/footer/assets/github.svelte.js
-function create_fragment18(ctx) {
+function create_fragment19(ctx) {
   let svg;
   let g;
   let path;
@@ -5068,13 +5152,66 @@ function create_fragment18(ctx) {
 var Github = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment18, safe_not_equal, {});
+    init(this, options, null, create_fragment19, safe_not_equal, {});
   }
 };
 var github_svelte_default = Github;
 
+// dist/dist/components/footer/assets/layers.svelte.js
+function create_fragment20(ctx) {
+  let svg;
+  let path0;
+  let path1;
+  let path2;
+  return {
+    c() {
+      svg = svg_element("svg");
+      path0 = svg_element("path");
+      path1 = svg_element("path");
+      path2 = svg_element("path");
+      attr(path0, "d", "M5.00004 0.833374L0.833374 2.91671L5.00004 5.00004L9.16671 2.91671L5.00004 0.833374Z");
+      attr(path0, "stroke", "#C5C2CB");
+      attr(path0, "stroke-linecap", "round");
+      attr(path0, "stroke-linejoin", "round");
+      attr(path1, "d", "M0.833374 7.08337L5.00004 9.16671L9.16671 7.08337");
+      attr(path1, "stroke", "#C5C2CB");
+      attr(path1, "stroke-linecap", "round");
+      attr(path1, "stroke-linejoin", "round");
+      attr(path2, "d", "M0.833374 5L5.00004 7.08333L9.16671 5");
+      attr(path2, "stroke", "#C5C2CB");
+      attr(path2, "stroke-linecap", "round");
+      attr(path2, "stroke-linejoin", "round");
+      attr(svg, "width", "10");
+      attr(svg, "height", "10");
+      attr(svg, "viewBox", "0 0 10 10");
+      attr(svg, "fill", "none");
+      attr(svg, "xmlns", "http://www.w3.org/2000/svg");
+    },
+    m(target, anchor) {
+      insert(target, svg, anchor);
+      append(svg, path0);
+      append(svg, path1);
+      append(svg, path2);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(svg);
+    }
+  };
+}
+var Layers = class extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, null, create_fragment20, safe_not_equal, {});
+  }
+};
+var layers_svelte_default = Layers;
+
 // dist/dist/components/footer/assets/moon.svelte.js
-function create_fragment19(ctx) {
+function create_fragment21(ctx) {
   let svg;
   let path;
   return {
@@ -5107,13 +5244,100 @@ function create_fragment19(ctx) {
 var Moon = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment19, safe_not_equal, {});
+    init(this, options, null, create_fragment21, safe_not_equal, {});
   }
 };
 var moon_svelte_default = Moon;
 
+// dist/dist/components/footer/assets/package.svelte.js
+function create_fragment22(ctx) {
+  let svg;
+  let path0;
+  let path1;
+  let path2;
+  let path3;
+  return {
+    c() {
+      svg = svg_element("svg");
+      path0 = svg_element("path");
+      path1 = svg_element("path");
+      path2 = svg_element("path");
+      path3 = svg_element("path");
+      attr(path0, "d", "M6.875 3.91665L3.125 1.75415");
+      attr(path0, "stroke", "#C5C2CB");
+      attr(path0, "stroke-linecap", "round");
+      attr(path0, "stroke-linejoin", "round");
+      attr(path1, "d", "M8.75 6.66671V3.33337C8.74985 3.18724 8.71127 3.04371 8.63814 2.91719C8.56501 2.79067 8.45989 2.68561 8.33333 2.61254L5.41667 0.945874C5.28998 0.872734 5.14628 0.834229 5 0.834229C4.85372 0.834229 4.71002 0.872734 4.58333 0.945874L1.66667 2.61254C1.54011 2.68561 1.43499 2.79067 1.36186 2.91719C1.28873 3.04371 1.25015 3.18724 1.25 3.33337V6.66671C1.25015 6.81284 1.28873 6.95637 1.36186 7.08289C1.43499 7.20941 1.54011 7.31447 1.66667 7.38754L4.58333 9.05421C4.71002 9.12735 4.85372 9.16585 5 9.16585C5.14628 9.16585 5.28998 9.12735 5.41667 9.05421L8.33333 7.38754C8.45989 7.31447 8.56501 7.20941 8.63814 7.08289C8.71127 6.95637 8.74985 6.81284 8.75 6.66671Z");
+      attr(path1, "stroke", "#C5C2CB");
+      attr(path1, "stroke-linecap", "round");
+      attr(path1, "stroke-linejoin", "round");
+      attr(path2, "d", "M1.36255 2.90002L5.00005 5.00419L8.63755 2.90002");
+      attr(path2, "stroke", "#C5C2CB");
+      attr(path2, "stroke-linecap", "round");
+      attr(path2, "stroke-linejoin", "round");
+      attr(path3, "d", "M5 9.2V5");
+      attr(path3, "stroke", "#C5C2CB");
+      attr(path3, "stroke-linecap", "round");
+      attr(path3, "stroke-linejoin", "round");
+      attr(svg, "width", "10");
+      attr(svg, "height", "10");
+      attr(svg, "viewBox", "0 0 10 10");
+      attr(svg, "fill", "none");
+      attr(svg, "xmlns", "http://www.w3.org/2000/svg");
+    },
+    m(target, anchor) {
+      insert(target, svg, anchor);
+      append(svg, path0);
+      append(svg, path1);
+      append(svg, path2);
+      append(svg, path3);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(svg);
+    }
+  };
+}
+var Package = class extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, null, create_fragment22, safe_not_equal, {});
+  }
+};
+var package_svelte_default = Package;
+
 // dist/dist/components/footer/index.svelte.js
-function create_default_slot_2(ctx) {
+function create_default_slot_6(ctx) {
+  let figma;
+  let current;
+  figma = new figma_svelte_default({});
+  return {
+    c() {
+      create_component(figma.$$.fragment);
+    },
+    m(target, anchor) {
+      mount_component(figma, target, anchor);
+      current = true;
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(figma.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(figma.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(figma, detaching);
+    }
+  };
+}
+function create_default_slot_5(ctx) {
   let flag;
   let current;
   flag = new flag_svelte_default({});
@@ -5140,7 +5364,7 @@ function create_default_slot_2(ctx) {
     }
   };
 }
-function create_default_slot_1(ctx) {
+function create_default_slot_4(ctx) {
   let github;
   let current;
   github = new github_svelte_default({});
@@ -5164,6 +5388,101 @@ function create_default_slot_1(ctx) {
     },
     d(detaching) {
       destroy_component(github, detaching);
+    }
+  };
+}
+function create_default_slot_3(ctx) {
+  let package_1;
+  let current;
+  package_1 = new package_svelte_default({});
+  return {
+    c() {
+      create_component(package_1.$$.fragment);
+    },
+    m(target, anchor) {
+      mount_component(package_1, target, anchor);
+      current = true;
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(package_1.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(package_1.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(package_1, detaching);
+    }
+  };
+}
+function create_default_slot_2(ctx) {
+  let layers;
+  let current;
+  layers = new layers_svelte_default({});
+  return {
+    c() {
+      create_component(layers.$$.fragment);
+    },
+    m(target, anchor) {
+      mount_component(layers, target, anchor);
+      current = true;
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(layers.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(layers.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(layers, detaching);
+    }
+  };
+}
+function create_default_slot_1(ctx) {
+  let button;
+  let current;
+  button = new index_svelte_default({
+    props: {
+      classname: "svg-button",
+      variant: "outlined",
+      $$slots: {default: [create_default_slot_2]},
+      $$scope: {ctx}
+    }
+  });
+  return {
+    c() {
+      create_component(button.$$.fragment);
+    },
+    m(target, anchor) {
+      mount_component(button, target, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const button_changes = {};
+      if (dirty & 1) {
+        button_changes.$$scope = {dirty, ctx: ctx2};
+      }
+      button.$set(button_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(button.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(button.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(button, detaching);
     }
   };
 }
@@ -5194,28 +5513,37 @@ function create_default_slot2(ctx) {
     }
   };
 }
-function create_fragment20(ctx) {
+function create_fragment23(ctx) {
   let footer;
+  let a0;
   let button0;
   let t0;
-  let a;
   let button1;
   let t1;
+  let a1;
   let button2;
+  let t2;
+  let a2;
+  let button3;
+  let t3;
+  let link2;
+  let t4;
+  let button4;
   let current;
   button0 = new index_svelte_default({
     props: {
       classname: "svg-button",
       variant: "outlined",
-      $$slots: {default: [create_default_slot_2]},
+      $$slots: {default: [create_default_slot_6]},
       $$scope: {ctx}
     }
   });
   button1 = new index_svelte_default({
     props: {
+      disabled: true,
       classname: "svg-button",
       variant: "outlined",
-      $$slots: {default: [create_default_slot_1]},
+      $$slots: {default: [create_default_slot_5]},
       $$scope: {ctx}
     }
   });
@@ -5223,32 +5551,76 @@ function create_fragment20(ctx) {
     props: {
       classname: "svg-button",
       variant: "outlined",
+      $$slots: {default: [create_default_slot_4]},
+      $$scope: {ctx}
+    }
+  });
+  button3 = new index_svelte_default({
+    props: {
+      classname: "svg-button",
+      variant: "outlined",
+      $$slots: {default: [create_default_slot_3]},
+      $$scope: {ctx}
+    }
+  });
+  link2 = new link_svelte_default({
+    props: {
+      href: "/style-guide",
+      $$slots: {default: [create_default_slot_1]},
+      $$scope: {ctx}
+    }
+  });
+  button4 = new index_svelte_default({
+    props: {
+      disabled: true,
+      classname: "svg-button",
+      variant: "outlined",
       $$slots: {default: [create_default_slot2]},
       $$scope: {ctx}
     }
   });
-  button2.$on("click", handleThemeChange);
+  button4.$on("click", handleThemeChange);
   return {
     c() {
       footer = element("footer");
+      a0 = element("a");
       create_component(button0.$$.fragment);
       t0 = space();
-      a = element("a");
       create_component(button1.$$.fragment);
       t1 = space();
+      a1 = element("a");
       create_component(button2.$$.fragment);
-      attr(a, "target", "_blank");
-      attr(a, "href", "https://github.com/vitorGouveia/PasswordGenerator");
+      t2 = space();
+      a2 = element("a");
+      create_component(button3.$$.fragment);
+      t3 = space();
+      create_component(link2.$$.fragment);
+      t4 = space();
+      create_component(button4.$$.fragment);
+      attr(a0, "target", "_blank");
+      attr(a0, "href", "https://www.figma.com/file/JOp7LjI8QWZPL0GTLE4BPX/PasswordGenerator?node-id=8%3A10");
+      attr(a1, "target", "_blank");
+      attr(a1, "href", "https://github.com/vitorGouveia/PasswordGenerator");
+      attr(a2, "target", "_blank");
+      attr(a2, "href", "https://vitorgouveia.github.io/PasswordGenerator/storybook");
       attr(footer, "class", "svelte-zt2tq8");
     },
     m(target, anchor) {
       insert(target, footer, anchor);
-      mount_component(button0, footer, null);
+      append(footer, a0);
+      mount_component(button0, a0, null);
       append(footer, t0);
-      append(footer, a);
-      mount_component(button1, a, null);
+      mount_component(button1, footer, null);
       append(footer, t1);
-      mount_component(button2, footer, null);
+      append(footer, a1);
+      mount_component(button2, a1, null);
+      append(footer, t2);
+      append(footer, a2);
+      mount_component(button3, a2, null);
+      append(footer, t3);
+      mount_component(link2, footer, null);
+      append(footer, t4);
+      mount_component(button4, footer, null);
       current = true;
     },
     p(ctx2, [dirty]) {
@@ -5267,6 +5639,21 @@ function create_fragment20(ctx) {
         button2_changes.$$scope = {dirty, ctx: ctx2};
       }
       button2.$set(button2_changes);
+      const button3_changes = {};
+      if (dirty & 1) {
+        button3_changes.$$scope = {dirty, ctx: ctx2};
+      }
+      button3.$set(button3_changes);
+      const link_changes = {};
+      if (dirty & 1) {
+        link_changes.$$scope = {dirty, ctx: ctx2};
+      }
+      link2.$set(link_changes);
+      const button4_changes = {};
+      if (dirty & 1) {
+        button4_changes.$$scope = {dirty, ctx: ctx2};
+      }
+      button4.$set(button4_changes);
     },
     i(local) {
       if (current)
@@ -5274,12 +5661,18 @@ function create_fragment20(ctx) {
       transition_in(button0.$$.fragment, local);
       transition_in(button1.$$.fragment, local);
       transition_in(button2.$$.fragment, local);
+      transition_in(button3.$$.fragment, local);
+      transition_in(link2.$$.fragment, local);
+      transition_in(button4.$$.fragment, local);
       current = true;
     },
     o(local) {
       transition_out(button0.$$.fragment, local);
       transition_out(button1.$$.fragment, local);
       transition_out(button2.$$.fragment, local);
+      transition_out(button3.$$.fragment, local);
+      transition_out(link2.$$.fragment, local);
+      transition_out(button4.$$.fragment, local);
       current = false;
     },
     d(detaching) {
@@ -5288,6 +5681,9 @@ function create_fragment20(ctx) {
       destroy_component(button0);
       destroy_component(button1);
       destroy_component(button2);
+      destroy_component(button3);
+      destroy_component(link2);
+      destroy_component(button4);
     }
   };
 }
@@ -5296,7 +5692,7 @@ function handleThemeChange() {
 var Footer = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment20, safe_not_equal, {});
+    init(this, options, null, create_fragment23, safe_not_equal, {});
   }
 };
 var index_svelte_default2 = Footer;
@@ -5321,13 +5717,13 @@ function instance12($$self) {
 var Router_1 = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance12, create_fragment21, safe_not_equal, {});
+    init(this, options, instance12, create_fragment24, safe_not_equal, {});
   }
 };
 var router_svelte_default = Router_1;
 
 // dist/dist/app.svelte.js
-function create_fragment22(ctx) {
+function create_fragment25(ctx) {
   let router;
   let current;
   router = new router_svelte_default({});
@@ -5366,7 +5762,7 @@ function instance13($$self) {
 var App = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance13, create_fragment22, safe_not_equal, {});
+    init(this, options, instance13, create_fragment25, safe_not_equal, {});
   }
 };
 var app_svelte_default = App;
