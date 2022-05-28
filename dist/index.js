@@ -18,40 +18,335 @@ var require_home_svelte = __commonJS((exports) => {
   __export(exports, {
     default: () => home_svelte_default
   });
-  function create_fragment22(ctx) {
-    let main;
+  function create_else_block2(ctx) {
+    return {c: noop, m: noop, d: noop};
+  }
+  function create_if_block5(ctx) {
+    let br;
     return {
       c() {
-        main = element("main");
-        main.textContent = "my page";
+        br = element("br");
       },
       m(target, anchor) {
-        insert(target, main, anchor);
+        insert(target, br, anchor);
       },
-      p: noop,
-      i: noop,
-      o: noop,
       d(detaching) {
         if (detaching)
-          detach(main);
+          detach(br);
       }
     };
   }
-  function instance13($$self) {
+  function create_default_slot_3(ctx) {
+    let t0;
+    let t1_value = ctx[0]?.username + "";
+    let t1;
+    let t2;
+    let t3;
+    function select_block_type(ctx2, dirty) {
+      if (ctx2[1] === true)
+        return create_if_block5;
+      return create_else_block2;
+    }
+    let current_block_type = select_block_type(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        t0 = text("Hey @");
+        t1 = text(t1_value);
+        t2 = text(",");
+        if_block.c();
+        t3 = text(" how are you doing?");
+      },
+      m(target, anchor) {
+        insert(target, t0, anchor);
+        insert(target, t1, anchor);
+        insert(target, t2, anchor);
+        if_block.m(target, anchor);
+        insert(target, t3, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & 1 && t1_value !== (t1_value = ctx2[0]?.username + ""))
+          set_data(t1, t1_value);
+        if (current_block_type !== (current_block_type = select_block_type(ctx2, dirty))) {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(t3.parentNode, t3);
+          }
+        }
+      },
+      d(detaching) {
+        if (detaching)
+          detach(t0);
+        if (detaching)
+          detach(t1);
+        if (detaching)
+          detach(t2);
+        if_block.d(detaching);
+        if (detaching)
+          detach(t3);
+      }
+    };
+  }
+  function create_default_slot_22(ctx) {
+    let t;
+    return {
+      c() {
+        t = text("At least that's what you told me your name was.");
+      },
+      m(target, anchor) {
+        insert(target, t, anchor);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(t);
+      }
+    };
+  }
+  function create_default_slot_12(ctx) {
+    let t;
+    return {
+      c() {
+        t = text("Your accounts");
+      },
+      m(target, anchor) {
+        insert(target, t, anchor);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(t);
+      }
+    };
+  }
+  function create_default_slot3(ctx) {
+    let button;
+    return {
+      c() {
+        button = element("button");
+        button.textContent = "+ add another account";
+        attr(button, "class", "dotted svelte-18u451q");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching)
+          detach(button);
+      }
+    };
+  }
+  function create_fragment23(ctx) {
+    let title_value;
+    let t0;
+    let main;
+    let header;
+    let heading0;
+    let t1;
+    let heading1;
+    let t2;
+    let section;
+    let heading2;
+    let t3;
+    let accountlist;
+    let t4;
+    let link2;
+    let t5;
+    let footer;
+    let button0;
+    let t6;
+    let t7_value = ctx[0]?.username + "";
+    let t7;
+    let t8;
+    let a;
+    let current;
+    let mounted;
+    let dispose;
+    document.title = title_value = "@" + ctx[0]?.username + "'s Homepage - PasswordGenerator";
+    heading0 = new heading_svelte_default({
+      props: {
+        variant: "title",
+        $$slots: {default: [create_default_slot_3]},
+        $$scope: {ctx}
+      }
+    });
+    heading1 = new heading_svelte_default({
+      props: {
+        variant: "paragraph",
+        $$slots: {default: [create_default_slot_22]},
+        $$scope: {ctx}
+      }
+    });
+    heading2 = new heading_svelte_default({
+      props: {
+        variant: "suptitle",
+        $$slots: {default: [create_default_slot_12]},
+        $$scope: {ctx}
+      }
+    });
+    accountlist = new list_svelte_default({});
+    accountlist.$on("change", ctx[2]);
+    link2 = new link_svelte_default({
+      props: {
+        href: "/register",
+        $$slots: {default: [create_default_slot3]},
+        $$scope: {ctx}
+      }
+    });
+    return {
+      c() {
+        t0 = space();
+        main = element("main");
+        header = element("header");
+        create_component(heading0.$$.fragment);
+        t1 = space();
+        create_component(heading1.$$.fragment);
+        t2 = space();
+        section = element("section");
+        create_component(heading2.$$.fragment);
+        t3 = space();
+        create_component(accountlist.$$.fragment);
+        t4 = space();
+        create_component(link2.$$.fragment);
+        t5 = space();
+        footer = element("footer");
+        button0 = element("button");
+        t6 = text("Enter the matrix as @");
+        t7 = text(t7_value);
+        t8 = space();
+        a = element("a");
+        a.innerHTML = `<button class="blue-pill svelte-18u451q">Continue your normal life</button>`;
+        attr(header, "class", "svelte-18u451q");
+        attr(section, "class", "accounts-section svelte-18u451q");
+        attr(button0, "class", "red-pill svelte-18u451q");
+        attr(a, "target", "_blank");
+        attr(a, "href", "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        attr(footer, "class", "svelte-18u451q");
+        attr(main, "class", "svelte-18u451q");
+      },
+      m(target, anchor) {
+        insert(target, t0, anchor);
+        insert(target, main, anchor);
+        append(main, header);
+        mount_component(heading0, header, null);
+        append(header, t1);
+        mount_component(heading1, header, null);
+        append(main, t2);
+        append(main, section);
+        mount_component(heading2, section, null);
+        append(section, t3);
+        mount_component(accountlist, section, null);
+        append(section, t4);
+        mount_component(link2, section, null);
+        append(main, t5);
+        append(main, footer);
+        append(footer, button0);
+        append(button0, t6);
+        append(button0, t7);
+        append(footer, t8);
+        append(footer, a);
+        current = true;
+        if (!mounted) {
+          dispose = listen(button0, "click", ctx[3]);
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if ((!current || dirty & 1) && title_value !== (title_value = "@" + ctx2[0]?.username + "'s Homepage - PasswordGenerator")) {
+          document.title = title_value;
+        }
+        const heading0_changes = {};
+        if (dirty & 35) {
+          heading0_changes.$$scope = {dirty, ctx: ctx2};
+        }
+        heading0.$set(heading0_changes);
+        const heading1_changes = {};
+        if (dirty & 32) {
+          heading1_changes.$$scope = {dirty, ctx: ctx2};
+        }
+        heading1.$set(heading1_changes);
+        const heading2_changes = {};
+        if (dirty & 32) {
+          heading2_changes.$$scope = {dirty, ctx: ctx2};
+        }
+        heading2.$set(heading2_changes);
+        const link_changes = {};
+        if (dirty & 32) {
+          link_changes.$$scope = {dirty, ctx: ctx2};
+        }
+        link2.$set(link_changes);
+        if ((!current || dirty & 1) && t7_value !== (t7_value = ctx2[0]?.username + ""))
+          set_data(t7, t7_value);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(heading0.$$.fragment, local);
+        transition_in(heading1.$$.fragment, local);
+        transition_in(heading2.$$.fragment, local);
+        transition_in(accountlist.$$.fragment, local);
+        transition_in(link2.$$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(heading0.$$.fragment, local);
+        transition_out(heading1.$$.fragment, local);
+        transition_out(heading2.$$.fragment, local);
+        transition_out(accountlist.$$.fragment, local);
+        transition_out(link2.$$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching)
+          detach(t0);
+        if (detaching)
+          detach(main);
+        destroy_component(heading0);
+        destroy_component(heading1);
+        destroy_component(heading2);
+        destroy_component(accountlist);
+        destroy_component(link2);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function instance14($$self, $$props, $$invalidate) {
     onMount(() => {
-      UserStore.subscribe((user) => {
-        if (!user) {
+      UserStore.subscribe((user2) => {
+        if (!user2) {
           console.log("[warning]: not logged in, redirecting to login page.");
           replace("/login");
         }
       });
     });
-    return [];
+    let user = null;
+    UserStore.subscribe((u) => {
+      $$invalidate(0, user = u);
+    });
+    let breakText = true;
+    const mql = window.matchMedia("(max-width: 744px)");
+    mql.addEventListener("change", (event) => {
+      if (event.matches) {
+        $$invalidate(1, breakText = false);
+        return;
+      }
+      $$invalidate(1, breakText = true);
+    });
+    const change_handler = (event) => {
+      $$invalidate(0, user = event.detail.user);
+      const loggedUsers = JSON.parse(localStorage.getItem("@password-generator:logged-user-id") || "[]");
+      const newLoggedUsers = [...new Set([user?.id, ...loggedUsers])];
+      localStorage.setItem("@password-generator:logged-user-id", JSON.stringify(newLoggedUsers));
+    };
+    const click_handler = () => alert("feature not developed yet :(");
+    return [user, breakText, change_handler, click_handler];
   }
   var Home = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance13, create_fragment22, safe_not_equal, {});
+      init(this, options, instance14, create_fragment23, safe_not_equal, {});
     }
   };
   var home_svelte_default = Home;
@@ -81,7 +376,7 @@ var require_login_svelte = __commonJS((exports) => {
   function create_else_block2(ctx) {
     return {c: noop, m: noop, d: noop};
   }
-  function create_if_block4(ctx) {
+  function create_if_block5(ctx) {
     let br;
     return {
       c() {
@@ -101,7 +396,7 @@ var require_login_svelte = __commonJS((exports) => {
     let t1;
     function select_block_type(ctx2, dirty) {
       if (ctx2[5] === true)
-        return create_if_block4;
+        return create_if_block5;
       return create_else_block2;
     }
     let current_block_type = select_block_type(ctx, -1);
@@ -166,7 +461,7 @@ var require_login_svelte = __commonJS((exports) => {
       }
     };
   }
-  function create_default_slot2(ctx) {
+  function create_default_slot3(ctx) {
     let t0;
     let br;
     let t1;
@@ -192,7 +487,7 @@ var require_login_svelte = __commonJS((exports) => {
       }
     };
   }
-  function create_fragment22(ctx) {
+  function create_fragment23(ctx) {
     let t0;
     let main;
     let header0;
@@ -306,7 +601,7 @@ var require_login_svelte = __commonJS((exports) => {
     link1 = new link_svelte_default({
       props: {
         href: "/register",
-        $$slots: {default: [create_default_slot2]},
+        $$slots: {default: [create_default_slot3]},
         $$scope: {ctx}
       }
     });
@@ -494,7 +789,7 @@ var require_login_svelte = __commonJS((exports) => {
       alert("hmm, can't recognise it.");
     }
   }
-  function instance13($$self, $$props, $$invalidate) {
+  function instance14($$self, $$props, $$invalidate) {
     let loginInput;
     let passwordInput;
     let login;
@@ -533,7 +828,11 @@ var require_login_svelte = __commonJS((exports) => {
         return;
       }
       if (rememberUser) {
-        localStorage.setItem("@password-generator:logged-user-id", user.id);
+        const loggedUsers = JSON.parse(localStorage.getItem("@password-generator:logged-user-id") || "[]");
+        const newLoggedUsers = [
+          ...new Set([user === null || user === void 0 ? void 0 : user.id, ...loggedUsers])
+        ];
+        localStorage.setItem("@password-generator:logged-user-id", JSON.stringify(newLoggedUsers));
       }
       UserStore.set(user);
       replace("/");
@@ -543,7 +842,9 @@ var require_login_svelte = __commonJS((exports) => {
     mql.addEventListener("change", (event) => {
       if (event.matches) {
         $$invalidate(5, breakText = false);
+        return;
       }
+      $$invalidate(5, breakText = true);
     });
     function inputfield0_binding($$value) {
       binding_callbacks[$$value ? "unshift" : "push"](() => {
@@ -584,7 +885,7 @@ var require_login_svelte = __commonJS((exports) => {
   var Login = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance13, create_fragment22, safe_not_equal, {});
+      init(this, options, instance14, create_fragment23, safe_not_equal, {});
     }
   };
   var login_svelte_default = Login;
@@ -626,6 +927,81 @@ var require_register_svelte = __commonJS((exports) => {
       }
     };
   }
+  function create_if_block5(ctx) {
+    let ul;
+    let li0;
+    let t0_value = (ctx[8][0] ? "✔️" : "❌") + "";
+    let t0;
+    let t1;
+    let t2;
+    let li1;
+    let t3_value = (ctx[8][1] ? "✔️" : "❌") + "";
+    let t3;
+    let t4;
+    let t5;
+    let li2;
+    let t6_value = (ctx[8][2] ? "✔️" : "❌") + "";
+    let t6;
+    let t7;
+    let t8;
+    let li3;
+    let t9_value = (ctx[8][3] ? "✔️" : "❌") + "";
+    let t9;
+    let t10;
+    return {
+      c() {
+        ul = element("ul");
+        li0 = element("li");
+        t0 = text(t0_value);
+        t1 = text(" must be at least 5 characters");
+        t2 = space();
+        li1 = element("li");
+        t3 = text(t3_value);
+        t4 = text(" must contain a capital letter");
+        t5 = space();
+        li2 = element("li");
+        t6 = text(t6_value);
+        t7 = text(" must contain a number");
+        t8 = space();
+        li3 = element("li");
+        t9 = text(t9_value);
+        t10 = text(" must contain one of $&+,:;=?@#");
+        attr(ul, "class", "svelte-z3shr2");
+      },
+      m(target, anchor) {
+        insert(target, ul, anchor);
+        append(ul, li0);
+        append(li0, t0);
+        append(li0, t1);
+        append(ul, t2);
+        append(ul, li1);
+        append(li1, t3);
+        append(li1, t4);
+        append(ul, t5);
+        append(ul, li2);
+        append(li2, t6);
+        append(li2, t7);
+        append(ul, t8);
+        append(ul, li3);
+        append(li3, t9);
+        append(li3, t10);
+      },
+      p(ctx2, dirty) {
+        if (dirty & 256 && t0_value !== (t0_value = (ctx2[8][0] ? "✔️" : "❌") + ""))
+          set_data(t0, t0_value);
+        if (dirty & 256 && t3_value !== (t3_value = (ctx2[8][1] ? "✔️" : "❌") + ""))
+          set_data(t3, t3_value);
+        if (dirty & 256 && t6_value !== (t6_value = (ctx2[8][2] ? "✔️" : "❌") + ""))
+          set_data(t6, t6_value);
+        if (dirty & 256 && t9_value !== (t9_value = (ctx2[8][3] ? "✔️" : "❌") + ""))
+          set_data(t9, t9_value);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(ul);
+      }
+    };
+  }
   function create_default_slot_12(ctx) {
     let t;
     return {
@@ -641,7 +1017,7 @@ var require_register_svelte = __commonJS((exports) => {
       }
     };
   }
-  function create_default_slot2(ctx) {
+  function create_default_slot3(ctx) {
     let t;
     return {
       c() {
@@ -656,7 +1032,7 @@ var require_register_svelte = __commonJS((exports) => {
       }
     };
   }
-  function create_fragment22(ctx) {
+  function create_fragment23(ctx) {
     let t0;
     let main;
     let header0;
@@ -674,21 +1050,31 @@ var require_register_svelte = __commonJS((exports) => {
     let inputfield2;
     let updating_value_2;
     let t5;
-    let div;
-    let checkbox;
+    let div0;
+    let span0;
     let t6;
-    let heading2;
+    let span1;
     let t7;
+    let span2;
+    let t8;
+    let span3;
+    let t9;
+    let t10;
+    let div1;
+    let checkbox;
+    let t11;
+    let heading2;
+    let t12;
     let section;
     let header1;
     let button0;
-    let t8;
+    let t13;
     let button1;
-    let t9;
+    let t14;
     let button2;
-    let t10;
+    let t15;
     let link2;
-    let t11;
+    let t16;
     let footer;
     let current;
     heading0 = new heading_svelte_default({
@@ -706,7 +1092,7 @@ var require_register_svelte = __commonJS((exports) => {
       }
     });
     function inputfield0_value_binding(value) {
-      ctx[9](value);
+      ctx[12](value);
     }
     let inputfield0_props = {
       label: "Username",
@@ -717,12 +1103,13 @@ var require_register_svelte = __commonJS((exports) => {
       inputfield0_props.value = ctx[3];
     }
     inputfield0 = new field_svelte_default({props: inputfield0_props});
-    ctx[8](inputfield0);
+    ctx[11](inputfield0);
     binding_callbacks.push(() => bind(inputfield0, "value", inputfield0_value_binding));
     function inputfield1_value_binding(value) {
-      ctx[11](value);
+      ctx[14](value);
     }
     let inputfield1_props = {
+      type: "email",
       label: "E-mail",
       placeholder: "ex: vitorneves.gouveia10@gmail.com",
       variant: "primary"
@@ -731,12 +1118,13 @@ var require_register_svelte = __commonJS((exports) => {
       inputfield1_props.value = ctx[4];
     }
     inputfield1 = new field_svelte_default({props: inputfield1_props});
-    ctx[10](inputfield1);
+    ctx[13](inputfield1);
     binding_callbacks.push(() => bind(inputfield1, "value", inputfield1_value_binding));
     function inputfield2_value_binding(value) {
-      ctx[13](value);
+      ctx[16](value);
     }
     let inputfield2_props = {
+      classname: ctx[7] > 3 ? "valid" : "",
       type: "password",
       label: "Password",
       placeholder: "*******************",
@@ -746,12 +1134,14 @@ var require_register_svelte = __commonJS((exports) => {
       inputfield2_props.value = ctx[5];
     }
     inputfield2 = new field_svelte_default({props: inputfield2_props});
-    ctx[12](inputfield2);
+    ctx[15](inputfield2);
     binding_callbacks.push(() => bind(inputfield2, "value", inputfield2_value_binding));
+    inputfield2.$on("input", ctx[17]);
+    let if_block = ctx[8].length && create_if_block5(ctx);
     checkbox = new checkbox_svelte_default({
       props: {checked: ctx[6]}
     });
-    checkbox.$on("click", ctx[14]);
+    checkbox.$on("click", ctx[18]);
     heading2 = new heading_svelte_default({
       props: {
         label: "Remember me",
@@ -760,19 +1150,20 @@ var require_register_svelte = __commonJS((exports) => {
     });
     button0 = new index_svelte_default({
       props: {
+        disabled: ctx[7] < 4,
         variant: "solid",
         $$slots: {default: [create_default_slot_12]},
         $$scope: {ctx}
       }
     });
-    button0.$on("click", ctx[7]);
+    button0.$on("click", ctx[10]);
     button1 = new index_svelte_default({props: {variant: "NeoExpertise"}});
     button1.$on("click", handleLoginNeoExpertise);
     button2 = new index_svelte_default({props: {variant: "MoonKnight"}});
     link2 = new link_svelte_default({
       props: {
         href: "/login",
-        $$slots: {default: [create_default_slot2]},
+        $$slots: {default: [create_default_slot3]},
         $$scope: {ctx}
       }
     });
@@ -793,29 +1184,50 @@ var require_register_svelte = __commonJS((exports) => {
         t4 = space();
         create_component(inputfield2.$$.fragment);
         t5 = space();
-        div = element("div");
-        create_component(checkbox.$$.fragment);
+        div0 = element("div");
+        span0 = element("span");
         t6 = space();
-        create_component(heading2.$$.fragment);
+        span1 = element("span");
         t7 = space();
+        span2 = element("span");
+        t8 = space();
+        span3 = element("span");
+        t9 = space();
+        if (if_block)
+          if_block.c();
+        t10 = space();
+        div1 = element("div");
+        create_component(checkbox.$$.fragment);
+        t11 = space();
+        create_component(heading2.$$.fragment);
+        t12 = space();
         section = element("section");
         header1 = element("header");
         create_component(button0.$$.fragment);
-        t8 = space();
+        t13 = space();
         create_component(button1.$$.fragment);
-        t9 = space();
+        t14 = space();
         create_component(button2.$$.fragment);
-        t10 = space();
+        t15 = space();
         create_component(link2.$$.fragment);
-        t11 = space();
+        t16 = space();
         create_component(footer.$$.fragment);
         document.title = "Login Into Your Account - PasswordGenerator";
-        attr(header0, "class", "svelte-1vss2m9");
-        attr(div, "class", "remember-section svelte-1vss2m9");
-        attr(form, "class", "svelte-1vss2m9");
-        attr(header1, "class", "svelte-1vss2m9");
-        attr(section, "class", "cta-section svelte-1vss2m9");
-        attr(main, "class", "svelte-1vss2m9");
+        attr(header0, "class", "svelte-z3shr2");
+        attr(span0, "class", "bar bar-1 svelte-z3shr2");
+        toggle_class(span0, "bar-show", ctx[7] > 0);
+        attr(span1, "class", "bar bar-2 svelte-z3shr2");
+        toggle_class(span1, "bar-show", ctx[7] > 1);
+        attr(span2, "class", "bar bar-3 svelte-z3shr2");
+        toggle_class(span2, "bar-show", ctx[7] > 2);
+        attr(span3, "class", "bar bar-4 svelte-z3shr2");
+        toggle_class(span3, "bar-show", ctx[7] > 3);
+        attr(div0, "class", "strength svelte-z3shr2");
+        attr(div1, "class", "remember-section svelte-z3shr2");
+        attr(form, "class", "svelte-z3shr2");
+        attr(header1, "class", "svelte-z3shr2");
+        attr(section, "class", "cta-section svelte-z3shr2");
+        attr(main, "class", "svelte-z3shr2");
       },
       m(target, anchor) {
         insert(target, t0, anchor);
@@ -832,32 +1244,44 @@ var require_register_svelte = __commonJS((exports) => {
         append(form, t4);
         mount_component(inputfield2, form, null);
         append(form, t5);
-        append(form, div);
-        mount_component(checkbox, div, null);
-        append(div, t6);
-        mount_component(heading2, div, null);
-        append(main, t7);
+        append(form, div0);
+        append(div0, span0);
+        append(div0, t6);
+        append(div0, span1);
+        append(div0, t7);
+        append(div0, span2);
+        append(div0, t8);
+        append(div0, span3);
+        append(form, t9);
+        if (if_block)
+          if_block.m(form, null);
+        append(form, t10);
+        append(form, div1);
+        mount_component(checkbox, div1, null);
+        append(div1, t11);
+        mount_component(heading2, div1, null);
+        append(main, t12);
         append(main, section);
         append(section, header1);
         mount_component(button0, header1, null);
-        append(header1, t8);
+        append(header1, t13);
         mount_component(button1, header1, null);
-        append(section, t9);
+        append(section, t14);
         mount_component(button2, section, null);
-        append(section, t10);
+        append(section, t15);
         mount_component(link2, section, null);
-        append(main, t11);
+        append(main, t16);
         mount_component(footer, main, null);
         current = true;
       },
       p(ctx2, [dirty]) {
         const heading0_changes = {};
-        if (dirty & 131072) {
+        if (dirty & 524288) {
           heading0_changes.$$scope = {dirty, ctx: ctx2};
         }
         heading0.$set(heading0_changes);
         const heading1_changes = {};
-        if (dirty & 131072) {
+        if (dirty & 524288) {
           heading1_changes.$$scope = {dirty, ctx: ctx2};
         }
         heading1.$set(heading1_changes);
@@ -876,23 +1300,51 @@ var require_register_svelte = __commonJS((exports) => {
         }
         inputfield1.$set(inputfield1_changes);
         const inputfield2_changes = {};
+        if (dirty & 128)
+          inputfield2_changes.classname = ctx2[7] > 3 ? "valid" : "";
         if (!updating_value_2 && dirty & 32) {
           updating_value_2 = true;
           inputfield2_changes.value = ctx2[5];
           add_flush_callback(() => updating_value_2 = false);
         }
         inputfield2.$set(inputfield2_changes);
+        if (dirty & 128) {
+          toggle_class(span0, "bar-show", ctx2[7] > 0);
+        }
+        if (dirty & 128) {
+          toggle_class(span1, "bar-show", ctx2[7] > 1);
+        }
+        if (dirty & 128) {
+          toggle_class(span2, "bar-show", ctx2[7] > 2);
+        }
+        if (dirty & 128) {
+          toggle_class(span3, "bar-show", ctx2[7] > 3);
+        }
+        if (ctx2[8].length) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block5(ctx2);
+            if_block.c();
+            if_block.m(form, t10);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
         const checkbox_changes = {};
         if (dirty & 64)
           checkbox_changes.checked = ctx2[6];
         checkbox.$set(checkbox_changes);
         const button0_changes = {};
-        if (dirty & 131072) {
+        if (dirty & 128)
+          button0_changes.disabled = ctx2[7] < 4;
+        if (dirty & 524288) {
           button0_changes.$$scope = {dirty, ctx: ctx2};
         }
         button0.$set(button0_changes);
         const link_changes = {};
-        if (dirty & 131072) {
+        if (dirty & 524288) {
           link_changes.$$scope = {dirty, ctx: ctx2};
         }
         link2.$set(link_changes);
@@ -936,12 +1388,14 @@ var require_register_svelte = __commonJS((exports) => {
           detach(main);
         destroy_component(heading0);
         destroy_component(heading1);
-        ctx[8](null);
+        ctx[11](null);
         destroy_component(inputfield0);
-        ctx[10](null);
+        ctx[13](null);
         destroy_component(inputfield1);
-        ctx[12](null);
+        ctx[15](null);
         destroy_component(inputfield2);
+        if (if_block)
+          if_block.d();
         destroy_component(checkbox);
         destroy_component(heading2);
         destroy_component(button0);
@@ -955,7 +1409,7 @@ var require_register_svelte = __commonJS((exports) => {
   function handleLoginNeoExpertise() {
     console.log("");
   }
-  function instance13($$self, $$props, $$invalidate) {
+  function instance14($$self, $$props, $$invalidate) {
     let usernameInput;
     let emailInput;
     let passwordInput;
@@ -963,6 +1417,17 @@ var require_register_svelte = __commonJS((exports) => {
     let email;
     let password;
     let rememberUser = true;
+    let strength = 0;
+    let validations = [];
+    function validatePassword(password2) {
+      $$invalidate(8, validations = [
+        password2.length > 5,
+        password2.search(/[A-Z]/) > -1,
+        password2.search(/[0-9]/) > -1,
+        password2.search(/[$&+,:;=?@#]/) > -1
+      ]);
+      $$invalidate(7, strength = validations.reduce((acc, cur) => acc + cur, 0));
+    }
     function handleSubmitForm() {
       if (!username) {
         usernameInput.setError({message: "hey, fill me please"});
@@ -983,11 +1448,18 @@ var require_register_svelte = __commonJS((exports) => {
         usernameInput.setError({
           message: "sorry, a user already took that username."
         });
+        return;
       }
       const userAlreadyExists = users.find((user2) => user2.email === email);
       if (userAlreadyExists) {
         emailInput.setError({
           message: "uhm a user already took that e-mail. Haven't you already created your account by any chance?"
+        });
+        return;
+      }
+      if (strength < 4) {
+        passwordInput.setError({
+          message: "Wait, how did you?? Did you really hack the page?"
         });
         return;
       }
@@ -999,15 +1471,15 @@ var require_register_svelte = __commonJS((exports) => {
       };
       localStorage.setItem("@password-generator:users", JSON.stringify([user, ...users]));
       UserStore.set(user);
+      if (rememberUser) {
+        const loggedUsers = JSON.parse(localStorage.getItem("@password-generator:logged-user-id") || "[]");
+        const newLoggedUsers = [
+          ...new Set([user === null || user === void 0 ? void 0 : user.id, ...loggedUsers])
+        ];
+        localStorage.setItem("@password-generator:logged-user-id", JSON.stringify(newLoggedUsers));
+      }
       replace("/");
     }
-    let breakText = true;
-    const mql = window.matchMedia("(max-width: 744px)");
-    mql.addEventListener("change", (event) => {
-      if (event.matches) {
-        breakText = false;
-      }
-    });
     function inputfield0_binding($$value) {
       binding_callbacks[$$value ? "unshift" : "push"](() => {
         usernameInput = $$value;
@@ -1038,6 +1510,7 @@ var require_register_svelte = __commonJS((exports) => {
       password = value;
       $$invalidate(5, password);
     }
+    const input_handler = ({detail}) => validatePassword(detail.value);
     const click_handler = (event) => $$invalidate(6, rememberUser = event.detail.value);
     return [
       usernameInput,
@@ -1047,6 +1520,9 @@ var require_register_svelte = __commonJS((exports) => {
       email,
       password,
       rememberUser,
+      strength,
+      validations,
+      validatePassword,
       handleSubmitForm,
       inputfield0_binding,
       inputfield0_value_binding,
@@ -1054,13 +1530,14 @@ var require_register_svelte = __commonJS((exports) => {
       inputfield1_value_binding,
       inputfield2_binding,
       inputfield2_value_binding,
+      input_handler,
       click_handler
     ];
   }
   var Register = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance13, create_fragment22, safe_not_equal, {});
+      init(this, options, instance14, create_fragment23, safe_not_equal, {});
     }
   };
   var register_svelte_default = Register;
@@ -1077,7 +1554,7 @@ var MODE = "production";
 var NODE_ENV = "production";
 var SSR = false;
 
-// dist/_snowpack/pkg/common/index-11698622.js
+// dist/_snowpack/pkg/common/index-b776d7c5.js
 function noop() {
 }
 function assign(tar, src) {
@@ -1099,14 +1576,6 @@ function is_function(thing) {
 }
 function safe_not_equal(a, b) {
   return a != a ? b == b : a !== b || (a && typeof a === "object" || typeof a === "function");
-}
-var src_url_equal_anchor;
-function src_url_equal(element_src, url) {
-  if (!src_url_equal_anchor) {
-    src_url_equal_anchor = document.createElement("a");
-  }
-  src_url_equal_anchor.href = url;
-  return element_src === src_url_equal_anchor.href;
 }
 function is_empty(obj) {
   return Object.keys(obj).length === 0;
@@ -1231,6 +1700,9 @@ function set_data(text2, data) {
   data = "" + data;
   if (text2.wholeText !== data)
     text2.data = data;
+}
+function toggle_class(element2, name, toggle) {
+  element2.classList[toggle ? "add" : "remove"](name);
 }
 function custom_event(type, detail, {bubbles = false, cancelable = false} = {}) {
   const e = document.createEvent("CustomEvent");
@@ -1454,7 +1926,7 @@ function make_dirty(component, i) {
   }
   component.$$.dirty[i / 31 | 0] |= 1 << i % 31;
 }
-function init(component, options, instance13, create_fragment22, not_equal2, props, append_styles2, dirty = [-1]) {
+function init(component, options, instance14, create_fragment23, not_equal2, props, append_styles2, dirty = [-1]) {
   const parent_component = current_component;
   set_current_component(component);
   const $$ = component.$$ = {
@@ -1477,7 +1949,7 @@ function init(component, options, instance13, create_fragment22, not_equal2, pro
   };
   append_styles2 && append_styles2($$.root);
   let ready = false;
-  $$.ctx = instance13 ? instance13(component, options.props || {}, (i, ret, ...rest) => {
+  $$.ctx = instance14 ? instance14(component, options.props || {}, (i, ret, ...rest) => {
     const value = rest.length ? rest[0] : ret;
     if ($$.ctx && not_equal2($$.ctx[i], $$.ctx[i] = value)) {
       if (!$$.skip_bound && $$.bound[i])
@@ -1490,7 +1962,7 @@ function init(component, options, instance13, create_fragment22, not_equal2, pro
   $$.update();
   ready = true;
   run_all($$.before_update);
-  $$.fragment = create_fragment22 ? create_fragment22($$.ctx) : false;
+  $$.fragment = create_fragment23 ? create_fragment23($$.ctx) : false;
   if (options.target) {
     if (options.hydrate) {
       const nodes = children(options.target);
@@ -1529,7 +2001,7 @@ var SvelteComponent = class {
   }
 };
 
-// dist/_snowpack/pkg/common/index-6bcd21d6.js
+// dist/_snowpack/pkg/common/index-5f6649a1.js
 var subscriber_queue = [];
 function readable(value, start2) {
   return {
@@ -2896,7 +3368,7 @@ var Not_found = class extends SvelteComponent {
 var not_found_svelte_default = Not_found;
 
 // dist/dist/router.svelte.js
-function create_fragment20(ctx) {
+function create_fragment21(ctx) {
   let router;
   let current;
   router = new svelte_spa_router_default({props: {routes: ctx[0]}});
@@ -3087,399 +3559,8 @@ var Heading = class extends SvelteComponent {
 };
 var heading_svelte_default = Heading;
 
-// dist/_snowpack/pkg/nanoid.js
-var nanoid = (size = 21) => crypto.getRandomValues(new Uint8Array(size)).reduce((id, byte) => {
-  byte &= 63;
-  if (byte < 36) {
-    id += byte.toString(36);
-  } else if (byte < 62) {
-    id += (byte - 26).toString(36).toUpperCase();
-  } else if (byte > 62) {
-    id += "-";
-  } else {
-    id += "_";
-  }
-  return id;
-}, "");
-
-// dist/dist/components/input/assets/eye.svelte.js
-function create_fragment10(ctx) {
-  let svg;
-  let path0;
-  let path1;
-  return {
-    c() {
-      svg = svg_element("svg");
-      path0 = svg_element("path");
-      path1 = svg_element("path");
-      attr(path0, "d", "M1.5 12C1.5 12 5.5 4 12.5 4C19.5 4 23.5 12 23.5 12C23.5 12 19.5 20 12.5 20C5.5 20 1.5 12 1.5 12Z");
-      attr(path0, "stroke", "#9691A1");
-      attr(path0, "stroke-width", "2");
-      attr(path0, "stroke-linecap", "round");
-      attr(path0, "stroke-linejoin", "round");
-      attr(path1, "d", "M12.5 15C14.1569 15 15.5 13.6569 15.5 12C15.5 10.3431 14.1569 9 12.5 9C10.8431 9 9.5 10.3431 9.5 12C9.5 13.6569 10.8431 15 12.5 15Z");
-      attr(path1, "stroke", "#9691A1");
-      attr(path1, "stroke-width", "2");
-      attr(path1, "stroke-linecap", "round");
-      attr(path1, "stroke-linejoin", "round");
-      attr(svg, "width", "25");
-      attr(svg, "height", "24");
-      attr(svg, "viewBox", "0 0 25 24");
-      attr(svg, "fill", "none");
-      attr(svg, "xmlns", "http://www.w3.org/2000/svg");
-    },
-    m(target, anchor) {
-      insert(target, svg, anchor);
-      append(svg, path0);
-      append(svg, path1);
-    },
-    p: noop,
-    i: noop,
-    o: noop,
-    d(detaching) {
-      if (detaching)
-        detach(svg);
-    }
-  };
-}
-var Eye = class extends SvelteComponent {
-  constructor(options) {
-    super();
-    init(this, options, null, create_fragment10, safe_not_equal, {});
-  }
-};
-var eye_svelte_default = Eye;
-
-// dist/dist/components/input/field.svelte.js
-function create_if_block2(ctx) {
-  let button;
-  let eye;
-  let current;
-  let mounted;
-  let dispose;
-  eye = new eye_svelte_default({});
-  return {
-    c() {
-      button = element("button");
-      create_component(eye.$$.fragment);
-      attr(button, "class", "magic-eye svelte-ii8160");
-    },
-    m(target, anchor) {
-      insert(target, button, anchor);
-      mount_component(eye, button, null);
-      current = true;
-      if (!mounted) {
-        dispose = listen(button, "click", ctx[16]);
-        mounted = true;
-      }
-    },
-    p: noop,
-    i(local) {
-      if (current)
-        return;
-      transition_in(eye.$$.fragment, local);
-      current = true;
-    },
-    o(local) {
-      transition_out(eye.$$.fragment, local);
-      current = false;
-    },
-    d(detaching) {
-      if (detaching)
-        detach(button);
-      destroy_component(eye);
-      mounted = false;
-      dispose();
-    }
-  };
-}
-function create_fragment11(ctx) {
-  let div1;
-  let label_1;
-  let t0;
-  let t1;
-  let div0;
-  let input;
-  let t2;
-  let t3;
-  let span;
-  let t4;
-  let t5_value = ctx[3].message + "";
-  let t5;
-  let div1_class_value;
-  let div1_data_errored_value;
-  let current;
-  let mounted;
-  let dispose;
-  let if_block = ctx[12] === "password" && create_if_block2(ctx);
-  return {
-    c() {
-      div1 = element("div");
-      label_1 = element("label");
-      t0 = text(ctx[5]);
-      t1 = space();
-      div0 = element("div");
-      input = element("input");
-      t2 = space();
-      if (if_block)
-        if_block.c();
-      t3 = space();
-      span = element("span");
-      t4 = text("* ");
-      t5 = text(t5_value);
-      attr(label_1, "class", "italic svelte-ii8160");
-      attr(label_1, "for", ctx[8]);
-      attr(input, "id", ctx[8]);
-      attr(input, "type", ctx[0]);
-      attr(input, "placeholder", ctx[6]);
-      input.disabled = ctx[7];
-      attr(input, "class", "svelte-ii8160");
-      attr(div0, "class", "input-inner-wrapper svelte-ii8160");
-      attr(span, "class", "error italic svelte-ii8160");
-      attr(div1, "class", div1_class_value = "" + (null_to_empty(`input-wrapper variant-${ctx[4]}`) + " svelte-ii8160"));
-      attr(div1, "data-focused", ctx[1]);
-      attr(div1, "data-errored", div1_data_errored_value = !!ctx[3].message);
-      attr(div1, "data-success", ctx[2]);
-      attr(div1, "data-disabled", ctx[7]);
-    },
-    m(target, anchor) {
-      insert(target, div1, anchor);
-      append(div1, label_1);
-      append(label_1, t0);
-      append(div1, t1);
-      append(div1, div0);
-      append(div0, input);
-      append(div0, t2);
-      if (if_block)
-        if_block.m(div0, null);
-      append(div1, t3);
-      append(div1, span);
-      append(span, t4);
-      append(span, t5);
-      current = true;
-      if (!mounted) {
-        dispose = [
-          listen(input, "focus", ctx[9]),
-          listen(input, "blur", ctx[10]),
-          listen(input, "input", ctx[11])
-        ];
-        mounted = true;
-      }
-    },
-    p(ctx2, [dirty]) {
-      if (!current || dirty & 32)
-        set_data(t0, ctx2[5]);
-      if (!current || dirty & 1) {
-        attr(input, "type", ctx2[0]);
-      }
-      if (!current || dirty & 64) {
-        attr(input, "placeholder", ctx2[6]);
-      }
-      if (!current || dirty & 128) {
-        input.disabled = ctx2[7];
-      }
-      if (ctx2[12] === "password")
-        if_block.p(ctx2, dirty);
-      if ((!current || dirty & 8) && t5_value !== (t5_value = ctx2[3].message + ""))
-        set_data(t5, t5_value);
-      if (!current || dirty & 16 && div1_class_value !== (div1_class_value = "" + (null_to_empty(`input-wrapper variant-${ctx2[4]}`) + " svelte-ii8160"))) {
-        attr(div1, "class", div1_class_value);
-      }
-      if (!current || dirty & 2) {
-        attr(div1, "data-focused", ctx2[1]);
-      }
-      if (!current || dirty & 8 && div1_data_errored_value !== (div1_data_errored_value = !!ctx2[3].message)) {
-        attr(div1, "data-errored", div1_data_errored_value);
-      }
-      if (!current || dirty & 4) {
-        attr(div1, "data-success", ctx2[2]);
-      }
-      if (!current || dirty & 128) {
-        attr(div1, "data-disabled", ctx2[7]);
-      }
-    },
-    i(local) {
-      if (current)
-        return;
-      transition_in(if_block);
-      current = true;
-    },
-    o(local) {
-      transition_out(if_block);
-      current = false;
-    },
-    d(detaching) {
-      if (detaching)
-        detach(div1);
-      if (if_block)
-        if_block.d();
-      mounted = false;
-      run_all(dispose);
-    }
-  };
-}
-function instance7($$self, $$props, $$invalidate) {
-  const dispatch = createEventDispatcher();
-  let {variant} = $$props;
-  let {label} = $$props;
-  let {placeholder: placeholder2} = $$props;
-  let {disabled = false} = $$props;
-  let {type = "text"} = $$props;
-  let {value = ""} = $$props;
-  let {focused = false} = $$props;
-  let {success = false} = $$props;
-  const id = nanoid(6);
-  let {error = {message: ""}} = $$props;
-  function setError({message}) {
-    $$invalidate(3, error.message = message, error);
-  }
-  function setSuccess() {
-    $$invalidate(2, success = true);
-  }
-  function handleFocus(event) {
-    $$invalidate(2, success = false);
-    $$invalidate(3, error.message = "", error);
-    $$invalidate(1, focused = true);
-    dispatch("focus", event);
-  }
-  function handleBlur() {
-    $$invalidate(2, success = false);
-    $$invalidate(3, error.message = "", error);
-    $$invalidate(1, focused = false);
-    dispatch("blur");
-  }
-  function handleInput(event) {
-    $$invalidate(13, value = event.target.value);
-  }
-  let originalType = type;
-  const click_handler = () => type === "password" ? $$invalidate(0, type = "text") : $$invalidate(0, type = "password");
-  $$self.$$set = ($$props2) => {
-    if ("variant" in $$props2)
-      $$invalidate(4, variant = $$props2.variant);
-    if ("label" in $$props2)
-      $$invalidate(5, label = $$props2.label);
-    if ("placeholder" in $$props2)
-      $$invalidate(6, placeholder2 = $$props2.placeholder);
-    if ("disabled" in $$props2)
-      $$invalidate(7, disabled = $$props2.disabled);
-    if ("type" in $$props2)
-      $$invalidate(0, type = $$props2.type);
-    if ("value" in $$props2)
-      $$invalidate(13, value = $$props2.value);
-    if ("focused" in $$props2)
-      $$invalidate(1, focused = $$props2.focused);
-    if ("success" in $$props2)
-      $$invalidate(2, success = $$props2.success);
-    if ("error" in $$props2)
-      $$invalidate(3, error = $$props2.error);
-  };
-  return [
-    type,
-    focused,
-    success,
-    error,
-    variant,
-    label,
-    placeholder2,
-    disabled,
-    id,
-    handleFocus,
-    handleBlur,
-    handleInput,
-    originalType,
-    value,
-    setError,
-    setSuccess,
-    click_handler
-  ];
-}
-var Field = class extends SvelteComponent {
-  constructor(options) {
-    super();
-    init(this, options, instance7, create_fragment11, safe_not_equal, {
-      variant: 4,
-      label: 5,
-      placeholder: 6,
-      disabled: 7,
-      type: 0,
-      value: 13,
-      focused: 1,
-      success: 2,
-      error: 3,
-      setError: 14,
-      setSuccess: 15
-    });
-  }
-  get setError() {
-    return this.$$.ctx[14];
-  }
-  get setSuccess() {
-    return this.$$.ctx[15];
-  }
-};
-var field_svelte_default = Field;
-
-// dist/dist/components/input/checkbox.svelte.js
-function create_fragment12(ctx) {
-  let button;
-  let div;
-  let mounted;
-  let dispose;
-  return {
-    c() {
-      button = element("button");
-      div = element("div");
-      attr(div, "class", "box svelte-45k4mn");
-      attr(button, "aria-roledescription", "toggle");
-      attr(button, "data-checked", ctx[0]);
-      attr(button, "class", "svelte-45k4mn");
-    },
-    m(target, anchor) {
-      insert(target, button, anchor);
-      append(button, div);
-      if (!mounted) {
-        dispose = listen(button, "click", ctx[1]);
-        mounted = true;
-      }
-    },
-    p(ctx2, [dirty]) {
-      if (dirty & 1) {
-        attr(button, "data-checked", ctx2[0]);
-      }
-    },
-    i: noop,
-    o: noop,
-    d(detaching) {
-      if (detaching)
-        detach(button);
-      mounted = false;
-      dispose();
-    }
-  };
-}
-function instance8($$self, $$props, $$invalidate) {
-  const dispatch = createEventDispatcher();
-  let {checked = false} = $$props;
-  function handleClick() {
-    $$invalidate(0, checked = !checked);
-    dispatch("click", {value: checked});
-  }
-  $$self.$$set = ($$props2) => {
-    if ("checked" in $$props2)
-      $$invalidate(0, checked = $$props2.checked);
-  };
-  return [checked, handleClick];
-}
-var Checkbox = class extends SvelteComponent {
-  constructor(options) {
-    super();
-    init(this, options, instance8, create_fragment12, safe_not_equal, {checked: 0});
-  }
-};
-var checkbox_svelte_default = Checkbox;
-
 // dist/dist/components/link.svelte.js
-function create_fragment13(ctx) {
+function create_fragment10(ctx) {
   let a;
   let t;
   let link_action;
@@ -3545,7 +3626,7 @@ function create_fragment13(ctx) {
     }
   };
 }
-function instance9($$self, $$props, $$invalidate) {
+function instance7($$self, $$props, $$invalidate) {
   let {$$slots: slots = {}, $$scope} = $$props;
   let {href} = $$props;
   let {label = ""} = $$props;
@@ -3565,10 +3646,715 @@ function instance9($$self, $$props, $$invalidate) {
 var Link = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance9, create_fragment13, safe_not_equal, {href: 0, label: 1, active: 2});
+    init(this, options, instance7, create_fragment10, safe_not_equal, {href: 0, label: 1, active: 2});
   }
 };
 var link_svelte_default = Link;
+
+// dist/dist/components/account/list.svelte.js
+function get_each_context4(ctx, list, i) {
+  const child_ctx = ctx.slice();
+  child_ctx[8] = list[i];
+  child_ctx[10] = i;
+  return child_ctx;
+}
+function create_default_slot(ctx) {
+  let t0;
+  let t1;
+  return {
+    c() {
+      t0 = text("Account nº");
+      t1 = text(ctx[10]);
+    },
+    m(target, anchor) {
+      insert(target, t0, anchor);
+      insert(target, t1, anchor);
+    },
+    p: noop,
+    d(detaching) {
+      if (detaching)
+        detach(t0);
+      if (detaching)
+        detach(t1);
+    }
+  };
+}
+function create_if_block2(ctx) {
+  let span;
+  let t0;
+  let t1_value = ctx[0].message + "";
+  let t1;
+  return {
+    c() {
+      span = element("span");
+      t0 = text("* ");
+      t1 = text(t1_value);
+      attr(span, "class", "svelte-1b449ac");
+    },
+    m(target, anchor) {
+      insert(target, span, anchor);
+      append(span, t0);
+      append(span, t1);
+    },
+    p(ctx2, dirty) {
+      if (dirty & 1 && t1_value !== (t1_value = ctx2[0].message + ""))
+        set_data(t1, t1_value);
+    },
+    d(detaching) {
+      if (detaching)
+        detach(span);
+    }
+  };
+}
+function create_each_block4(ctx) {
+  let li;
+  let input;
+  let input_id_value;
+  let input_checked_value;
+  let t0;
+  let div;
+  let t1;
+  let label;
+  let heading;
+  let t2;
+  let small;
+  let t3;
+  let t4_value = ctx[8].username + "";
+  let t4;
+  let label_for_value;
+  let t5;
+  let t6;
+  let current;
+  let mounted;
+  let dispose;
+  function input_handler() {
+    return ctx[4](ctx[8]);
+  }
+  heading = new heading_svelte_default({
+    props: {
+      variant: "paragraph",
+      $$slots: {default: [create_default_slot]},
+      $$scope: {ctx}
+    }
+  });
+  let if_block = ctx[0].id === ctx[8].id && create_if_block2(ctx);
+  return {
+    c() {
+      li = element("li");
+      input = element("input");
+      t0 = space();
+      div = element("div");
+      t1 = space();
+      label = element("label");
+      create_component(heading.$$.fragment);
+      t2 = space();
+      small = element("small");
+      t3 = text("@");
+      t4 = text(t4_value);
+      t5 = space();
+      if (if_block)
+        if_block.c();
+      t6 = space();
+      attr(input, "id", input_id_value = ctx[8].id);
+      input.checked = input_checked_value = ctx[1]?.id === ctx[8].id;
+      attr(input, "type", "radio");
+      attr(input, "for", "account-choice");
+      attr(input, "class", "svelte-1b449ac");
+      attr(div, "class", "checkmark svelte-1b449ac");
+      attr(small, "class", "svelte-1b449ac");
+      attr(label, "for", label_for_value = ctx[8].id);
+      attr(label, "class", "svelte-1b449ac");
+      attr(li, "class", "svelte-1b449ac");
+    },
+    m(target, anchor) {
+      insert(target, li, anchor);
+      append(li, input);
+      append(li, t0);
+      append(li, div);
+      append(li, t1);
+      append(li, label);
+      mount_component(heading, label, null);
+      append(label, t2);
+      append(label, small);
+      append(small, t3);
+      append(small, t4);
+      append(li, t5);
+      if (if_block)
+        if_block.m(li, null);
+      append(li, t6);
+      current = true;
+      if (!mounted) {
+        dispose = listen(input, "input", input_handler);
+        mounted = true;
+      }
+    },
+    p(new_ctx, dirty) {
+      ctx = new_ctx;
+      if (!current || dirty & 2 && input_checked_value !== (input_checked_value = ctx[1]?.id === ctx[8].id)) {
+        input.checked = input_checked_value;
+      }
+      const heading_changes = {};
+      if (dirty & 2048) {
+        heading_changes.$$scope = {dirty, ctx};
+      }
+      heading.$set(heading_changes);
+      if (ctx[0].id === ctx[8].id) {
+        if (if_block) {
+          if_block.p(ctx, dirty);
+        } else {
+          if_block = create_if_block2(ctx);
+          if_block.c();
+          if_block.m(li, t6);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(heading.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(heading.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(li);
+      destroy_component(heading);
+      if (if_block)
+        if_block.d();
+      mounted = false;
+      dispose();
+    }
+  };
+}
+function create_fragment11(ctx) {
+  let ul;
+  let current;
+  let each_value = ctx[2];
+  let each_blocks = [];
+  for (let i = 0; i < each_value.length; i += 1) {
+    each_blocks[i] = create_each_block4(get_each_context4(ctx, each_value, i));
+  }
+  const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
+    each_blocks[i] = null;
+  });
+  return {
+    c() {
+      ul = element("ul");
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        each_blocks[i].c();
+      }
+      attr(ul, "class", "svelte-1b449ac");
+    },
+    m(target, anchor) {
+      insert(target, ul, anchor);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        each_blocks[i].m(ul, null);
+      }
+      current = true;
+    },
+    p(ctx2, [dirty]) {
+      if (dirty & 15) {
+        each_value = ctx2[2];
+        let i;
+        for (i = 0; i < each_value.length; i += 1) {
+          const child_ctx = get_each_context4(ctx2, each_value, i);
+          if (each_blocks[i]) {
+            each_blocks[i].p(child_ctx, dirty);
+            transition_in(each_blocks[i], 1);
+          } else {
+            each_blocks[i] = create_each_block4(child_ctx);
+            each_blocks[i].c();
+            transition_in(each_blocks[i], 1);
+            each_blocks[i].m(ul, null);
+          }
+        }
+        group_outros();
+        for (i = each_value.length; i < each_blocks.length; i += 1) {
+          out(i);
+        }
+        check_outros();
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      for (let i = 0; i < each_value.length; i += 1) {
+        transition_in(each_blocks[i]);
+      }
+      current = true;
+    },
+    o(local) {
+      each_blocks = each_blocks.filter(Boolean);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        transition_out(each_blocks[i]);
+      }
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(ul);
+      destroy_each(each_blocks, detaching);
+    }
+  };
+}
+function instance8($$self, $$props, $$invalidate) {
+  const allUsers = JSON.parse(localStorage.getItem("@password-generator:users") || "[]");
+  const loggedUsers = JSON.parse(localStorage.getItem("@password-generator:logged-user-id") || "[]");
+  let users = [];
+  allUsers.forEach((user) => {
+    if (loggedUsers.includes(user.id)) {
+      users.push(user);
+      return;
+    }
+  });
+  const error = {id: "", message: ""};
+  const dispatch = createEventDispatcher();
+  let storeUser = null;
+  UserStore.subscribe((user) => {
+    $$invalidate(1, storeUser = user);
+  });
+  function handleChangeAccount(userId) {
+    const selectedUser = users.find((user) => user.id === userId);
+    if (!selectedUser) {
+      $$invalidate(0, error.id = userId, error);
+      $$invalidate(0, error.message = "Could not find that user, please refresh the page", error);
+      return;
+    }
+    UserStore.set(selectedUser);
+    dispatch("change", {user: selectedUser});
+  }
+  const input_handler = (user) => handleChangeAccount(user.id);
+  return [error, storeUser, users, handleChangeAccount, input_handler];
+}
+var List = class extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance8, create_fragment11, safe_not_equal, {});
+  }
+};
+var list_svelte_default = List;
+
+// dist/_snowpack/pkg/nanoid.js
+var nanoid = (size = 21) => crypto.getRandomValues(new Uint8Array(size)).reduce((id, byte) => {
+  byte &= 63;
+  if (byte < 36) {
+    id += byte.toString(36);
+  } else if (byte < 62) {
+    id += (byte - 26).toString(36).toUpperCase();
+  } else if (byte > 62) {
+    id += "-";
+  } else {
+    id += "_";
+  }
+  return id;
+}, "");
+
+// dist/dist/components/input/assets/eye.svelte.js
+function create_fragment12(ctx) {
+  let svg;
+  let path0;
+  let path1;
+  return {
+    c() {
+      svg = svg_element("svg");
+      path0 = svg_element("path");
+      path1 = svg_element("path");
+      attr(path0, "d", "M1.5 12C1.5 12 5.5 4 12.5 4C19.5 4 23.5 12 23.5 12C23.5 12 19.5 20 12.5 20C5.5 20 1.5 12 1.5 12Z");
+      attr(path0, "stroke", "#9691A1");
+      attr(path0, "stroke-width", "2");
+      attr(path0, "stroke-linecap", "round");
+      attr(path0, "stroke-linejoin", "round");
+      attr(path1, "d", "M12.5 15C14.1569 15 15.5 13.6569 15.5 12C15.5 10.3431 14.1569 9 12.5 9C10.8431 9 9.5 10.3431 9.5 12C9.5 13.6569 10.8431 15 12.5 15Z");
+      attr(path1, "stroke", "#9691A1");
+      attr(path1, "stroke-width", "2");
+      attr(path1, "stroke-linecap", "round");
+      attr(path1, "stroke-linejoin", "round");
+      attr(svg, "width", "25");
+      attr(svg, "height", "24");
+      attr(svg, "viewBox", "0 0 25 24");
+      attr(svg, "fill", "none");
+      attr(svg, "xmlns", "http://www.w3.org/2000/svg");
+    },
+    m(target, anchor) {
+      insert(target, svg, anchor);
+      append(svg, path0);
+      append(svg, path1);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(svg);
+    }
+  };
+}
+var Eye = class extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, null, create_fragment12, safe_not_equal, {});
+  }
+};
+var eye_svelte_default = Eye;
+
+// dist/dist/components/input/field.svelte.js
+function create_if_block3(ctx) {
+  let button;
+  let eye;
+  let current;
+  let mounted;
+  let dispose;
+  eye = new eye_svelte_default({});
+  return {
+    c() {
+      button = element("button");
+      create_component(eye.$$.fragment);
+      attr(button, "class", "magic-eye svelte-ii8160");
+    },
+    m(target, anchor) {
+      insert(target, button, anchor);
+      mount_component(eye, button, null);
+      current = true;
+      if (!mounted) {
+        dispose = listen(button, "click", ctx[19]);
+        mounted = true;
+      }
+    },
+    p: noop,
+    i(local) {
+      if (current)
+        return;
+      transition_in(eye.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(eye.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(button);
+      destroy_component(eye);
+      mounted = false;
+      dispose();
+    }
+  };
+}
+function create_fragment13(ctx) {
+  let div1;
+  let label_1;
+  let t0;
+  let t1;
+  let div0;
+  let input_1;
+  let t2;
+  let t3;
+  let span;
+  let t4;
+  let t5_value = ctx[3].message + "";
+  let t5;
+  let div1_class_value;
+  let div1_data_errored_value;
+  let current;
+  let mounted;
+  let dispose;
+  let if_block = ctx[14] === "password" && create_if_block3(ctx);
+  return {
+    c() {
+      div1 = element("div");
+      label_1 = element("label");
+      t0 = text(ctx[5]);
+      t1 = space();
+      div0 = element("div");
+      input_1 = element("input");
+      t2 = space();
+      if (if_block)
+        if_block.c();
+      t3 = space();
+      span = element("span");
+      t4 = text("* ");
+      t5 = text(t5_value);
+      attr(label_1, "class", "italic svelte-ii8160");
+      attr(label_1, "for", ctx[10]);
+      attr(input_1, "id", ctx[10]);
+      attr(input_1, "type", ctx[0]);
+      attr(input_1, "placeholder", ctx[6]);
+      input_1.disabled = ctx[7];
+      attr(input_1, "class", "svelte-ii8160");
+      attr(div0, "class", "input-inner-wrapper svelte-ii8160");
+      attr(span, "class", "error italic svelte-ii8160");
+      attr(div1, "class", div1_class_value = "" + (null_to_empty(`input-wrapper variant-${ctx[4]} ${ctx[8]}`) + " svelte-ii8160"));
+      attr(div1, "data-focused", ctx[1]);
+      attr(div1, "data-errored", div1_data_errored_value = !!ctx[3].message);
+      attr(div1, "data-success", ctx[2]);
+      attr(div1, "data-disabled", ctx[7]);
+    },
+    m(target, anchor) {
+      insert(target, div1, anchor);
+      append(div1, label_1);
+      append(label_1, t0);
+      append(div1, t1);
+      append(div1, div0);
+      append(div0, input_1);
+      ctx[18](input_1);
+      append(div0, t2);
+      if (if_block)
+        if_block.m(div0, null);
+      append(div1, t3);
+      append(div1, span);
+      append(span, t4);
+      append(span, t5);
+      current = true;
+      if (!mounted) {
+        dispose = [
+          listen(input_1, "focus", ctx[11]),
+          listen(input_1, "blur", ctx[12]),
+          listen(input_1, "input", ctx[13])
+        ];
+        mounted = true;
+      }
+    },
+    p(ctx2, [dirty]) {
+      if (!current || dirty & 32)
+        set_data(t0, ctx2[5]);
+      if (!current || dirty & 1) {
+        attr(input_1, "type", ctx2[0]);
+      }
+      if (!current || dirty & 64) {
+        attr(input_1, "placeholder", ctx2[6]);
+      }
+      if (!current || dirty & 128) {
+        input_1.disabled = ctx2[7];
+      }
+      if (ctx2[14] === "password")
+        if_block.p(ctx2, dirty);
+      if ((!current || dirty & 8) && t5_value !== (t5_value = ctx2[3].message + ""))
+        set_data(t5, t5_value);
+      if (!current || dirty & 272 && div1_class_value !== (div1_class_value = "" + (null_to_empty(`input-wrapper variant-${ctx2[4]} ${ctx2[8]}`) + " svelte-ii8160"))) {
+        attr(div1, "class", div1_class_value);
+      }
+      if (!current || dirty & 2) {
+        attr(div1, "data-focused", ctx2[1]);
+      }
+      if (!current || dirty & 8 && div1_data_errored_value !== (div1_data_errored_value = !!ctx2[3].message)) {
+        attr(div1, "data-errored", div1_data_errored_value);
+      }
+      if (!current || dirty & 4) {
+        attr(div1, "data-success", ctx2[2]);
+      }
+      if (!current || dirty & 128) {
+        attr(div1, "data-disabled", ctx2[7]);
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div1);
+      ctx[18](null);
+      if (if_block)
+        if_block.d();
+      mounted = false;
+      run_all(dispose);
+    }
+  };
+}
+function instance9($$self, $$props, $$invalidate) {
+  const dispatch = createEventDispatcher();
+  let {variant} = $$props;
+  let {label} = $$props;
+  let {placeholder: placeholder2} = $$props;
+  let {disabled = false} = $$props;
+  let {type = "text"} = $$props;
+  let {value = ""} = $$props;
+  let input;
+  let {focused = false} = $$props;
+  let {success = false} = $$props;
+  let {classname = ""} = $$props;
+  const id = nanoid(6);
+  let {error = {message: ""}} = $$props;
+  function setError({message}) {
+    $$invalidate(3, error.message = message, error);
+  }
+  function setSuccess() {
+    $$invalidate(2, success = true);
+  }
+  function handleFocus(event) {
+    $$invalidate(2, success = false);
+    $$invalidate(3, error.message = "", error);
+    $$invalidate(1, focused = true);
+    dispatch("focus", event);
+  }
+  function handleBlur() {
+    $$invalidate(2, success = false);
+    $$invalidate(3, error.message = "", error);
+    $$invalidate(1, focused = false);
+    dispatch("blur");
+  }
+  function handleInput(event) {
+    $$invalidate(15, value = event.target.value);
+    dispatch("input", {value});
+  }
+  let originalType = type;
+  function input_1_binding($$value) {
+    binding_callbacks[$$value ? "unshift" : "push"](() => {
+      input = $$value;
+      $$invalidate(9, input);
+    });
+  }
+  const click_handler = () => {
+    input.focus();
+    $$invalidate(1, focused = true);
+    if (type === "password") {
+      $$invalidate(0, type = "text");
+    } else {
+      $$invalidate(0, type = "password");
+    }
+  };
+  $$self.$$set = ($$props2) => {
+    if ("variant" in $$props2)
+      $$invalidate(4, variant = $$props2.variant);
+    if ("label" in $$props2)
+      $$invalidate(5, label = $$props2.label);
+    if ("placeholder" in $$props2)
+      $$invalidate(6, placeholder2 = $$props2.placeholder);
+    if ("disabled" in $$props2)
+      $$invalidate(7, disabled = $$props2.disabled);
+    if ("type" in $$props2)
+      $$invalidate(0, type = $$props2.type);
+    if ("value" in $$props2)
+      $$invalidate(15, value = $$props2.value);
+    if ("focused" in $$props2)
+      $$invalidate(1, focused = $$props2.focused);
+    if ("success" in $$props2)
+      $$invalidate(2, success = $$props2.success);
+    if ("classname" in $$props2)
+      $$invalidate(8, classname = $$props2.classname);
+    if ("error" in $$props2)
+      $$invalidate(3, error = $$props2.error);
+  };
+  return [
+    type,
+    focused,
+    success,
+    error,
+    variant,
+    label,
+    placeholder2,
+    disabled,
+    classname,
+    input,
+    id,
+    handleFocus,
+    handleBlur,
+    handleInput,
+    originalType,
+    value,
+    setError,
+    setSuccess,
+    input_1_binding,
+    click_handler
+  ];
+}
+var Field = class extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance9, create_fragment13, safe_not_equal, {
+      variant: 4,
+      label: 5,
+      placeholder: 6,
+      disabled: 7,
+      type: 0,
+      value: 15,
+      focused: 1,
+      success: 2,
+      classname: 8,
+      error: 3,
+      setError: 16,
+      setSuccess: 17
+    });
+  }
+  get setError() {
+    return this.$$.ctx[16];
+  }
+  get setSuccess() {
+    return this.$$.ctx[17];
+  }
+};
+var field_svelte_default = Field;
+
+// dist/dist/components/input/checkbox.svelte.js
+function create_fragment14(ctx) {
+  let button;
+  let div;
+  let mounted;
+  let dispose;
+  return {
+    c() {
+      button = element("button");
+      div = element("div");
+      attr(div, "class", "box svelte-45k4mn");
+      attr(button, "aria-roledescription", "toggle");
+      attr(button, "data-checked", ctx[0]);
+      attr(button, "class", "svelte-45k4mn");
+    },
+    m(target, anchor) {
+      insert(target, button, anchor);
+      append(button, div);
+      if (!mounted) {
+        dispose = listen(button, "click", ctx[1]);
+        mounted = true;
+      }
+    },
+    p(ctx2, [dirty]) {
+      if (dirty & 1) {
+        attr(button, "data-checked", ctx2[0]);
+      }
+    },
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(button);
+      mounted = false;
+      dispose();
+    }
+  };
+}
+function instance10($$self, $$props, $$invalidate) {
+  const dispatch = createEventDispatcher();
+  let {checked = false} = $$props;
+  function handleClick() {
+    $$invalidate(0, checked = !checked);
+    dispatch("click", {value: checked});
+  }
+  $$self.$$set = ($$props2) => {
+    if ("checked" in $$props2)
+      $$invalidate(0, checked = $$props2.checked);
+  };
+  return [checked, handleClick];
+}
+var Checkbox = class extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance10, create_fragment14, safe_not_equal, {checked: 0});
+  }
+};
+var checkbox_svelte_default = Checkbox;
 
 // dist/@password-generator/core/src/lib/generate-random-number.js
 var generateRandomNumber = ({
@@ -3581,7 +4367,7 @@ var generateRandomNumber = ({
 };
 
 // dist/dist/components/button/neo-expertise-x.svelte.js
-function create_fragment14(ctx) {
+function create_fragment15(ctx) {
   let svg;
   let path;
   return {
@@ -3612,7 +4398,7 @@ function create_fragment14(ctx) {
 var Neo_expertise_x = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment14, safe_not_equal, {});
+    init(this, options, null, create_fragment15, safe_not_equal, {});
   }
 };
 var neo_expertise_x_svelte_default = Neo_expertise_x;
@@ -3645,7 +4431,7 @@ function create_if_block_1(ctx) {
     }
   };
 }
-function create_if_block3(ctx) {
+function create_if_block4(ctx) {
   let svg;
   let path;
   let defs;
@@ -3659,9 +4445,6 @@ function create_if_block3(ctx) {
   let stop2_stop_color_value;
   let stop3;
   let stop3_stop_color_value;
-  let t;
-  let audio;
-  let audio_src_value;
   return {
     c() {
       svg = svg_element("svg");
@@ -3673,15 +4456,13 @@ function create_if_block3(ctx) {
       radialGradient1 = svg_element("radialGradient");
       stop2 = svg_element("stop");
       stop3 = svg_element("stop");
-      t = space();
-      audio = element("audio");
       attr(path, "d", "M25.9372 16.5079C25.6684 18.3892 24.9163 20.1722 23.75 21.6806C22.4721 23.3335 20.7498 24.5882 18.7847 25.298C16.8196 26.0078 14.693 26.1433 12.6538 25.6886C10.6145 25.2339 8.74694 24.2078 7.26956 22.7304C5.79217 21.2531 4.7661 19.3855 4.31139 17.3462C3.85669 15.307 3.99216 13.1804 4.70195 11.2153C5.41175 9.25023 6.66652 7.52794 8.31943 6.24997C9.82781 5.08375 11.6108 4.33155 13.4921 4.06281C12.4287 5.7067 11.9275 7.65775 12.0739 9.62036C12.2342 11.77 13.1607 13.7908 14.685 15.315C16.2092 16.8393 18.23 17.7658 20.3796 17.9261C22.3423 18.0725 24.2933 17.5713 25.9372 16.5079Z");
       attr(path, "fill", "url(#paint0_radial_78_178)");
       attr(path, "stroke", "url(#paint1_radial_78_178)");
       attr(path, "stroke-width", "0.5");
       attr(path, "stroke-linecap", "round");
-      attr(stop0, "stop-color", stop0_stop_color_value = ctx[4].startFillGradient);
-      attr(stop1, "stop-color", stop1_stop_color_value = ctx[4].endFillGradient);
+      attr(stop0, "stop-color", stop0_stop_color_value = ctx[5].startFillGradient);
+      attr(stop1, "stop-color", stop1_stop_color_value = ctx[5].endFillGradient);
       attr(stop1, "offset", "1");
       attr(radialGradient0, "id", "paint0_radial_78_178");
       attr(radialGradient0, "cx", "0");
@@ -3690,9 +4471,9 @@ function create_if_block3(ctx) {
       attr(radialGradient0, "gradientUnits", "userSpaceOnUse");
       attr(radialGradient0, "gradientTransform", "translate(18.125 11.875) rotate(135) scale(18.5616)");
       attr(stop2, "offset", "0.244632");
-      attr(stop2, "stop-color", stop2_stop_color_value = ctx[4].startStrokeGradient);
+      attr(stop2, "stop-color", stop2_stop_color_value = ctx[5].startStrokeGradient);
       attr(stop3, "offset", "0.84375");
-      attr(stop3, "stop-color", stop3_stop_color_value = ctx[4].endStrokeGradient);
+      attr(stop3, "stop-color", stop3_stop_color_value = ctx[5].endStrokeGradient);
       attr(radialGradient1, "id", "paint1_radial_78_178");
       attr(radialGradient1, "cx", "0");
       attr(radialGradient1, "cy", "0");
@@ -3704,9 +4485,6 @@ function create_if_block3(ctx) {
       attr(svg, "viewBox", "0 0 30 30");
       attr(svg, "fill", "none");
       attr(svg, "xmlns", "http://www.w3.org/2000/svg");
-      if (!src_url_equal(audio.src, audio_src_value = "/switching-effect.mp3"))
-        attr(audio, "src", audio_src_value);
-      attr(audio, "id", "moon-knight-switch");
     },
     m(target, anchor) {
       insert(target, svg, anchor);
@@ -3718,34 +4496,28 @@ function create_if_block3(ctx) {
       append(defs, radialGradient1);
       append(radialGradient1, stop2);
       append(radialGradient1, stop3);
-      insert(target, t, anchor);
-      insert(target, audio, anchor);
     },
     p(ctx2, dirty) {
-      if (dirty & 16 && stop0_stop_color_value !== (stop0_stop_color_value = ctx2[4].startFillGradient)) {
+      if (dirty & 32 && stop0_stop_color_value !== (stop0_stop_color_value = ctx2[5].startFillGradient)) {
         attr(stop0, "stop-color", stop0_stop_color_value);
       }
-      if (dirty & 16 && stop1_stop_color_value !== (stop1_stop_color_value = ctx2[4].endFillGradient)) {
+      if (dirty & 32 && stop1_stop_color_value !== (stop1_stop_color_value = ctx2[5].endFillGradient)) {
         attr(stop1, "stop-color", stop1_stop_color_value);
       }
-      if (dirty & 16 && stop2_stop_color_value !== (stop2_stop_color_value = ctx2[4].startStrokeGradient)) {
+      if (dirty & 32 && stop2_stop_color_value !== (stop2_stop_color_value = ctx2[5].startStrokeGradient)) {
         attr(stop2, "stop-color", stop2_stop_color_value);
       }
-      if (dirty & 16 && stop3_stop_color_value !== (stop3_stop_color_value = ctx2[4].endStrokeGradient)) {
+      if (dirty & 32 && stop3_stop_color_value !== (stop3_stop_color_value = ctx2[5].endStrokeGradient)) {
         attr(stop3, "stop-color", stop3_stop_color_value);
       }
     },
     d(detaching) {
       if (detaching)
         detach(svg);
-      if (detaching)
-        detach(t);
-      if (detaching)
-        detach(audio);
     }
   };
 }
-function create_fragment15(ctx) {
+function create_fragment16(ctx) {
   let button;
   let t0;
   let t1;
@@ -3755,9 +4527,9 @@ function create_fragment15(ctx) {
   let mounted;
   let dispose;
   let if_block0 = ctx[0] === "NeoExpertise" && create_if_block_1(ctx);
-  const default_slot_template = ctx[7].default;
-  const default_slot = create_slot(default_slot_template, ctx, ctx[6], null);
-  let if_block1 = ctx[0] === "MoonKnight" && create_if_block3(ctx);
+  const default_slot_template = ctx[8].default;
+  const default_slot = create_slot(default_slot_template, ctx, ctx[7], null);
+  let if_block1 = ctx[0] === "MoonKnight" && create_if_block4(ctx);
   return {
     c() {
       button = element("button");
@@ -3770,7 +4542,8 @@ function create_fragment15(ctx) {
       t2 = space();
       if (if_block1)
         if_block1.c();
-      attr(button, "class", button_class_value = "" + (null_to_empty(`variant-${ctx[0]} ${ctx[0] === "MoonKnight" && `personality-${ctx[3]}`} ${ctx[2]}`) + " svelte-1khsx65"));
+      button.disabled = ctx[3];
+      attr(button, "class", button_class_value = "" + (null_to_empty(`variant-${ctx[0]} ${ctx[0] === "MoonKnight" && `personality-${ctx[4]}`} ${ctx[2]}`) + " svelte-ly3fwk"));
     },
     m(target, anchor) {
       insert(target, button, anchor);
@@ -3786,7 +4559,7 @@ function create_fragment15(ctx) {
         if_block1.m(button, null);
       current = true;
       if (!mounted) {
-        dispose = listen(button, "click", ctx[5]);
+        dispose = listen(button, "click", ctx[6]);
         mounted = true;
       }
     },
@@ -3810,8 +4583,8 @@ function create_fragment15(ctx) {
         check_outros();
       }
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & 64)) {
-          update_slot_base(default_slot, default_slot_template, ctx2, ctx2[6], !current ? get_all_dirty_from_scope(ctx2[6]) : get_slot_changes(default_slot_template, ctx2[6], dirty, null), null);
+        if (default_slot.p && (!current || dirty & 128)) {
+          update_slot_base(default_slot, default_slot_template, ctx2, ctx2[7], !current ? get_all_dirty_from_scope(ctx2[7]) : get_slot_changes(default_slot_template, ctx2[7], dirty, null), null);
         }
       }
       if (!current || dirty & 2)
@@ -3820,7 +4593,7 @@ function create_fragment15(ctx) {
         if (if_block1) {
           if_block1.p(ctx2, dirty);
         } else {
-          if_block1 = create_if_block3(ctx2);
+          if_block1 = create_if_block4(ctx2);
           if_block1.c();
           if_block1.m(button, null);
         }
@@ -3828,7 +4601,10 @@ function create_fragment15(ctx) {
         if_block1.d(1);
         if_block1 = null;
       }
-      if (!current || dirty & 13 && button_class_value !== (button_class_value = "" + (null_to_empty(`variant-${ctx2[0]} ${ctx2[0] === "MoonKnight" && `personality-${ctx2[3]}`} ${ctx2[2]}`) + " svelte-1khsx65"))) {
+      if (!current || dirty & 8) {
+        button.disabled = ctx2[3];
+      }
+      if (!current || dirty & 21 && button_class_value !== (button_class_value = "" + (null_to_empty(`variant-${ctx2[0]} ${ctx2[0] === "MoonKnight" && `personality-${ctx2[4]}`} ${ctx2[2]}`) + " svelte-ly3fwk"))) {
         attr(button, "class", button_class_value);
       }
     },
@@ -3860,8 +4636,8 @@ function create_fragment15(ctx) {
 }
 function MoonKnightSwitchAnimation(callback) {
   const blackPanel = document.createElement("div");
-  blackPanel.style.width = "100vw";
-  blackPanel.style.height = "100vh";
+  blackPanel.style.width = "1000vw";
+  blackPanel.style.height = "1000vh";
   blackPanel.style.position = "absolute";
   blackPanel.style.top = "0px";
   blackPanel.style.left = "0px";
@@ -3869,13 +4645,11 @@ function MoonKnightSwitchAnimation(callback) {
   blackPanel.style.bottom = "0px";
   document.body.style.overflow = "hidden";
   document.body.appendChild(blackPanel);
-  const switchAudio = document.querySelector("#moon-knight-switch");
+  const switchAudio = new Audio("/PasswordGenerator/switching-effect.mp3");
   console.log(switchAudio.duration);
   switchAudio.currentTime = 1;
-  switchAudio.onload = () => {
-    console.log("carregou porra");
-  };
   switchAudio.play();
+  blackPanel.style.zIndex = "100";
   setTimeout(() => {
     blackPanel.style.background = "#000000";
     setTimeout(() => {
@@ -3884,27 +4658,32 @@ function MoonKnightSwitchAnimation(callback) {
         blackPanel.style.background = "#000000";
         setTimeout(() => {
           blackPanel.style.background = "transparent";
+          document.body.style.transform = "scale(1.3)";
           setTimeout(() => {
             blackPanel.style.background = "#000000";
             setTimeout(() => {
               blackPanel.style.background = "transparent";
+              document.body.style.transform = "scale(1.1)";
               setTimeout(() => {
                 blackPanel.style.background = "#000000";
                 setTimeout(() => {
                   blackPanel.style.background = "transparent";
+                  document.body.style.transform = "scale(1.5)";
                   setTimeout(() => {
                     blackPanel.style.background = "#000000";
                     setTimeout(() => {
                       blackPanel.style.background = "transparent";
+                      document.body.style.transform = "scale(1.4)";
                       setTimeout(() => {
                         blackPanel.style.background = "#000000";
                         setTimeout(() => {
                           blackPanel.style.background = "transparent";
+                          document.body.style.transform = "scale(1)";
                           setTimeout(() => {
                             callback();
                             document.body.removeChild(blackPanel);
                             document.body.style.overflow = "auto";
-                            const manWithoutLove = new Audio("/man-without-love.mp3");
+                            const manWithoutLove = new Audio("/PasswordGenerator/man-without-love.mp3");
                             manWithoutLove.play();
                           }, 500);
                         }, 130);
@@ -3920,37 +4699,63 @@ function MoonKnightSwitchAnimation(callback) {
     }, 100);
   }, 600);
 }
-function instance10($$self, $$props, $$invalidate) {
+function instance11($$self, $$props, $$invalidate) {
   let {$$slots: slots = {}, $$scope} = $$props;
   const dispatch = createEventDispatcher();
   let {variant} = $$props;
   let {label = ""} = $$props;
   let {classname = ""} = $$props;
-  let personality;
+  let {disabled = false} = $$props;
+  let personality = "steven";
   const colors = {
     startFillGradient: "hsl(260, 8%, 78%)",
     endFillGradient: "hsl(260, 8%, 30%)",
     startStrokeGradient: "hsl(260, 8%, 30%)",
     endStrokeGradient: "hsl(260, 8%, 70%)"
   };
+  function PaintStevenButton() {
+    $$invalidate(5, colors.startFillGradient = "hsl(260, 8%, 78%)", colors);
+    $$invalidate(5, colors.endFillGradient = "hsl(260, 8%, 30%)", colors);
+    $$invalidate(5, colors.startStrokeGradient = "hsl(260, 8%, 30%)", colors);
+    $$invalidate(5, colors.endStrokeGradient = "hsl(260, 8%, 70%)", colors);
+  }
+  function PaintMarcButton() {
+    $$invalidate(5, colors.startFillGradient = "hsl(215, 71%, 45%)", colors);
+    $$invalidate(5, colors.endFillGradient = "hsl(215, 71%, 3%)", colors);
+    $$invalidate(5, colors.startStrokeGradient = "hsl(215, 71%, 45%)", colors);
+    $$invalidate(5, colors.endStrokeGradient = "hsl(200, 80%, 15%)", colors);
+  }
+  function PaintJakeButton() {
+    $$invalidate(5, colors.startFillGradient = "#515151", colors);
+    $$invalidate(5, colors.endFillGradient = "#000000", colors);
+    $$invalidate(5, colors.startStrokeGradient = "#ADADAD", colors);
+    $$invalidate(5, colors.endStrokeGradient = "#383838", colors);
+  }
+  function sortRandomPersonality(rng) {
+    if (rng === 0) {
+      PaintMarcButton();
+      $$invalidate(4, personality = "marc");
+    } else if (rng === 1) {
+      PaintJakeButton();
+      $$invalidate(4, personality = "jake");
+    } else {
+      PaintStevenButton();
+      $$invalidate(4, personality = "steven");
+    }
+  }
   function handleClick() {
     if (variant === "MoonKnight") {
       MoonKnightSwitchAnimation(() => {
-        const RNG = generateRandomNumber({min: 0, max: 1});
-        if (!!RNG) {
-          $$invalidate(4, colors.startFillGradient = "hsl(215, 71%, 45%)", colors);
-          $$invalidate(4, colors.endFillGradient = "hsl(215, 71%, 3%)", colors);
-          $$invalidate(4, colors.startStrokeGradient = "hsl(215, 71%, 45%)", colors);
-          $$invalidate(4, colors.endStrokeGradient = "hsl(200, 80%, 15%)", colors);
-          $$invalidate(3, personality = "marc");
-        } else {
-          $$invalidate(4, colors.startFillGradient = "#515151", colors);
-          $$invalidate(4, colors.endFillGradient = "#000000", colors);
-          $$invalidate(4, colors.startStrokeGradient = "#ADADAD", colors);
-          $$invalidate(4, colors.endStrokeGradient = "#383838", colors);
-          $$invalidate(3, personality = "jake");
-        }
       });
+      setTimeout(() => {
+        const RNG = () => generateRandomNumber({min: 0, max: 2});
+        const rng = RNG();
+        if (rng === 0 && personality === "marc" || rng === 1 && personality === "jake" || rng === 2 && personality === "steven") {
+          sortRandomPersonality(RNG());
+          return;
+        }
+        sortRandomPersonality(rng);
+      }, 1700);
     }
     dispatch("click");
   }
@@ -3961,21 +4766,38 @@ function instance10($$self, $$props, $$invalidate) {
       $$invalidate(1, label = $$props2.label);
     if ("classname" in $$props2)
       $$invalidate(2, classname = $$props2.classname);
+    if ("disabled" in $$props2)
+      $$invalidate(3, disabled = $$props2.disabled);
     if ("$$scope" in $$props2)
-      $$invalidate(6, $$scope = $$props2.$$scope);
+      $$invalidate(7, $$scope = $$props2.$$scope);
   };
-  return [variant, label, classname, personality, colors, handleClick, $$scope, slots];
+  return [
+    variant,
+    label,
+    classname,
+    disabled,
+    personality,
+    colors,
+    handleClick,
+    $$scope,
+    slots
+  ];
 }
 var Button = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance10, create_fragment15, safe_not_equal, {variant: 0, label: 1, classname: 2});
+    init(this, options, instance11, create_fragment16, safe_not_equal, {
+      variant: 0,
+      label: 1,
+      classname: 2,
+      disabled: 3
+    });
   }
 };
 var index_svelte_default = Button;
 
 // dist/dist/components/footer/assets/flag.svelte.js
-function create_fragment16(ctx) {
+function create_fragment17(ctx) {
   let svg;
   let path0;
   let path1;
@@ -4015,13 +4837,13 @@ function create_fragment16(ctx) {
 var Flag = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment16, safe_not_equal, {});
+    init(this, options, null, create_fragment17, safe_not_equal, {});
   }
 };
 var flag_svelte_default = Flag;
 
 // dist/dist/components/footer/assets/github.svelte.js
-function create_fragment17(ctx) {
+function create_fragment18(ctx) {
   let svg;
   let g;
   let path;
@@ -4071,13 +4893,13 @@ function create_fragment17(ctx) {
 var Github = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment17, safe_not_equal, {});
+    init(this, options, null, create_fragment18, safe_not_equal, {});
   }
 };
 var github_svelte_default = Github;
 
 // dist/dist/components/footer/assets/moon.svelte.js
-function create_fragment18(ctx) {
+function create_fragment19(ctx) {
   let svg;
   let path;
   return {
@@ -4110,7 +4932,7 @@ function create_fragment18(ctx) {
 var Moon = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment18, safe_not_equal, {});
+    init(this, options, null, create_fragment19, safe_not_equal, {});
   }
 };
 var moon_svelte_default = Moon;
@@ -4170,7 +4992,7 @@ function create_default_slot_1(ctx) {
     }
   };
 }
-function create_default_slot(ctx) {
+function create_default_slot2(ctx) {
   let moon;
   let current;
   moon = new moon_svelte_default({});
@@ -4197,7 +5019,7 @@ function create_default_slot(ctx) {
     }
   };
 }
-function create_fragment19(ctx) {
+function create_fragment20(ctx) {
   let footer;
   let button0;
   let t0;
@@ -4226,7 +5048,7 @@ function create_fragment19(ctx) {
     props: {
       classname: "svg-button",
       variant: "outlined",
-      $$slots: {default: [create_default_slot]},
+      $$slots: {default: [create_default_slot2]},
       $$scope: {ctx}
     }
   });
@@ -4299,13 +5121,13 @@ function handleThemeChange() {
 var Footer = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment19, safe_not_equal, {});
+    init(this, options, null, create_fragment20, safe_not_equal, {});
   }
 };
 var index_svelte_default2 = Footer;
 
 // dist/dist/router.svelte.js
-function instance11($$self) {
+function instance12($$self) {
   const routes = {
     "/": wrap({
       asyncComponent: () => Promise.resolve().then(() => require_home_svelte())
@@ -4324,13 +5146,13 @@ function instance11($$self) {
 var Router_1 = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance11, create_fragment20, safe_not_equal, {});
+    init(this, options, instance12, create_fragment21, safe_not_equal, {});
   }
 };
 var router_svelte_default = Router_1;
 
 // dist/dist/app.svelte.js
-function create_fragment21(ctx) {
+function create_fragment22(ctx) {
   let router;
   let current;
   router = new router_svelte_default({});
@@ -4358,18 +5180,18 @@ function create_fragment21(ctx) {
     }
   };
 }
-function instance12($$self) {
-  const loggedUserID = localStorage.getItem("@password-generator:logged-user-id");
-  if (loggedUserID) {
+function instance13($$self) {
+  const loggedUserIDs = JSON.parse(localStorage.getItem("@password-generator:logged-user-id") || "[]");
+  if (loggedUserIDs) {
     const users = JSON.parse(localStorage.getItem("@password-generator:users") || "[]");
-    UserStore.set(users.find((user) => user.id === loggedUserID) || null);
+    UserStore.set(users.find((user) => user.id === loggedUserIDs[0]) || null);
   }
   return [];
 }
 var App = class extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance12, create_fragment21, safe_not_equal, {});
+    init(this, options, instance13, create_fragment22, safe_not_equal, {});
   }
 };
 var app_svelte_default = App;
