@@ -78,6 +78,14 @@
   <li>
     <a
       style="border-left: 2px solid transparent; padding-left: 1rem; color: #AEAAB6;"
+      href="#license"
+    >
+      Colaborators
+    </a>
+  </li>
+  <li>
+    <a
+      style="border-left: 2px solid transparent; padding-left: 1rem; color: #AEAAB6;"
       href="#creator"
     >
       Creator
@@ -203,7 +211,7 @@
 <br />
 
 <section>
-  <h2 style="color: #C5C2CB;" id="creator">
+  <h2 style="color: #C5C2CB;" id="colaborators">
     <strong>Colaborators</strong>
   </h2>
 
