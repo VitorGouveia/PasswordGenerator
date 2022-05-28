@@ -2,6 +2,7 @@
   import type { User } from "../../@types/auth";
   import { replace } from "svelte-spa-router";
   import { nanoid } from "nanoid";
+  import { generatePassword } from "@password-generator/core";
 
   import { UserStore } from "../../store/user";
 
@@ -24,8 +25,6 @@
 
   // password strength stuff
   let strength = 0;
-  let showPassword = false;
-  let disabled = true;
 
   let validations: boolean[] = [];
 
@@ -137,10 +136,12 @@
   function handleLoginNeoExpertise() {
     console.log("");
   }
+
+  let suggestPassword: string;
 </script>
 
 <svelte:head>
-  <title>Login Into Your Account - PasswordGenerator</title>
+  <title>Create your account - PasswordGenerator</title>
 </svelte:head>
 
 <main>
@@ -173,13 +174,45 @@
     <InputField
       bind:this={passwordInput}
       bind:value={password}
-      on:input={({ detail }) => validatePassword(detail.value)}
+      on:input={({ detail }) => {
+        suggestPassword = "";
+        validatePassword(detail.value);
+      }}
+      on:blur={() => {
+        validations = [];
+        // suggestPassword = "";
+      }}
+      on:focus={() => {
+        // suggest password
+        if (password === "") {
+          suggestPassword = generatePassword({
+            length: 20,
+          });
+          return;
+        }
+      }}
       classname={strength > 3 ? "valid" : ""}
       type="password"
       label="Password"
       placeholder="*******************"
       variant="primary"
     />
+
+    {#if !!suggestPassword}
+      <button
+        on:click={() => {
+          // use suggested password
+          passwordInput.setValue(suggestPassword);
+          validatePassword(suggestPassword);
+          suggestPassword = "";
+        }}
+        class="suggest-password-box"
+      >
+        <small>Use suggested password</small>
+
+        <small>{suggestPassword}</small>
+      </button>
+    {/if}
 
     <div class="strength">
       <span class="bar bar-1" class:bar-show={strength > 0} />
@@ -281,6 +314,35 @@
     border: 4px solid var(--color-gray-100);
     padding: var(--size-200);
     text-align: left;
+  }
+
+  .suggest-password-box {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: transparent;
+    padding: var(--size-100);
+
+    border: 4px solid var(--color-gray-100);
+
+    transform: translateY(-15px);
+
+    &:hover {
+      border-color: var(--color-primary-400);
+    }
+
+    > small {
+      &:nth-child(1) {
+        color: var(--color-gray-700);
+      }
+
+      &:nth-child(2) {
+        color: var(--color-gray-300);
+      }
+    }
   }
 
   main {

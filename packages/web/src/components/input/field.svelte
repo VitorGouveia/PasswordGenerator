@@ -70,6 +70,10 @@
     });
   }
 
+  export function setValue(value: string) {
+    input.value = value;
+  }
+
   let originalType = type;
 </script>
 
