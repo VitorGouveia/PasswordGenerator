@@ -12,9 +12,10 @@
   export let disabled: boolean = false;
   export let type: string = "text";
   export let value: string = "";
-
+  let input: any;
   export let focused = false;
   export let success = false;
+  export let classname: string = "";
 
   const id = nanoid(6);
 
@@ -63,13 +64,17 @@
 
   function handleInput(event: any) {
     value = event.target.value;
+
+    dispatch("input", {
+      value: value as string,
+    });
   }
 
   let originalType = type;
 </script>
 
 <div
-  class={`input-wrapper variant-${variant}`}
+  class={`input-wrapper variant-${variant} ${classname}`}
   data-focused={focused}
   data-errored={!!error.message}
   data-success={success}
@@ -83,14 +88,23 @@
       {type}
       {placeholder}
       {disabled}
+      bind:this={input}
       on:focus={handleFocus}
       on:blur={handleBlur}
       on:input={handleInput}
     />
     {#if originalType === "password"}
       <button
-        on:click={() =>
-          type === "password" ? (type = "text") : (type = "password")}
+        on:click={() => {
+          input.focus();
+          focused = true;
+
+          if (type === "password") {
+            type = "text";
+          } else {
+            type = "password";
+          }
+        }}
         class="magic-eye"
       >
         <Eye />

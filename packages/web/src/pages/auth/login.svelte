@@ -72,7 +72,16 @@
 
     // set logged user
     if (rememberUser) {
-      localStorage.setItem("@password-generator:logged-user-id", user.id);
+      const loggedUsers = JSON.parse(
+        localStorage.getItem("@password-generator:logged-user-id") || "[]"
+      );
+
+      const newLoggedUsers = [...new Set([user?.id, ...loggedUsers])];
+
+      localStorage.setItem(
+        "@password-generator:logged-user-id",
+        JSON.stringify(newLoggedUsers)
+      );
     }
 
     UserStore.set(user);
@@ -100,7 +109,10 @@
   mql.addEventListener("change", (event) => {
     if (event.matches) {
       breakText = false;
+      return;
     }
+
+    breakText = true;
   });
 </script>
 

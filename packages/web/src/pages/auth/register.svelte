@@ -22,6 +22,25 @@
   let password: string;
   let rememberUser: boolean = true;
 
+  // password strength stuff
+  let strength = 0;
+  let showPassword = false;
+  let disabled = true;
+
+  let validations: boolean[] = [];
+
+  function validatePassword(password: string) {
+    validations = [
+      password.length > 5,
+      password.search(/[A-Z]/) > -1,
+      password.search(/[0-9]/) > -1,
+      password.search(/[$&+,:;=?@#]/) > -1,
+    ];
+
+    // @ts-ignore
+    strength = validations.reduce((acc, cur) => acc + cur, 0);
+  }
+
   function handleSubmitForm() {
     // console.log("bruh");
     // console.log({ login, password });
@@ -59,6 +78,7 @@
       usernameInput.setError({
         message: "sorry, a user already took that username.",
       });
+      return;
     }
 
     const userAlreadyExists = users.find((user) => user.email === email);
@@ -73,6 +93,13 @@
     }
 
     // check for password
+    if (strength < 4) {
+      passwordInput.setError({
+        // message: "Your password is not strong enough i'm afraid :(",
+        message: "Wait, how did you?? Did you really hack the page?",
+      });
+      return;
+    }
 
     // create user
     const user: User = {
@@ -90,6 +117,19 @@
 
     UserStore.set(user);
 
+    if (rememberUser) {
+      const loggedUsers = JSON.parse(
+        localStorage.getItem("@password-generator:logged-user-id") || "[]"
+      );
+
+      const newLoggedUsers = [...new Set([user?.id, ...loggedUsers])];
+
+      localStorage.setItem(
+        "@password-generator:logged-user-id",
+        JSON.stringify(newLoggedUsers)
+      );
+    }
+
     // push to home
     replace("/");
   }
@@ -97,24 +137,6 @@
   function handleLoginNeoExpertise() {
     console.log("");
   }
-
-  function handleSayMyName() {
-    const name = prompt("Your name \n tip: meth");
-    if (name === "heisenberg") {
-      alert("You're goddamn right.");
-    } else {
-      alert("hmm, can't recognise it.");
-    }
-  }
-
-  let breakText: boolean = true;
-
-  const mql = window.matchMedia("(max-width: 744px)");
-  mql.addEventListener("change", (event) => {
-    if (event.matches) {
-      breakText = false;
-    }
-  });
 </script>
 
 <svelte:head>
@@ -142,6 +164,7 @@
     <InputField
       bind:this={emailInput}
       bind:value={email}
+      type="email"
       label="E-mail"
       placeholder="ex: vitorneves.gouveia10@gmail.com"
       variant="primary"
@@ -150,11 +173,29 @@
     <InputField
       bind:this={passwordInput}
       bind:value={password}
+      on:input={({ detail }) => validatePassword(detail.value)}
+      classname={strength > 3 ? "valid" : ""}
       type="password"
       label="Password"
       placeholder="*******************"
       variant="primary"
     />
+
+    <div class="strength">
+      <span class="bar bar-1" class:bar-show={strength > 0} />
+      <span class="bar bar-2" class:bar-show={strength > 1} />
+      <span class="bar bar-3" class:bar-show={strength > 2} />
+      <span class="bar bar-4" class:bar-show={strength > 3} />
+    </div>
+
+    {#if validations.length}
+      <ul>
+        <li>{validations[0] ? "✔️" : "❌"} must be at least 5 characters</li>
+        <li>{validations[1] ? "✔️" : "❌"} must contain a capital letter</li>
+        <li>{validations[2] ? "✔️" : "❌"} must contain a number</li>
+        <li>{validations[3] ? "✔️" : "❌"} must contain one of $&+,:;=?@#</li>
+      </ul>
+    {/if}
 
     <div class="remember-section">
       <Checkbox
@@ -167,7 +208,11 @@
 
   <section class="cta-section">
     <header>
-      <Button on:click={handleSubmitForm} variant="solid">Register</Button>
+      <Button
+        disabled={strength < 4}
+        on:click={handleSubmitForm}
+        variant="solid">Register</Button
+      >
       <Button on:click={handleLoginNeoExpertise} variant="NeoExpertise" />
     </header>
 
@@ -180,6 +225,64 @@
 </main>
 
 <style lang="scss">
+  .strength {
+    display: flex;
+    height: 20px;
+    gap: var(--size-100);
+    width: 100%;
+  }
+  .bar {
+    height: 100%;
+    width: var(--size-900);
+    transition: box-shadow 500ms;
+    box-shadow: inset 0px 20px var(--color-gray-800);
+  }
+  .bar-show {
+    box-shadow: none;
+  }
+  .bar-1 {
+    background: linear-gradient(
+      to right,
+      var(--color-red-400),
+      hsl(24, 46%, 51%)
+    );
+  }
+  .bar-2 {
+    background: linear-gradient(
+      to right,
+      hsl(24, 46%, 51%),
+      var(--color-yellow-400)
+    );
+  }
+  .bar-3 {
+    background: linear-gradient(
+      to right,
+      var(--color-yellow-400),
+      hsl(80, 46%, 50%)
+    );
+  }
+  .bar-4 {
+    background: linear-gradient(
+      to right,
+      hsl(80, 46%, 50%),
+      var(--color-green-400)
+    );
+  }
+  .bar:last-child {
+    margin-right: 0;
+  }
+  .strength-text {
+    margin-top: 20px;
+  }
+  ul {
+    list-style: none;
+
+    width: 100%;
+    border: 4px solid var(--color-gray-100);
+    padding: var(--size-200);
+    text-align: left;
+  }
+
   main {
     margin: 0 auto;
 

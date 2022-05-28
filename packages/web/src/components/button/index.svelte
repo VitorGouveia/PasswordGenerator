@@ -9,10 +9,11 @@
   export let variant: "solid" | "outlined" | "NeoExpertise" | "MoonKnight";
   export let label = "";
   export let classname = "";
+  export let disabled = false;
 
   let focused = false;
 
-  let personality: string;
+  let personality: string = "steven";
 
   const colors = {
     startFillGradient: "hsl(260, 8%, 78%)",
@@ -25,8 +26,8 @@
   function MoonKnightSwitchAnimation(callback: Function) {
     const blackPanel = document.createElement("div");
 
-    blackPanel.style.width = "100vw";
-    blackPanel.style.height = "100vh";
+    blackPanel.style.width = "1000vw";
+    blackPanel.style.height = "1000vh";
 
     blackPanel.style.position = "absolute";
     blackPanel.style.top = "0px";
@@ -38,16 +39,12 @@
     document.body.appendChild(blackPanel);
 
     // animation here
-    const switchAudio = document.querySelector(
-      "#moon-knight-switch"
-    ) as HTMLAudioElement;
+    const switchAudio = new Audio("/PasswordGenerator/switching-effect.mp3");
     console.log(switchAudio.duration);
     switchAudio.currentTime = 1;
-    switchAudio.onload = () => {
-      console.log("carregou porra");
-    };
 
     switchAudio.play();
+    blackPanel.style.zIndex = "100";
     setTimeout(() => {
       blackPanel.style.background = "#000000";
       setTimeout(() => {
@@ -58,30 +55,34 @@
 
           setTimeout(() => {
             blackPanel.style.background = "transparent";
-
+            document.body.style.transform = "scale(1.3)";
             setTimeout(() => {
               blackPanel.style.background = "#000000";
 
               setTimeout(() => {
                 blackPanel.style.background = "transparent";
+                document.body.style.transform = "scale(1.1)";
 
                 setTimeout(() => {
                   blackPanel.style.background = "#000000";
 
                   setTimeout(() => {
                     blackPanel.style.background = "transparent";
+                    document.body.style.transform = "scale(1.5)";
 
                     setTimeout(() => {
                       blackPanel.style.background = "#000000";
 
                       setTimeout(() => {
                         blackPanel.style.background = "transparent";
+                        document.body.style.transform = "scale(1.4)";
 
                         setTimeout(() => {
                           blackPanel.style.background = "#000000";
 
                           setTimeout(() => {
                             blackPanel.style.background = "transparent";
+                            document.body.style.transform = "scale(1)";
 
                             setTimeout(() => {
                               callback();
@@ -90,7 +91,7 @@
                               document.body.style.overflow = "auto";
 
                               const manWithoutLove = new Audio(
-                                "/man-without-love.mp3"
+                                "/PasswordGenerator/man-without-love.mp3"
                               );
                               manWithoutLove.play();
                             }, 500);
@@ -107,16 +108,49 @@
       }, 100);
     }, 600);
 
-    // const audio = document.createElement("audio");
-    // audio.src = "/man-without-love.mp3";
-    // console.log(audio.duration);
-    // audio.currentTime = 1000 * 30;
-
-    // document.body.appendChild(audio);
-    // audio.play();
-    // audio.currentTime = 1000 * 2; // 30s
-
     // animation here
+  }
+
+  function PaintStevenButton() {
+    colors.startFillGradient = "hsl(260, 8%, 78%)";
+    colors.endFillGradient = "hsl(260, 8%, 30%)";
+
+    colors.startStrokeGradient = "hsl(260, 8%, 30%)";
+    colors.endStrokeGradient = "hsl(260, 8%, 70%)";
+  }
+
+  function PaintMarcButton() {
+    colors.startFillGradient = "hsl(215, 71%, 45%)";
+    colors.endFillGradient = "hsl(215, 71%, 3%)";
+
+    colors.startStrokeGradient = "hsl(215, 71%, 45%)";
+    colors.endStrokeGradient = "hsl(200, 80%, 15%)";
+  }
+
+  function PaintJakeButton() {
+    colors.startFillGradient = "#515151";
+    colors.endFillGradient = "#000000";
+
+    colors.startStrokeGradient = "#ADADAD";
+    colors.endStrokeGradient = "#383838";
+  }
+
+  function sortRandomPersonality(rng: number) {
+    if (rng === 0) {
+      // marc
+      PaintMarcButton();
+
+      personality = "marc";
+    } else if (rng === 1) {
+      // jake
+      PaintJakeButton();
+
+      personality = "jake";
+    } else {
+      PaintStevenButton();
+
+      personality = "steven";
+    }
   }
 
   function handleClick() {
@@ -126,34 +160,30 @@
       // the screen will go through a switch and after that the button moon will change
 
       // animation
-      MoonKnightSwitchAnimation(() => {
-        const RNG = generateRandomNumber({
-          min: 0,
-          max: 1,
-        });
+      MoonKnightSwitchAnimation(() => {});
+
+      setTimeout(() => {
+        const RNG = () =>
+          generateRandomNumber({
+            min: 0,
+            max: 2,
+          });
+
+        const rng = RNG();
 
         // sort jake or marc
-
-        if (!!RNG) {
-          // marc
-          colors.startFillGradient = "hsl(215, 71%, 45%)";
-          colors.endFillGradient = "hsl(215, 71%, 3%)";
-
-          colors.startStrokeGradient = "hsl(215, 71%, 45%)";
-          colors.endStrokeGradient = "hsl(200, 80%, 15%)";
-
-          personality = "marc";
-        } else {
-          // jake
-          colors.startFillGradient = "#515151";
-          colors.endFillGradient = "#000000";
-
-          colors.startStrokeGradient = "#ADADAD";
-          colors.endStrokeGradient = "#383838";
-
-          personality = "jake";
+        if (
+          (rng === 0 && personality === "marc") ||
+          (rng === 1 && personality === "jake") ||
+          (rng === 2 && personality === "steven")
+        ) {
+          // sort again
+          sortRandomPersonality(RNG());
+          return;
         }
-      });
+
+        sortRandomPersonality(rng);
+      }, 1700);
     }
 
     dispatch("click");
@@ -161,6 +191,7 @@
 </script>
 
 <button
+  {disabled}
   class={`variant-${variant} ${
     variant === "MoonKnight" && `personality-${personality}`
   } ${classname}`}
@@ -214,8 +245,6 @@
         </radialGradient>
       </defs>
     </svg>
-
-    <audio src="/switching-effect.mp3" id="moon-knight-switch" />
   {/if}
 </button>
 
@@ -233,9 +262,14 @@
 
     box-shadow: 4px 4px 0px 0px #000;
 
-    &:hover,
-    &:focus,
-    &:active {
+    &:disabled {
+      cursor: not-allowed;
+      filter: opacity(0.5);
+    }
+
+    &:not(:disabled):hover,
+    &:not(:disabled):focus,
+    &:not(:disabled):active {
       box-shadow: 2px 2px 0px 0px #000;
     }
 
@@ -243,9 +277,9 @@
       color: var(--color-gray-100);
       background: var(--color-primary-600);
 
-      &:hover,
-      &:focus,
-      &:active {
+      &:not(:disabled):hover,
+      &:not(:disabled):focus,
+      &:not(:disabled):active {
         color: var(--color-gray-900);
         background: var(--color-primary-300);
       }
@@ -280,22 +314,28 @@
     }
 
     &.variant-MoonKnight {
-      border-color: var(--color-gray-100);
-      background: transparent;
+      &.personality-steven {
+        border-color: var(--color-gray-100);
+        background: transparent;
+      }
 
       &.personality-jake {
+        border-color: var(--color-gray-700);
         background: var(--color-gray-900);
       }
 
       &.personality-marc {
+        border-color: var(--color-blue-400);
         background: var(--color-blue-900);
       }
 
       &:hover,
       &:focus,
       &:active {
-        color: var(--color-gray-900);
-        background: var(--color-gray-100);
+        &.personality-steven {
+          color: var(--color-gray-900);
+          background: var(--color-gray-100);
+        }
         /* background: var(--color-gray-900); */
 
         &.personality-jake {

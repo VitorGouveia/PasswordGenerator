@@ -5,18 +5,17 @@
   import "./styles/global.scss";
 
   import Router from "./router.svelte";
-  import Link from "./components/link.svelte";
 
-  const loggedUserID = localStorage.getItem(
-    "@password-generator:logged-user-id"
-  );
+  const loggedUserIDs = JSON.parse(
+    localStorage.getItem("@password-generator:logged-user-id") || "[]"
+  ) as string[];
 
-  if (loggedUserID) {
+  if (loggedUserIDs) {
     const users = JSON.parse(
       localStorage.getItem("@password-generator:users") || "[]"
     ) as unknown as User[];
 
-    UserStore.set(users.find((user) => user.id === loggedUserID) || null);
+    UserStore.set(users.find((user) => user.id === loggedUserIDs[0]) || null);
   }
 </script>
 
