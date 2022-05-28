@@ -927,6 +927,49 @@ var require_register_svelte = __commonJS((exports) => {
       }
     };
   }
+  function create_if_block_12(ctx) {
+    let button;
+    let small0;
+    let t1;
+    let small1;
+    let t2;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        button = element("button");
+        small0 = element("small");
+        small0.textContent = "Use suggested password";
+        t1 = space();
+        small1 = element("small");
+        t2 = text(ctx[9]);
+        attr(small0, "class", "svelte-yxpbub");
+        attr(small1, "class", "svelte-yxpbub");
+        attr(button, "class", "suggest-password-box svelte-yxpbub");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        append(button, small0);
+        append(button, t1);
+        append(button, small1);
+        append(small1, t2);
+        if (!mounted) {
+          dispose = listen(button, "click", ctx[21]);
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & 512)
+          set_data(t2, ctx2[9]);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(button);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
   function create_if_block5(ctx) {
     let ul;
     let li0;
@@ -966,7 +1009,7 @@ var require_register_svelte = __commonJS((exports) => {
         li3 = element("li");
         t9 = text(t9_value);
         t10 = text(" must contain one of $&+,:;=?@#");
-        attr(ul, "class", "svelte-z3shr2");
+        attr(ul, "class", "svelte-yxpbub");
       },
       m(target, anchor) {
         insert(target, ul, anchor);
@@ -1050,31 +1093,32 @@ var require_register_svelte = __commonJS((exports) => {
     let inputfield2;
     let updating_value_2;
     let t5;
+    let t6;
     let div0;
     let span0;
-    let t6;
-    let span1;
     let t7;
-    let span2;
+    let span1;
     let t8;
-    let span3;
+    let span2;
     let t9;
+    let span3;
     let t10;
+    let t11;
     let div1;
     let checkbox;
-    let t11;
-    let heading2;
     let t12;
+    let heading2;
+    let t13;
     let section;
     let header1;
     let button0;
-    let t13;
-    let button1;
     let t14;
-    let button2;
+    let button1;
     let t15;
-    let link2;
+    let button2;
     let t16;
+    let link2;
+    let t17;
     let footer;
     let current;
     heading0 = new heading_svelte_default({
@@ -1092,7 +1136,7 @@ var require_register_svelte = __commonJS((exports) => {
       }
     });
     function inputfield0_value_binding(value) {
-      ctx[12](value);
+      ctx[13](value);
     }
     let inputfield0_props = {
       label: "Username",
@@ -1103,10 +1147,10 @@ var require_register_svelte = __commonJS((exports) => {
       inputfield0_props.value = ctx[3];
     }
     inputfield0 = new field_svelte_default({props: inputfield0_props});
-    ctx[11](inputfield0);
+    ctx[12](inputfield0);
     binding_callbacks.push(() => bind(inputfield0, "value", inputfield0_value_binding));
     function inputfield1_value_binding(value) {
-      ctx[14](value);
+      ctx[15](value);
     }
     let inputfield1_props = {
       type: "email",
@@ -1118,10 +1162,10 @@ var require_register_svelte = __commonJS((exports) => {
       inputfield1_props.value = ctx[4];
     }
     inputfield1 = new field_svelte_default({props: inputfield1_props});
-    ctx[13](inputfield1);
+    ctx[14](inputfield1);
     binding_callbacks.push(() => bind(inputfield1, "value", inputfield1_value_binding));
     function inputfield2_value_binding(value) {
-      ctx[16](value);
+      ctx[17](value);
     }
     let inputfield2_props = {
       classname: ctx[7] > 3 ? "valid" : "",
@@ -1134,14 +1178,17 @@ var require_register_svelte = __commonJS((exports) => {
       inputfield2_props.value = ctx[5];
     }
     inputfield2 = new field_svelte_default({props: inputfield2_props});
-    ctx[15](inputfield2);
+    ctx[16](inputfield2);
     binding_callbacks.push(() => bind(inputfield2, "value", inputfield2_value_binding));
-    inputfield2.$on("input", ctx[17]);
-    let if_block = ctx[8].length && create_if_block5(ctx);
+    inputfield2.$on("input", ctx[18]);
+    inputfield2.$on("blur", ctx[19]);
+    inputfield2.$on("focus", ctx[20]);
+    let if_block0 = !!ctx[9] && create_if_block_12(ctx);
+    let if_block1 = ctx[8].length && create_if_block5(ctx);
     checkbox = new checkbox_svelte_default({
       props: {checked: ctx[6]}
     });
-    checkbox.$on("click", ctx[18]);
+    checkbox.$on("click", ctx[22]);
     heading2 = new heading_svelte_default({
       props: {
         label: "Remember me",
@@ -1156,7 +1203,7 @@ var require_register_svelte = __commonJS((exports) => {
         $$scope: {ctx}
       }
     });
-    button0.$on("click", ctx[10]);
+    button0.$on("click", ctx[11]);
     button1 = new index_svelte_default({props: {variant: "NeoExpertise"}});
     button1.$on("click", handleLoginNeoExpertise);
     button2 = new index_svelte_default({props: {variant: "MoonKnight"}});
@@ -1184,50 +1231,53 @@ var require_register_svelte = __commonJS((exports) => {
         t4 = space();
         create_component(inputfield2.$$.fragment);
         t5 = space();
+        if (if_block0)
+          if_block0.c();
+        t6 = space();
         div0 = element("div");
         span0 = element("span");
-        t6 = space();
-        span1 = element("span");
         t7 = space();
-        span2 = element("span");
+        span1 = element("span");
         t8 = space();
-        span3 = element("span");
+        span2 = element("span");
         t9 = space();
-        if (if_block)
-          if_block.c();
+        span3 = element("span");
         t10 = space();
+        if (if_block1)
+          if_block1.c();
+        t11 = space();
         div1 = element("div");
         create_component(checkbox.$$.fragment);
-        t11 = space();
-        create_component(heading2.$$.fragment);
         t12 = space();
+        create_component(heading2.$$.fragment);
+        t13 = space();
         section = element("section");
         header1 = element("header");
         create_component(button0.$$.fragment);
-        t13 = space();
-        create_component(button1.$$.fragment);
         t14 = space();
-        create_component(button2.$$.fragment);
+        create_component(button1.$$.fragment);
         t15 = space();
-        create_component(link2.$$.fragment);
+        create_component(button2.$$.fragment);
         t16 = space();
+        create_component(link2.$$.fragment);
+        t17 = space();
         create_component(footer.$$.fragment);
-        document.title = "Login Into Your Account - PasswordGenerator";
-        attr(header0, "class", "svelte-z3shr2");
-        attr(span0, "class", "bar bar-1 svelte-z3shr2");
+        document.title = "Create your account - PasswordGenerator";
+        attr(header0, "class", "svelte-yxpbub");
+        attr(span0, "class", "bar bar-1 svelte-yxpbub");
         toggle_class(span0, "bar-show", ctx[7] > 0);
-        attr(span1, "class", "bar bar-2 svelte-z3shr2");
+        attr(span1, "class", "bar bar-2 svelte-yxpbub");
         toggle_class(span1, "bar-show", ctx[7] > 1);
-        attr(span2, "class", "bar bar-3 svelte-z3shr2");
+        attr(span2, "class", "bar bar-3 svelte-yxpbub");
         toggle_class(span2, "bar-show", ctx[7] > 2);
-        attr(span3, "class", "bar bar-4 svelte-z3shr2");
+        attr(span3, "class", "bar bar-4 svelte-yxpbub");
         toggle_class(span3, "bar-show", ctx[7] > 3);
-        attr(div0, "class", "strength svelte-z3shr2");
-        attr(div1, "class", "remember-section svelte-z3shr2");
-        attr(form, "class", "svelte-z3shr2");
-        attr(header1, "class", "svelte-z3shr2");
-        attr(section, "class", "cta-section svelte-z3shr2");
-        attr(main, "class", "svelte-z3shr2");
+        attr(div0, "class", "strength svelte-yxpbub");
+        attr(div1, "class", "remember-section svelte-yxpbub");
+        attr(form, "class", "svelte-yxpbub");
+        attr(header1, "class", "svelte-yxpbub");
+        attr(section, "class", "cta-section svelte-yxpbub");
+        attr(main, "class", "svelte-yxpbub");
       },
       m(target, anchor) {
         insert(target, t0, anchor);
@@ -1244,44 +1294,47 @@ var require_register_svelte = __commonJS((exports) => {
         append(form, t4);
         mount_component(inputfield2, form, null);
         append(form, t5);
+        if (if_block0)
+          if_block0.m(form, null);
+        append(form, t6);
         append(form, div0);
         append(div0, span0);
-        append(div0, t6);
-        append(div0, span1);
         append(div0, t7);
-        append(div0, span2);
+        append(div0, span1);
         append(div0, t8);
+        append(div0, span2);
+        append(div0, t9);
         append(div0, span3);
-        append(form, t9);
-        if (if_block)
-          if_block.m(form, null);
         append(form, t10);
+        if (if_block1)
+          if_block1.m(form, null);
+        append(form, t11);
         append(form, div1);
         mount_component(checkbox, div1, null);
-        append(div1, t11);
+        append(div1, t12);
         mount_component(heading2, div1, null);
-        append(main, t12);
+        append(main, t13);
         append(main, section);
         append(section, header1);
         mount_component(button0, header1, null);
-        append(header1, t13);
+        append(header1, t14);
         mount_component(button1, header1, null);
-        append(section, t14);
-        mount_component(button2, section, null);
         append(section, t15);
+        mount_component(button2, section, null);
+        append(section, t16);
         mount_component(link2, section, null);
-        append(main, t16);
+        append(main, t17);
         mount_component(footer, main, null);
         current = true;
       },
       p(ctx2, [dirty]) {
         const heading0_changes = {};
-        if (dirty & 524288) {
+        if (dirty & 8388608) {
           heading0_changes.$$scope = {dirty, ctx: ctx2};
         }
         heading0.$set(heading0_changes);
         const heading1_changes = {};
-        if (dirty & 524288) {
+        if (dirty & 8388608) {
           heading1_changes.$$scope = {dirty, ctx: ctx2};
         }
         heading1.$set(heading1_changes);
@@ -1308,6 +1361,18 @@ var require_register_svelte = __commonJS((exports) => {
           add_flush_callback(() => updating_value_2 = false);
         }
         inputfield2.$set(inputfield2_changes);
+        if (!!ctx2[9]) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+          } else {
+            if_block0 = create_if_block_12(ctx2);
+            if_block0.c();
+            if_block0.m(form, t6);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
         if (dirty & 128) {
           toggle_class(span0, "bar-show", ctx2[7] > 0);
         }
@@ -1321,16 +1386,16 @@ var require_register_svelte = __commonJS((exports) => {
           toggle_class(span3, "bar-show", ctx2[7] > 3);
         }
         if (ctx2[8].length) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
           } else {
-            if_block = create_if_block5(ctx2);
-            if_block.c();
-            if_block.m(form, t10);
+            if_block1 = create_if_block5(ctx2);
+            if_block1.c();
+            if_block1.m(form, t11);
           }
-        } else if (if_block) {
-          if_block.d(1);
-          if_block = null;
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
         }
         const checkbox_changes = {};
         if (dirty & 64)
@@ -1339,12 +1404,12 @@ var require_register_svelte = __commonJS((exports) => {
         const button0_changes = {};
         if (dirty & 128)
           button0_changes.disabled = ctx2[7] < 4;
-        if (dirty & 524288) {
+        if (dirty & 8388608) {
           button0_changes.$$scope = {dirty, ctx: ctx2};
         }
         button0.$set(button0_changes);
         const link_changes = {};
-        if (dirty & 524288) {
+        if (dirty & 8388608) {
           link_changes.$$scope = {dirty, ctx: ctx2};
         }
         link2.$set(link_changes);
@@ -1388,14 +1453,16 @@ var require_register_svelte = __commonJS((exports) => {
           detach(main);
         destroy_component(heading0);
         destroy_component(heading1);
-        ctx[11](null);
+        ctx[12](null);
         destroy_component(inputfield0);
-        ctx[13](null);
+        ctx[14](null);
         destroy_component(inputfield1);
-        ctx[15](null);
+        ctx[16](null);
         destroy_component(inputfield2);
-        if (if_block)
-          if_block.d();
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
         destroy_component(checkbox);
         destroy_component(heading2);
         destroy_component(button0);
@@ -1480,6 +1547,7 @@ var require_register_svelte = __commonJS((exports) => {
       }
       replace("/");
     }
+    let suggestPassword;
     function inputfield0_binding($$value) {
       binding_callbacks[$$value ? "unshift" : "push"](() => {
         usernameInput = $$value;
@@ -1510,8 +1578,25 @@ var require_register_svelte = __commonJS((exports) => {
       password = value;
       $$invalidate(5, password);
     }
-    const input_handler = ({detail}) => validatePassword(detail.value);
-    const click_handler = (event) => $$invalidate(6, rememberUser = event.detail.value);
+    const input_handler = ({detail}) => {
+      $$invalidate(9, suggestPassword = "");
+      validatePassword(detail.value);
+    };
+    const blur_handler = () => {
+      $$invalidate(8, validations = []);
+    };
+    const focus_handler = () => {
+      if (password === "") {
+        $$invalidate(9, suggestPassword = generatePassword({length: 20}));
+        return;
+      }
+    };
+    const click_handler = () => {
+      passwordInput.setValue(suggestPassword);
+      validatePassword(suggestPassword);
+      $$invalidate(9, suggestPassword = "");
+    };
+    const click_handler_1 = (event) => $$invalidate(6, rememberUser = event.detail.value);
     return [
       usernameInput,
       emailInput,
@@ -1522,6 +1607,7 @@ var require_register_svelte = __commonJS((exports) => {
       rememberUser,
       strength,
       validations,
+      suggestPassword,
       validatePassword,
       handleSubmitForm,
       inputfield0_binding,
@@ -1531,7 +1617,10 @@ var require_register_svelte = __commonJS((exports) => {
       inputfield2_binding,
       inputfield2_value_binding,
       input_handler,
-      click_handler
+      blur_handler,
+      focus_handler,
+      click_handler,
+      click_handler_1
     ];
   }
   var Register = class extends SvelteComponent {
@@ -4022,7 +4111,7 @@ function create_if_block3(ctx) {
       mount_component(eye, button, null);
       current = true;
       if (!mounted) {
-        dispose = listen(button, "click", ctx[19]);
+        dispose = listen(button, "click", ctx[20]);
         mounted = true;
       }
     },
@@ -4102,7 +4191,7 @@ function create_fragment13(ctx) {
       append(div1, t1);
       append(div1, div0);
       append(div0, input_1);
-      ctx[18](input_1);
+      ctx[19](input_1);
       append(div0, t2);
       if (if_block)
         if_block.m(div0, null);
@@ -4165,7 +4254,7 @@ function create_fragment13(ctx) {
     d(detaching) {
       if (detaching)
         detach(div1);
-      ctx[18](null);
+      ctx[19](null);
       if (if_block)
         if_block.d();
       mounted = false;
@@ -4208,6 +4297,9 @@ function instance9($$self, $$props, $$invalidate) {
   function handleInput(event) {
     $$invalidate(15, value = event.target.value);
     dispatch("input", {value});
+  }
+  function setValue(value2) {
+    $$invalidate(9, input.value = value2, input);
   }
   let originalType = type;
   function input_1_binding($$value) {
@@ -4266,6 +4358,7 @@ function instance9($$self, $$props, $$invalidate) {
     value,
     setError,
     setSuccess,
+    setValue,
     input_1_binding,
     click_handler
   ];
@@ -4285,7 +4378,8 @@ var Field = class extends SvelteComponent {
       classname: 8,
       error: 3,
       setError: 16,
-      setSuccess: 17
+      setSuccess: 17,
+      setValue: 18
     });
   }
   get setError() {
@@ -4293,6 +4387,9 @@ var Field = class extends SvelteComponent {
   }
   get setSuccess() {
     return this.$$.ctx[17];
+  }
+  get setValue() {
+    return this.$$.ctx[18];
   }
 };
 var field_svelte_default = Field;
@@ -4364,6 +4461,83 @@ var generateRandomNumber = ({
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+// dist/@password-generator/core/src/generate-random-password.js
+var generatePassword = ({
+  length = 20
+}) => {
+  const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+  const symbols = [
+    "[",
+    "!",
+    "@",
+    "#",
+    "$",
+    "%",
+    "&",
+    "*",
+    "(",
+    ")",
+    "-",
+    "_",
+    "]"
+  ];
+  const alphabet = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z"
+  ];
+  let password = [];
+  const random = [symbols, numbers, alphabet];
+  for (let i = 0; length >= i; i++) {
+    const randomCharArray = random[generateRandomNumber({
+      min: 0,
+      max: random.length - 1
+    })];
+    const randomChar = randomCharArray[generateRandomNumber({
+      min: 0,
+      max: randomCharArray.length - 1
+    })];
+    const charIsFromAlphabet = alphabet.includes(randomChar);
+    if (charIsFromAlphabet) {
+      const RNG = generateRandomNumber({
+        min: 0,
+        max: 1
+      });
+      if (!!RNG) {
+        password.push(randomChar.toUpperCase());
+      } else {
+        password.push(randomChar.toLowerCase());
+      }
+    } else {
+      password.push(randomChar);
+    }
+  }
+  return password.join("");
 };
 
 // dist/dist/components/button/neo-expertise-x.svelte.js
