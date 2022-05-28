@@ -180,7 +180,7 @@
       }}
       on:blur={() => {
         validations = [];
-        // suggestPassword = "";
+        suggestPassword = "";
       }}
       on:focus={() => {
         // suggest password
